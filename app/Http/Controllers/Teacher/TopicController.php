@@ -10,32 +10,39 @@ class TopicController extends Controller
 {
     public function topicCreate(Request $request)
     {
-        $validatedData = $request->validate([
-            'course' => 'required|exists:courses,id',
+        $request->validate([
+            'course' => 'required|exists:courses,id', // Assuming 'courses' is your courses table
             'topic' => 'required|string',
-            'videos.*' => 'url', // Assuming videos are provided as an array of URLs
-            'notes' => 'file|mimes:pdf',
+            'videos' => 'required|array|min:1', // At least one video link is required
+            'videos.*' => 'url', // Each video link should be a valid URL
+            'notes' => 'required|file|mimes:pdf|max:10240', // PDF file, max 10MB
         ]);
+
+        // dd($request->all());
+
+        // Save topic information to the database
+        $topic = new Topic();
+        $topic->course_id = $request->input('course');
+        $topic->topic = $request->input('topic');
+
+        $videoLinks = $request->input('videos');
+        $formattedVideoLinks = [];
+        foreach ($videoLinks as $key => $videoLink) {
+            $formattedVideoLinks["video_$key"] = $videoLink;
+        }
+        $topic->video = json_encode($formattedVideoLinks);
 
         if ($request->hasFile('notes')) {
-            $notes = time() . '.' . $request->notes->getClientOriginalExtension();
-            $request->notes->move(public_path('teacherassets/pdf'), $notes);
-            $notesPath = 'teacherassets/pdf/' . $notes;
+            $notes = time().'.'.$request->notes->getClientOriginalExtension();
+            $request->notes->move(public_path('teacherassets/notes'), $notes);
+            $notesPath = 'teacherassets/img/' . $notes;
         }
 
-        // Format the video links into an array of associative arrays
-        $formattedVideoLinks = array_map(function ($link) {
-            return ['link' => $link];
-        }, $validatedData['videos']);
+        $topic->notes = $notesPath;
 
-        Topic::create([
-            'topic' => $validatedData['topic'],
-            'video' => json_encode($formattedVideoLinks),
-            'notes' => $notesPath,
-            'course_id' => $validatedData['course'],
-        ]);
+        $topic->save();
 
-        return redirect()->route('topic')->with('success', 'Topic Created Successfully');
+        return redirect()->route('topic')->with('success', 'Topic created successfully');
     }
 }
 

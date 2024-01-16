@@ -12,15 +12,14 @@
                 @foreach ($topics as $topic)
                     <div class="mb-4">
                         <h4>{{ $topic->topic }}</h4>
-                        
+
                         @php
                             $videoLinks = json_decode($topic->video, true);
-                            dd($videoLinks);
                         @endphp
 
-                        @foreach ($videoLinks as $video)
+                        @foreach ($videoLinks as $videoKey => $videoLink)
                             <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="{{ $video['link'] }}" allowfullscreen></iframe>
+                                <iframe width="560" height="315" class="embed-responsive-item" src="{{ $videoLink }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                             </div>
                         @endforeach
 

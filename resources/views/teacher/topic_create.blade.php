@@ -29,20 +29,36 @@
                         <label for="topic" class="form-label">Topic Name</label>
                         <input type="text" class="form-control" id="topic" name="topic" placeholder="Enter topic Name">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3" id="videoLinksContainer">
                         <label for="videos" class="form-label">Videos</label>
-                        <input type="text" class="form-control" id="videos" name="videos[]" placeholder="Enter video link">
+                        <div class="video-link-inputs">
+                            <input type="text" class="form-control" name="videos[]" placeholder="Enter video link 1">
+                            {{-- <input type="text" class="form-control" name="videos[]" placeholder="Enter video link 2"> --}}
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="addVideoLink()">Add Another Video</button>
                         <small class="text-muted">You can add multiple video links.</small>
                     </div>
                     <div class="mb-3">
                         <label for="notes" class="form-label">Notes</label>
                         <input type="file" class="form-control" id="notes" name="notes" placeholder="">
                     </div>
-                    
+
 
                     <button type="submit" class="btn btn-primary">Create Topic</button>
                 </form>
             </div>
         </div>
     </div>
+    <script>
+        function addVideoLink() {
+            var container = document.getElementById('videoLinksContainer');
+            var inputContainer = container.querySelector('.video-link-inputs');
+            var newInput = document.createElement('input');
+            newInput.type = 'text';
+            newInput.className = 'form-control';
+            newInput.name = 'videos[]';
+            newInput.placeholder = 'Enter video link ' + (inputContainer.children.length + 1);
+            inputContainer.appendChild(newInput);
+        }
+    </script>
 @endsection
