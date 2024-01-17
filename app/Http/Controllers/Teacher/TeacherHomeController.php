@@ -28,7 +28,8 @@ class TeacherHomeController extends Controller
 
     public function showAssignment()
     {
-        return view('teacher.create_assignement');
+        $courses = Course::all();
+        return view('teacher.create_assignement', compact('courses'));
     }
 
     public function showCreateCourses()

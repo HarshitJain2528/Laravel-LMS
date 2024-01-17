@@ -8,8 +8,10 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Student\StudentHomeController;
 use App\Http\Controllers\Teacher\TeacherHomeController;
 use App\Http\Controllers\Teacher\TeacherMessageController;
+use App\Http\Controllers\Teacher\AssignmentController;
 use App\Http\Controllers\Teacher\CourseController;
 use App\Http\Controllers\Teacher\TopicController;
+use App\Http\Controllers\Student\DisplayController;
 use App\Models\Topic;
 use Illuminate\Support\Facades\Route;
 
@@ -29,10 +31,20 @@ Route::get('/', [AuthController::class, 'showLoginForm']);
 Route::post('/register', [AuthController::class, 'postRegister'])->name('register');
 Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
-Route::get('/student-page', [StudentHomeController::class, 'index']);
-Route::get('/student/courses', [StudentHomeController::class, 'courses']);
-Route::get('/student/contact', [StudentHomeController::class, 'contact']);
-Route::get('/student/about', [StudentHomeController::class, 'about']);
+
+Route::group(['middleware' => ['check.role:student']], function () {
+    Route::get('/index',[DisplayController::class,'index'])->name('index');
+    Route::get('/single',[DisplayController::class,'single'])->name('single');
+    Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
+    Route::get('/attendence',[DisplayController::class,'attendence'])->name('attendence');
+    Route::get('/courses',[DisplayController::class,'courses'])->name('courses');
+    Route::get('/notify',[DisplayController::class,'notify'])->name('notify');
+    Route::get('/profile',[DisplayController::class,'profile'])->name('profile');
+    Route::get('/help',[DisplayController::class,'help'])->name('help');
+    Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
+    Route::get('/desc',[DisplayController::class,'desc'])->name('desc');
+    Route::get('/next',[DisplayController::class,'next'])->name('next');
+});
 
 //admin routes
 Route::group(['middleware' => ['check.role:superadmin']], function () {
@@ -65,6 +77,7 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name('teacher.send.message');
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
+    Route::post('/teacher/create/assignments', [AssignmentController::class, 'createAssignment'])->name('create.assignment');
 });
 
 Route::get('/videos', function(){

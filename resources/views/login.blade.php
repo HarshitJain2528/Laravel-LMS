@@ -35,25 +35,16 @@
                                 <input type="text" name="name" placeholder="Username">
                             </div>
                             <div class="input-group">
-                                <i class='bx bxs-time'></i>
-                                <input type="number" name="age" placeholder="Age">
-                            </div>
-                            <div class="input-group">
                                 <i class='bx bx-mail-send'></i>
                                 <input type="email" name="email" placeholder="Email">
                             </div>
                             <div class="input-group">
-                                <i class='bx bxs-lock-alt'></i>
-                                <input type="password" name="password" placeholder="Password">
+                                <i class='bx bxs-phone'></i>
+                                <input type="text" name="phone" placeholder="Phone No.">
                             </div>
                             <div class="input-group">
-                                <i class='bx bxs-book'></i>
-                                <select name="course">
-                                    <option>Select Course</option>
-                                    @foreach ($courses as $course)
-                                        <option>{{$course->course_name}}</option>
-                                    @endforeach
-                                </select>
+                                <i class='bx bxs-lock-alt'></i>
+                                <input type="password" name="password" placeholder="Password">
                             </div>
                             <button>
                                 Sign up

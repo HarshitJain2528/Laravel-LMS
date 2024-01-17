@@ -25,8 +25,7 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
-            'age' => 'nullable|numeric',
-            'course' => 'nullable',
+            'phone' => 'required',
         ]);
 
         // Set the default role to 'student'
@@ -37,10 +36,10 @@ class AuthController extends Controller
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'age' => $validatedData['age'],
-            'role' => $validatedData['role'], // Set the default role
-            'course' => $validatedData['course'],
+            'phone' => $validatedData['phone'],
+            'role' => $validatedData['role'],
         ]);
+        return redirect('/')->with('success','Login Now');
     }
 
     public function login(Request $request)
@@ -58,9 +57,9 @@ class AuthController extends Controller
             } elseif ($user->role === 'superadmin') {
                 return redirect('admin/dashboard');
             }
-            // elseif ($user->role === 'student') {
-            //     return redirect()->route('student.dashboard');
-            // }
+            elseif ($user->role === 'student') {
+                return redirect()->route('index');
+            }
         }
 
         // If authentication fails, redirect back with an error message

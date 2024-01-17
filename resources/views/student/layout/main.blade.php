@@ -1,6 +1,0 @@
-@include('student.layout.header')
-    @yield('student-home-section')
-    @yield('student-courses-section')
-    @yield('student-contact-section')
-    @yield('student-about-section')
-@include('student.layout.footer')

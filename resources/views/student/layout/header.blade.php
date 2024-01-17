@@ -1,40 +1,94 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
-<head>
+  <head>
+    <title>LMS</title>
     <meta charset="utf-8">
-    <title>eLEARNING - eLearning HTML Template</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Favicon -->
-    <link href="{{asset('student/img/favicon.ico')}}" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha384-xrR9e7MlfBzR7JO93tmzZihbYJfNQb6K+A9V5CzoK7m" crossorigin="anonymous">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('student/fonts/icomoon/style.css')}}">
+    <link rel="stylesheet" href="{{asset('student/fonts/brand/style.css')}}">
 
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('student/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('student/css/bootstrap-datepicker')}}.css">
+    <link rel="stylesheet" href="{{asset('student/css/jquery.fancybox.min.css')}}">
+    <link rel="stylesheet" href="{{asset('student/css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('student/css/owl.theme.default.min.css')}}">
+    <link rel="stylesheet" href="{{asset('student/css/aos.css')}}">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{{asset('student/lib/animate/animate.min.css')}}" rel="stylesheet">
-    <link href="{{asset('student/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="{{asset('student/css/style.css')}}">
 
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{{asset('student/css/bootstrap.min.css')}}" rel="stylesheet">
+  </head>
 
-    <!-- Template Stylesheet -->
-    <link href="{{asset('student/css/style.css')}}" rel="stylesheet">
-</head>
-<body>
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
+  <body>
+    <div class="site-wrap" id="home-section">
+
+        <div class="site-mobile-menu site-navbar-target">
+          <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+              <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+          </div>
+          <div class="site-mobile-menu-body"></div>
+        </div>
+  
+       <!-- Your header with Settings dropdown -->
+<header class="site-navbar light site-navbar-target" role="banner">
+    <div class="container">
+        <div class="row align-items-center position-relative">
+            <div class="col-3">
+                <div class="site-logo">
+                    <a href="index.html"><strong>LMS</strong></a>
+                </div>
+            </div>
+
+            <div class="col-9 text-right">
+                <span class="d-inline-block d-lg-none">
+                    <a href="#" class="site-menu-toggle js-menu-toggle py-5 ">
+                        <span class="icon-menu h3 text-black"></span>
+                    </a>
+                </span>
+
+                <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+                    <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                        <li><a href="{{route('index')}}" class="nav-link">Home</a></li>
+                        <li><a href="{{route('courses')}}" class="nav-link">Courses</a></li>
+                        {{-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cogs"></i> Courses
+                            </a>
+                            <div class="dropdown-menu text-black" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-black" href="{{route('subjectList')}}">Subjects</a>
+                                <a class="dropdown-item text-black" href="{{route('assign')}}">Assignments</a>
+                                <a class="dropdown-item text-black" href="{{route('syllabus')}}">Syllabus</a>
+                                {{-- <div class="dropdown-divider text-black"></div>
+                                <a class="dropdown-item text-black"  href="#">Logout</a> --}}
+                            {{-- </div> --}}
+                        {{-- </li> --}}
+                        {{-- <li><a href="{{route('batchStudent')}}" class="nav-link">Batches</a></li> --}}
+                        {{-- <li><a href="{{route('reminders')}}" class="nav-link"> Need-Help</a></li> --}}
+                        <li><a href="{{route('attendence')}}" class="nav-link">Attendence</a></li>
+                        <li><a href="{{route('notify')}}" class="nav-link">Notifications</a></li>
+                        <!-- Add the Settings dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-cogs"></i> Settings
+                            </a>
+                            <div class="dropdown-menu text-black" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item text-black" href="{{route('profile')}}">Profile</a>
+                                <a class="dropdown-item text-black" href="{{route('help')}}">Help</a>
+                                <div class="dropdown-divider text-black"></div>
+                                <a class="dropdown-item text-black"  href="{{url('logout')}}">Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
-    <!-- Spinner End -->
+</header>
+{{-- <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> --}}
