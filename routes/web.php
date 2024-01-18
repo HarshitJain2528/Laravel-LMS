@@ -42,7 +42,7 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/profile',[DisplayController::class,'profile'])->name('profile');
     Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
-    Route::get('/desc',[DisplayController::class,'desc'])->name('desc');
+    Route::get('/desc/{id}',[DisplayController::class,'desc'])->name('desc');
     Route::get('/next',[DisplayController::class,'next'])->name('next');
 });
 

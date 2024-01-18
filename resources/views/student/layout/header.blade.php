@@ -91,4 +91,4 @@
         </div>
     </div>
 </header>
-{{-- <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> --}}
+<div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">

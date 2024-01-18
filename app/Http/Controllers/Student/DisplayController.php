@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Student;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Topic;
 class DisplayController extends Controller
 {
     //student side
@@ -61,14 +62,18 @@ class DisplayController extends Controller
     public function topics($id)
     {
         $courses = Course::where('id',$id)->get();
-        return view('student.courses.topics',compact('courses'));
+        $topics = Topic::where('course_id',$id)->get();
+        return view('student.topics',compact('courses','topics'));
     }
-    public function desc()
+    public function desc($id)
     {
-        return view('student.courses.desc');
+        // $courses = Course::where('id',$id)->get();
+        $data = Topic::where('id',$id)->get();
+        return view('student.desc',compact('data'));
     }
     public function next()
     {
-        return view('student.courses.next');
+        
+        return view('student.next');
     }
 }

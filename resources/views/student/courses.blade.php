@@ -1,5 +1,5 @@
 @include('student.layout.header')
-<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
+      {{-- <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">  --}}
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">
@@ -10,23 +10,6 @@
       </div>
       <div class="site-section">
         <div class="container">
-          {{-- <div class="row mb-5 align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-              <form action="#" class="d-flex search-form">
-                <span class="icon-"></span>
-                <input type="search" class="form-control mr-2" placeholder="Search subjects">
-                <input type="submit" class="btn btn-primary px-4" value="Search">
-              </form>
-            </div>
-            <div class="col-lg-6 text-lg-right">
-              <div class="d-inline-flex align-items-center ml-auto">
-              <span class="mr-4">Share:</span>
-              <a href="#" class="mx-2 social-item"><span class="icon-facebook"></span></a>
-              <a href="#" class="mx-2 social-item"><span class="icon-twitter"></span></a>
-              <a href="#" class="mx-2 social-item"><span class="icon-linkedin"></span></a>
-              </div>
-            </div>
-          </div> --}}
           <div class="row  ">
             <div class="col-12">
               <div class="heading mb-4">

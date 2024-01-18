@@ -1,6 +1,6 @@
 @include('student.layout.header')      
       
-<div class="site-section-cover overlay" style="background-image: {{asset('student/images/hero_bg.jpg')}};">
+<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">
@@ -11,17 +11,17 @@
         </div>
       </div>
 
-    <div class="site-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-12">
-            <h2 class="heading">More Information</h2>
+      <div class="site-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h2 class="heading">Topic Notes</h2>
             <br>
-            {{-- ifram videos --}}
-            youtube video and notes in pdf
-            {{-- notes link --}}
+            <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="{{ asset('teacherassets/notes/1705423823.pdf') }}" allowfullscreen></iframe>
+            </div>
             <br>
-            {{-- <a href="{{route('next')}}" class="btn btn-primary next"></a> --}}
+            
         </div>
         
         </div>
