@@ -38,12 +38,13 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
     Route::get('/attendence',[DisplayController::class,'attendence'])->name('attendence');
     Route::get('/courses',[DisplayController::class,'courses'])->name('courses');
-    Route::get('/notify',[DisplayController::class,'notify'])->name('notify');
+    Route::get('/reviews',[DisplayController::class,'reviews'])->name('reviews');
     Route::get('/profile',[DisplayController::class,'profile'])->name('profile');
     Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
     Route::get('/desc/{id}',[DisplayController::class,'desc'])->name('desc');
-    Route::get('/next',[DisplayController::class,'next'])->name('next');
+    Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignment');
+    Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
 });
 
 //admin routes

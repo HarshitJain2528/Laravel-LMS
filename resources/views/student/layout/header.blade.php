@@ -22,6 +22,9 @@
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="{{asset('student/css/style.css')}}">
 
+    <!-- PDF.js library -->
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
   </head>
 
   <body>
@@ -72,7 +75,7 @@
                         {{-- <li><a href="{{route('batchStudent')}}" class="nav-link">Batches</a></li> --}}
                         {{-- <li><a href="{{route('reminders')}}" class="nav-link"> Need-Help</a></li> --}}
                         <li><a href="{{route('attendence')}}" class="nav-link">Attendence</a></li>
-                        <li><a href="{{route('notify')}}" class="nav-link">Notifications</a></li>
+                        <li><a href="{{route('notify')}}" class="nav-link">Reviews</a></li>
                         <!-- Add the Settings dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

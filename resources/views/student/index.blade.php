@@ -1,5 +1,5 @@
 @include('student.layout.header')
-<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
+{{-- <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">  --}}
         <div class="container">
           <div class="row align-items-center justify-content-center">
             <div class="col-lg-10 text-center">
@@ -47,9 +47,9 @@
           </div>
           <div class="row align-items-stretch mb-4 ml-5">
             @foreach($courses as $course)
-            <div class="col-lg-2">
+            <div class="col-lg-2" style="margin-bottom:20px;">
               <a href="{{url('topics/'.$course->id)}}" class="course">
-                <img src="{{asset($course->logo)}}" style="height:4em;">
+                <img src="{{asset($course->logo)}}" style="height:4em;margin-bottom:20px;">
                 {{-- <span class="wrap-icon brand-adobeillustrator"></span> --}}
                 <h3>{{$course->course_title}}</h3>
               </a>

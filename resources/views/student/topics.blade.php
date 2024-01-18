@@ -26,6 +26,16 @@
                 {{-- Add more topics as needed --}}
             </ul>
             @endforeach
+            <br>
+            <h2>ASSIGNMENTS</h2>
+            @foreach($assignment as $assign)
+            <ul class="list-group lists">
+                <li class="list-group-item ">
+                    <a href="{{url('assignment/'.$assign->id)}}">{{$assign->assignment_title}}</a>
+                </li>
+                {{-- Add more topics as needed --}}
+            </ul>
+            @endforeach
         </div>
         
         </div>

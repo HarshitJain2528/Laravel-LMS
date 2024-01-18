@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Topic;
+use App\Models\Assignment;
 class DisplayController extends Controller
 {
     //student side
@@ -47,9 +48,9 @@ class DisplayController extends Controller
         $courses = Course::all();
         return view('student.courses',compact('courses'));
     }
-    public function notify()
+    public function reviews()
     {
-        return view('student.notification');
+        return view('student.reviews');
     }
     public function profile()
     {
@@ -63,7 +64,8 @@ class DisplayController extends Controller
     {
         $courses = Course::where('id',$id)->get();
         $topics = Topic::where('course_id',$id)->get();
-        return view('student.topics',compact('courses','topics'));
+        $assignment = Assignment::where('course_id',$id)->get();
+        return view('student.topics',compact('courses','topics','assignment'));
     }
     public function desc($id)
     {
@@ -71,9 +73,16 @@ class DisplayController extends Controller
         $data = Topic::where('id',$id)->get();
         return view('student.desc',compact('data'));
     }
-    public function next()
+    public function assignment($id)
     {
-        
-        return view('student.next');
+        // $courses = Course::where('id',$id)->get();
+    
+        $assignment = Assignment::with('course')->where('id',$id)->get();
+        return view('student.assignment',compact('assignment'));
+    }
+    public function next($id)
+    {
+        $data = Topic::where('id',$id)->get();
+        return view('student.next',compact('data'));
     }
 }

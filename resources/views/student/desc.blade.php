@@ -24,24 +24,15 @@
             @foreach ($videoLinks as $videoKey => $videoLink)
             <iframe width="1000" height="500" src="{{$videoLink}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" style="margin:30px;"allowfullscreen ></iframe>
             @endforeach
-            {{-- <a href ="{{route('next')}}" class="btn btn-primary next">-- NEXT --</a> --}}
-            {{-- <h2 class="heading">Topic Notes</h2>
-            <!-- Card format for PDF -->
-              <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">PDF Document</h5>
-                    <div class="embed-responsive embed-responsive-16by9">
-                      <iframe class="embed-responsive-item" src="{{ asset('teacherassets/notes/1705423823.pdf') }}" allowfullscreen></iframe>
-                    </div>
-                </div>
-              </div>
-               --}}
           </div>
         </div>
       </div>
-      <a href="{{route('next')}}" class="btn btn-primary next">NEXT</a>
+      <a href="{{url('next/'.$title->id)}}" class="btn btn-primary next">View Notes</a>
+      
     </div>
     @endforeach
       
     <hr>
     @include('student.layout.footer')
+    
+  

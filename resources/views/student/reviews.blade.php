@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row align-items-center justify-content-center">
         <div class="col-lg-10 text-center">
-            <h1><strong>Notifications</strong></h1>
+            <h1><strong>Reviews</strong></h1>
         </div>
     </div>
 </div>
