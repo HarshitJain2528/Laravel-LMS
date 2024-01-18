@@ -35,7 +35,7 @@ class TopicController extends Controller
         if ($request->hasFile('notes')) {
             $notes = time().'.'.$request->notes->getClientOriginalExtension();
             $request->notes->move(public_path('teacherassets/notes'), $notes);
-            $notesPath = 'teacherassets/img/' . $notes;
+            $notesPath = 'teacherassets/notes/' . $notes;
         }
 
         $topic->notes = $notesPath;

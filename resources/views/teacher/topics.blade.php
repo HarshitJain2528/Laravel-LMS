@@ -8,7 +8,7 @@
         <div class="content">
             <!-- Student Information Table -->
             <div class="p-4 mb-4 border rounded">
-                <h3 class="mb-3">Topics Of HTML</h3>
+                <h3 class="mb-3">Topics</h3>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
