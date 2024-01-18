@@ -60,22 +60,8 @@
                     <ul class="site-menu main-menu js-clone-nav ml-auto ">
                         <li><a href="{{route('index')}}" class="nav-link">Home</a></li>
                         <li><a href="{{route('courses')}}" class="nav-link">Courses</a></li>
-                        {{-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-cogs"></i> Courses
-                            </a>
-                            <div class="dropdown-menu text-black" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-black" href="{{route('subjectList')}}">Subjects</a>
-                                <a class="dropdown-item text-black" href="{{route('assign')}}">Assignments</a>
-                                <a class="dropdown-item text-black" href="{{route('syllabus')}}">Syllabus</a>
-                                {{-- <div class="dropdown-divider text-black"></div>
-                                <a class="dropdown-item text-black"  href="#">Logout</a> --}}
-                            {{-- </div> --}}
-                        {{-- </li> --}}
-                        {{-- <li><a href="{{route('batchStudent')}}" class="nav-link">Batches</a></li> --}}
-                        {{-- <li><a href="{{route('reminders')}}" class="nav-link"> Need-Help</a></li> --}}
                         <li><a href="{{route('attendence')}}" class="nav-link">Attendence</a></li>
-                        <li><a href="{{route('notify')}}" class="nav-link">Reviews</a></li>
+                        <li><a href="{{route('reviews')}}" class="nav-link">Reviews</a></li>
                         <!-- Add the Settings dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
