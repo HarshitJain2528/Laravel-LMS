@@ -14,7 +14,7 @@ class CourseController extends Controller
             'courseTitle' => 'required|string|max:255',
             'description' => 'required|string',
             'courseDuration' => 'required|string',
-            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
         if ($request->hasFile('logo')) {
