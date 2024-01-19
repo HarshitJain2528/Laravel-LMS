@@ -1,5 +1,5 @@
 @include('student.layout.header')
-<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
+<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
 <div class="container">
     <div class="row align-items-center justify-content-center">
         <div class="col-lg-10 text-center">
@@ -16,9 +16,9 @@
                 {{-- <div class="heading mb-4">
                     <h2>Student Information</h2>
                 </div> --}}
-           
+
                 {{-- Profile Table with Edit Option --}}
-    
+
                 <div class="table-responsive">
                     <table class="table">
                         @foreach($profileData as $data)
@@ -59,13 +59,13 @@
                                 <td>
                                     <!-- Display Previous Password -->
                                     <p> </p>
-                            
+
                                     <!-- Password Change Form Toggle Button -->
                                     <a href="#" class="float-right" id="togglePasswordChange">Change Password</a>
-                            
+
                                     <!-- Password Change Form (Initially Hidden) -->
                                     <form  method="post" action="{{Route('change.password')}}" id="passwordChangeForm" style="display: none;">
-                                        @csrf    
+                                        @csrf
                                         <div class="form-group">
                                             <label for="newPassword">New Password</label>
                                             <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password">
@@ -78,7 +78,7 @@
                                     </form>
                                 </td>
                             </tr>
-                            
+
                         </tbody>
                         @endforeach
                     </table>

@@ -9,5 +9,9 @@ class Review extends Model
 {
     use HasFactory;
     protected $fillable = ['review', 'std_id'];
-  
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'std_id');
+    }
 }
