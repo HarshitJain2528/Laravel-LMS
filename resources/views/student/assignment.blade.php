@@ -1,5 +1,5 @@
 @include('student.layout.header')      
-{{-- <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> --}}
+    <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
        @foreach($assignment as $title) 
         <div class="container">
           <div class="row align-items-center justify-content-center">
@@ -8,7 +8,6 @@
            </div>
           </div>
         </div>
-      
       </div>
  
     <div class="site-section">
@@ -58,7 +57,7 @@
             </div>
             <div class="modal-body">
                 <!-- Form for user input -->
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{route('submitAssignment')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="assignmentName">Name : </label>
@@ -66,7 +65,11 @@
                     </div>
                     <div class="form-group">
                         <label for="course">Course</label>
-                        <input type="text" class="form-control" id="course" name="course" value="{{ $title->course->course_title }}">
+                        <input type="text" class="form-control" id="course" name="course" value="{{ $title->course->course_title }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="totalmarks">Total Marks : </label>
+                        <input type="text" class="form-control" id="totalmarks" name="totalmarks" value="{{$title->total_marks}}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="fileUpload">File Upload</label>

@@ -9,6 +9,7 @@ use App\Models\Course;
 use App\Models\Topic;
 use App\Models\Assignment;
 use App\Models\User;
+use App\Models\Review;
 class DisplayController extends Controller
 {
     //student side
@@ -50,9 +51,10 @@ class DisplayController extends Controller
         $courses = Course::all();
         return view('student.courses',compact('courses'));
     }
-    public function reviews()
+    public function reviews($id)
     {
-        return view('student.reviews');
+        $reviews = Review::where('std_id',$id)->get();
+        return view('student.reviews',compact('reviews'));
     }
     public function profile($id)
     {
@@ -89,31 +91,4 @@ class DisplayController extends Controller
         $data = Topic::where('id',$id)->get();
         return view('student.next',compact('data'));
     }
-    // public function change(Request $request){
-    //     // $data = new Login;
-    //     if($request->isMethod('post'))
-    //     {
-    //         $newpw = $request->get('newPassword');
-    //         $cnewp = $request->get('confirmPassword');
-    //         if($newpw == $cnewp){
-    //             $data = User::where('password')->first();
-    //             if(isset($data))
-    //             {
-    //                 $data->password = $newpw;
-    //                 $data->save();
-    //                 return redirect('/change-password')->withSuccess("Password Updated Successfully");
-    //             }
-    //             else
-    //             {
-    //                 return redirect('/change-password')->withSuccess("Old Password not match");
-    //             }
-                
-    //         }
-    //         else
-    //         {
-    //             return redirect('/change-password')->withSuccess( "New password and Confirm new password does not match");
-    //         }    
-                
-    //     }
-    // }
 }

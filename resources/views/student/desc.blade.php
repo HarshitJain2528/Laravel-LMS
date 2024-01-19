@@ -1,5 +1,5 @@
 @include('student.layout.header')      
-{{-- <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> --}}
+<div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
        @foreach($data as $title) 
         <div class="container">
           <div class="row align-items-center justify-content-center">
