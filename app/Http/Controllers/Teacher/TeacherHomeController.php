@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\Review;
 use App\Models\Topic;
+use App\Models\User;
 
 class TeacherHomeController extends Controller
 {
@@ -44,12 +46,10 @@ class TeacherHomeController extends Controller
 
     public function showReviews()
     {
-        return view('teacher.reviews');
-    }
-
-    public function showStudentPerformance()
-    {
-        return view('teacher.studentperformance');
+        $reviews = Review::with('student')->whereHas('student', function ($query) {
+            $query->where('role', '=', 'student');
+        })->get();
+        return view('teacher.reviews', compact('reviews'));
     }
 
     public function showTopicPage()

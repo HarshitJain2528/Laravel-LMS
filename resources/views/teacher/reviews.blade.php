@@ -18,23 +18,23 @@
                                     <tr>
                                         <th>Student ID</th>
                                         <th>Student Name</th>
-                                        <th>Course</th>
                                         <th>Review</th>
                                     </tr>
                                 </thead>
+                                @foreach ($reviews as $review)
                                 <tbody>
                                     <!-- Sample Review Item -->
                                     <tr>
-                                        <td>1</td>
-                                        <td>Student A</td>
-                                        <td>Mathematics</td>
+                                        <td>{{$review->student->id}}</td>
+                                        <td>{{$review->student->name}}</td>
                                         <td>
                                             <!-- Display review text or rating given by the student -->
-                                            <p>The lecture was informative and engaging.</p>
+                                            <p>{{$review->review}}</p>
                                         </td>
                                     </tr>
                                     <!-- More review rows can be added -->
                                 </tbody>
+                                @endforeach
                             </table>
                         </div>
                     </div>

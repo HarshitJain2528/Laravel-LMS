@@ -81,7 +81,6 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::get('/teacher/create/assignments', [TeacherHomeController::class, 'showAssignment']);
     Route::get('/teacher/attendence', [TeacherHomeController::class, 'showAttendence']);
     Route::get('/teacher/reviews', [TeacherHomeController::class, 'showReviews']);
-    Route::get('/teacher/student/performance', [TeacherHomeController::class, 'showStudentPerformance']);
     Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.messages');
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name('teacher.send.message');
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
