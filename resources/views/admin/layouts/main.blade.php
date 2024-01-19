@@ -3,6 +3,7 @@
     @yield('admin-dashboard-section')
     @yield('admin-students-section')
     @yield('admin-teachers-section')
+    @yield('admin-courses-section')
     @yield('admin-attendence-section')
     @yield('admin-assignment-section')
     @yield('admin-messages-section')

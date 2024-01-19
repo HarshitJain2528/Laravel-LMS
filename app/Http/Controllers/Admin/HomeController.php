@@ -19,9 +19,17 @@ class HomeController extends Controller
 
 
     public function showDashboard()
-    { 
-       
-        return view('admin.dashboard');
+    {
+
+        $courses = Course::count();
+        $students = User::where('role', 'student')->count();
+        return view('admin.dashboard', compact('courses','students'));
+    }
+
+    public function showCourses()
+    {
+        $courses = Course::all();
+        return view('admin.courses', compact('courses'));
     }
 
     public function showStudents()
@@ -47,7 +55,7 @@ class HomeController extends Controller
         return view('admin.assignment_report');
     }
 
-    
+
     public function editProfile(Request $request)
     {
         $name = $request->get('name');
