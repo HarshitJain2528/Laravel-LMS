@@ -6,11 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
-    public function showDashboard()
+        public function showProfile()
     {
+        $data = User::where('role','superadmin')->get();
+        return view('admin.profile', compact('data'));
+    }
+
+
+    public function showDashboard()
+    { 
+       
         return view('admin.dashboard');
     }
 
@@ -26,22 +36,37 @@ class HomeController extends Controller
         return view('admin.teachers', compact('teachers'));
     }
 
-    public function showClasses()
+
+    public function showAttendence()
     {
-        return view('admin.classes');
+        return view('admin.attendence_report');
     }
 
-    public function showCourses()
+    public function showAssignment()
     {
-        $courses = Course::all();
-        $teachers = User::where('role', 'teacher')->get();
-        return view('admin.courses', compact('courses', 'teachers'));
+        return view('admin.assignment_report');
     }
 
     
-
-    public function showReports()
+    public function editProfile(Request $request)
     {
-        return view('admin.reports');
+        $name = $request->get('name');
+        $email = $request->get('email');
+
+        try {
+            // Update the user information using query builder
+            $affectedRows = DB::table('users')
+                ->where('role','superadmin')
+                ->update(['name' => $name, 'email' => $email]);
+
+            if ($affectedRows > 0) {
+                return redirect()->back()->with('success', 'Profile updated successfully');
+            } else {
+                return redirect()->back()->with('error', 'User not found');
+            }
+        } catch (\Exception $e) {
+            // Handle any exceptions that may occur during the update
+            return redirect()->back()->with('error', 'An error occurred while updating the profile');
+        }
     }
 }

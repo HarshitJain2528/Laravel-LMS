@@ -13,7 +13,6 @@
                         <thead>
                             <tr>
                                 <th>Student Name</th>
-                                <th>Course Name</th>
                                 <th>Email</th>
                                 <th>Action</th>
                             </tr>
@@ -22,7 +21,6 @@
                             @foreach ($students as $student)
                             <tr>
                                 <td>{{$student->name}}</td>
-                                <td>{{$student->course}}</td>
                                 <td>{{$student->email}}</td>
                                 <td><button type="submit" class="btn btn-danger">Delete</button></td>
                             </tr>

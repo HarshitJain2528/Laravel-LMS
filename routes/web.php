@@ -50,22 +50,23 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submitAssignment');
     Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
     Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');
-   
+
 });
 
 //admin routes
 Route::group(['middleware' => ['check.role:superadmin']], function () {
-    Route::get('/admin/dashboard', [HomeController::class, 'showDashboard']);
-    Route::get('/admin/students', [HomeController::class, 'showStudents']);
-    Route::get('/admin/teachers', [HomeController::class, 'showTeachers']);
-    Route::get('/admin/classes', [HomeController::class, 'showClasses']);
-    Route::get('/admin/courses', [HomeController::class, 'showCourses']);
-    Route::get('/admin/reports', [HomeController::class, 'showReports']);
-    Route::get('/admin/reports', [HomeController::class, 'showReports']);
-    Route::post('/admin/create/course', [CreateCourseController::class, 'createCourse']);
-    Route::post('/admin/add/teacher', [AddTeacherController::class, 'addTeacher']);
-    Route::get('/admin/messages', [MessageController::class, 'showMessages'])->name('chat.show');
-    Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
+    Route::controller(HomeController::class)->group(function(){
+        Route::get('/admin/dashboard', 'showDashboard')->name('dashboard');
+        Route::get('/admin/profile', 'showProfile')->name('admin.profile');
+        Route::get('/admin/students', 'showStudents')->name('student.table');
+        Route::get('/admin/teachers', 'showTeachers')->name('teacher.table');
+        Route::get('/admin/attendence', 'showAttendence')->name('attendence');
+        Route::get('/admin/assignment', 'showAssignment')->name('assignment');
+        Route::get('/edit_admin_profile','editProfile')->name('edit');
+    });
+
+        Route::get('/admin/messages', [MessageController::class, 'showMessages'])->name('chat.show');
+        Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
 
 });
 
