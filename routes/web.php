@@ -58,6 +58,7 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
     Route::controller(HomeController::class)->group(function(){
         Route::get('/admin/dashboard', 'showDashboard')->name('dashboard');
         Route::get('/admin/profile', 'showProfile')->name('admin.profile');
+        Route::get('/admin/courses', 'showCourses')->name('course.table');
         Route::get('/admin/students', 'showStudents')->name('student.table');
         Route::get('/admin/teachers', 'showTeachers')->name('teacher.table');
         Route::get('/admin/attendence', 'showAttendence')->name('attendence');

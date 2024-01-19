@@ -6,43 +6,47 @@
   <div class="container mt-4 ml-4 p-0">
     <h2>Dashboard</h2>
     <div class="row">
+
       <!-- Total Students Section -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-lg rounded bg-warning text-white">
         <div class="card-body pb-10">
           <h5 class="card-title text-center">
-            <i class="bi bi-person"></i> Total Course
+             Total Course
           </h5>
           <div class="text-center">
-            <h1 class="display-4">8</h1> <!-- Replace with actual total student count -->
+            <h1 class="display-4"> <i class="bx bx-book-open"></i>  {{ $courses }}</h1> <!-- Replace with actual total student count -->
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-4 mb-4">
-      <div class="card shadow-lg rounded bg-primary text-white">
-        <div class="card-body">
-          <h5 class="card-title text-center">
-            <i class="bi bi-person"></i> Total Students
-          </h5>
-          <div class="text-center">
-            <h1 class="display-4">500</h1> <!-- Replace with actual total student count -->
-            <a href="{{ route('student.table') }}" class="btn btn-sm btn-light mt-3">More Info</a> <!-- Replace 'route' with your actual route name -->
+        <div class="card shadow-lg rounded bg-primary text-white">
+          <div class="card-body">
+            <h5 class="card-title text-center">
+                 Total Students
+            </h5>
+            <div class="text-center">
+              <h1 class="display-4">
+                <i class='bx bx-user'></i> {{ $students }}
+              </h1>
+              <a href="{{ route('student.table') }}" class="btn btn-sm btn-light mt-3">More Info</a>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
 
     <!-- Today's Present Students Section -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-lg rounded bg-success text-white">
         <div class="card-body">
           <h5 class="card-title text-center">
-            <i class="bi bi-person-check"></i> Today's Present Students
+                Today's Present Students
           </h5>
           <div class="text-center">
-            <h1 class="display-4">50</h1> <!-- Replace with actual present student count for today -->
+            <h1 class="display-4"> <i class="bx bx-check"></i> 50</h1> <!-- Replace with actual present student count for today -->
             <a href="{{ Route('attendence') }}" class="btn btn-sm btn-light mt-3">More Info</a> <!-- Replace 'route' with your actual route name -->
           </div>
         </div>
@@ -130,6 +134,6 @@
       }
     });
   </script>
-  
-  
+
+
 @endsection
