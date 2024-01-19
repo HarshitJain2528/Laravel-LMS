@@ -39,12 +39,13 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/attendence',[DisplayController::class,'attendence'])->name('attendence');
     Route::get('/courses',[DisplayController::class,'courses'])->name('courses');
     Route::get('/reviews',[DisplayController::class,'reviews'])->name('reviews');
-    Route::get('/profile',[DisplayController::class,'profile'])->name('profile');
+    Route::get('/profile/{id}',[DisplayController::class,'profile'])->name('profile');
     Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
     Route::get('/desc/{id}',[DisplayController::class,'desc'])->name('desc');
     Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignment');
     Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
+    Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');
 });
 
 //admin routes
@@ -86,3 +87,4 @@ Route::get('/videos', function(){
 
     return view('teacher.video', compact('topics'));
 });
+

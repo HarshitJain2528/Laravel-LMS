@@ -4,9 +4,6 @@
     <div class="row align-items-center justify-content-center">
         <div class="col-lg-10 text-center">
             <h1><strong>Profile</strong></h1>
-            {{-- <div class="text-center">
-                <img src="{{asset('student/images/profile.jpg')}}" alt="Logo" class="img-fluid rounded-circle" style="width: 150; height: 150;">
-            </div> --}}
         </div>
     </div>
 </div>
@@ -21,8 +18,10 @@
                 </div> --}}
            
                 {{-- Profile Table with Edit Option --}}
+    
                 <div class="table-responsive">
                     <table class="table">
+                        @foreach($profileData as $data)
                         <tbody>
                             <tr>
                                 <td colspan="2" class="text-center">
@@ -36,55 +35,52 @@
                             <tr>
                                 <th>Username</th>
                                 <td>
-                                    JohnDoe
+                                    {{$data->name}}
                                     <a href="#" class="float-right">Edit</a>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Email</th>
                                 <td>
-                                    johndoe@example.com
+                                    {{$data->email}}
                                     <a href="#" class="float-right">Edit</a>
                                 </td>
                             </tr>
                             <tr>
-                                <th>Age</th>
+                                <th>Phone No.</th>
                                 <td>
-                                    25
+                                    {{$data->phone}}
                                     <a href="#" class="float-right">Edit</a>
                                 </td>
                             </tr>
                             <tr>
                                 <th>Password Change</th>
+
                                 <td>
                                     <!-- Display Previous Password -->
-                                    <p>Previous Password: ********</p>
+                                    <p> </p>
                             
                                     <!-- Password Change Form Toggle Button -->
                                     <a href="#" class="float-right" id="togglePasswordChange">Change Password</a>
                             
                                     <!-- Password Change Form (Initially Hidden) -->
-                                    <form id="passwordChangeForm" style="display: none;">
+                                    <form  method="post" action="{{Route('change.password')}}" id="passwordChangeForm" style="display: none;">
+                                        @csrf    
                                         <div class="form-group">
                                             <label for="newPassword">New Password</label>
-                                            <input type="password" class="form-control" id="newPassword" placeholder="New Password">
+                                            <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password">
                                         </div>
                                         <div class="form-group">
                                             <label for="confirmPassword">Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
+                                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password">
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Change Password</button>
+                                        <button type="submit" name=" save" class="btn btn-primary">Change Password</button>
                                     </form>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>Gender</th>
-                                <td>
-                                    Male
-                                    <a href="#" class="float-right">Edit</a>
-                                </td>
-                            </tr>
+                            
                         </tbody>
+                        @endforeach
                     </table>
                 </div>
             </div>

@@ -68,7 +68,7 @@
                                 <i class="fas fa-cogs"></i> Settings
                             </a>
                             <div class="dropdown-menu text-black" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-black" href="{{route('profile')}}">Profile</a>
+                                <a class="dropdown-item text-black" href="{{url('profile/'.auth()->user()->id)}}">Profile</a>
                                 <a class="dropdown-item text-black" href="{{route('help')}}">Help</a>
                                 <div class="dropdown-divider text-black"></div>
                                 <a class="dropdown-item text-black"  href="{{url('logout')}}">Logout</a>
@@ -80,4 +80,4 @@
         </div>
     </div>
 </header>
-<div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
+{{-- <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');"> --}}

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use App\Models\Course;
 use App\Models\Topic;
 use App\Models\Assignment;
+use App\Models\User;
 class DisplayController extends Controller
 {
     //student side
@@ -52,9 +54,11 @@ class DisplayController extends Controller
     {
         return view('student.reviews');
     }
-    public function profile()
+    public function profile($id)
     {
-        return view('student.profile');
+        
+        $profileData = User::where('id',$id)->get();
+        return view('student.profile',compact('profileData'));
     }
     public function help()
     {
@@ -85,4 +89,31 @@ class DisplayController extends Controller
         $data = Topic::where('id',$id)->get();
         return view('student.next',compact('data'));
     }
+    // public function change(Request $request){
+    //     // $data = new Login;
+    //     if($request->isMethod('post'))
+    //     {
+    //         $newpw = $request->get('newPassword');
+    //         $cnewp = $request->get('confirmPassword');
+    //         if($newpw == $cnewp){
+    //             $data = User::where('password')->first();
+    //             if(isset($data))
+    //             {
+    //                 $data->password = $newpw;
+    //                 $data->save();
+    //                 return redirect('/change-password')->withSuccess("Password Updated Successfully");
+    //             }
+    //             else
+    //             {
+    //                 return redirect('/change-password')->withSuccess("Old Password not match");
+    //             }
+                
+    //         }
+    //         else
+    //         {
+    //             return redirect('/change-password')->withSuccess( "New password and Confirm new password does not match");
+    //         }    
+                
+    //     }
+    // }
 }
