@@ -15,7 +15,7 @@
              Total Course
           </h5>
           <div class="text-center">
-            <h1 class="display-4"> <i class="bx bx-book-open"></i>  {{ $courses }}</h1> <!-- Replace with actual total student count -->
+            <h1 class="display-4"> <i class="bx bx-book-open"></i> {{ $courses }}</h1> <!-- Replace with actual total student count -->
           </div>
         </div>
       </div>
