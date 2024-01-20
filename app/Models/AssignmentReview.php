@@ -17,4 +17,10 @@ class AssignmentReview extends Model
         'pdf',
     ];
 
+    protected $table = 'assignment_reviews';
+
+    public function student(){
+            return $this->belongsTo(User::class, 'std_id');
+    }
+
 }

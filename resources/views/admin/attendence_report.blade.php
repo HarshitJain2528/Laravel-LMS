@@ -27,8 +27,7 @@
                             <td>Introduction of html</td>
                             <td>12-1-2024</td>
                             <td>
-                                <button type="submit" class="btn btn-sm btn-success">Present</button>
-                                <button type="submit" class="btn btn-sm btn-danger">Absent</button>
+                                <button type="submit" class="btn btn-sm btn-warning">View</button>
                             </td>
                           </tr>
                             <!-- Add more rows for other teachers -->

@@ -16,7 +16,7 @@
 
                 <a href="{{route('teacher.table')}}" class="nav_link"> <i class='bx bx-group nav_icon'></i> <span class="nav_name">Teachers</span> </a>
 
-                <a href="{{route('attendence')}}" class="nav_link"> <i class='bx bx-calendar-check nav_icon'></i> <span class="nav_name">Attendence Report</span> </a>
+                <a href="{{route('admin.attendence')}}" class="nav_link"> <i class='bx bx-calendar-check nav_icon'></i> <span class="nav_name">Attendence Report</span> </a>
 
                 <a href="{{route('assignment')}}" class="nav_link"> <i class='bx bx-file nav_icon'></i> <span class="nav_name">Assignment Score</span> </a>
 

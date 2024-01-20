@@ -14,17 +14,26 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Student Name</th>
-                                    <th>Action</th>
+                                    <th>Course Name</th>
+                                    <th>Obtained Marks</th>
+                                    <th>Date</th>
+                                    <th>View Data</th>
                                 </tr>
                             </thead>
                             <tbody>
+
+                                @foreach ($assignmentData as $item )
                                 <tr>
-                                    <td>1</td>
-                                    <td>Rakesh Sharma</td>
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->student->name}}</td>
+                                    <td>{{ $item->course_name}}</td>
+                                    <td>{{ $item->obtained_marks}}</td>
+                                    <td>{{ $item->created_at}}</td>
                                     <td>
                                         <button type="button" class="btn btn-warning view-button" data-student-id="1">View</button>
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -101,7 +110,7 @@
 
         // Get button element
         var viewButton = document.querySelector('.view-button');
-        
+
         // Add click event listener to the View button
         viewButton.addEventListener('click', function () {
             // Simulate fetching student details (replace with actual data)
@@ -152,4 +161,3 @@
     });
 </script>
 @endsection
-       
