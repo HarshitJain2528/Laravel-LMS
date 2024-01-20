@@ -38,7 +38,7 @@
           </div>
           <div class="site-mobile-menu-body"></div>
         </div>
-  
+
        <!-- Your header with Settings dropdown -->
 <header class="site-navbar light site-navbar-target" role="banner">
     <div class="container">
