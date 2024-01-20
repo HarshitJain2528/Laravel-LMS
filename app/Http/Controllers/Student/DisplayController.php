@@ -42,9 +42,10 @@ class DisplayController extends Controller
     {
         return view('student.reminders');
     }
-    public function attendence()
+    public function attendence($id)
     {
-        return view('student.attendence');
+        $data = User::where('id',$id)->get();
+        return view('student.attendence',compact('data'));
     }
     public function courses()
     {

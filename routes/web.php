@@ -14,6 +14,7 @@ use App\Http\Controllers\Teacher\TopicController;
 use App\Http\Controllers\Student\DisplayController;
 use App\Http\Controllers\Student\ReviewController;
 use App\Http\Controllers\Student\AssignmentSubmitController;
+use App\Http\Controllers\Student\AttendenceController;
 use App\Models\Topic;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,8 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/index',[DisplayController::class,'index'])->name('index');
     Route::get('/single',[DisplayController::class,'single'])->name('single');
     Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
-    Route::get('/attendence',[DisplayController::class,'attendence'])->name('attendence');
+    Route::get('/attendence/{id}',[DisplayController::class,'attendence'])->name('attendenceMark');
+    Route::post('/mark',[AttendenceController::class,'mark'])->name('Mark');
     Route::get('/courses',[DisplayController::class,'courses'])->name('courses');
     Route::get('/reviews/{id}',[DisplayController::class,'reviews'])->name('reviews');
     Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submitReviews');
@@ -46,7 +48,7 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
     Route::get('/desc/{id}',[DisplayController::class,'desc'])->name('desc');
-    Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignment');
+    Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignmentView');
     Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submitAssignment');
     Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
     Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');

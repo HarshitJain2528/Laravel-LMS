@@ -60,7 +60,7 @@
                     <ul class="site-menu main-menu js-clone-nav ml-auto ">
                         <li><a href="{{route('index')}}" class="nav-link">Home</a></li>
                         <li><a href="{{route('courses')}}" class="nav-link">Courses</a></li>
-                        <li><a href="{{route('attendence')}}" class="nav-link">Attendence</a></li>
+                        <li><a href="{{url('attendence/'.auth()->user()->id)}}" class="nav-link">Attendence</a></li>
                         <li><a href="{{url('reviews/'.auth()->user()->id)}}" class="nav-link">Reviews</a></li>
                         <!-- Add the Settings dropdown -->
                         <li class="nav-item dropdown">
