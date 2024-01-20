@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AssignmentReview;
+use App\Models\Attendence;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -48,8 +49,47 @@ class HomeController extends Controller
 
     public function showAttendence()
     {
-        return view('admin.attendence_report');
+        $attendence = Attendence::all();
+
+        $postsPerCategory = Attendence::selectRaw('COUNT(*) as count')
+        ->groupBy('category_id')
+        ->get()
+        ->pluck('count')
+        ->toArray();
+
+        // Group attendances by student name and date
+        $groupedAttendence = $attendence->groupBy(['user.name', 'created_at']);
+
+        $studentName = [];
+        $date = [];
+        $presentCount = [];
+        $absentCount = [];
+
+        // Loop through the grouped data to extract information
+        foreach ($groupedAttendence as $key => $group) {
+            list($student, $attendanceDate) = $key;
+
+            // Collect student names and dates
+            $studentName[] = $student;
+            $date[] = $attendanceDate;
+
+            // Count present and absent occurrences
+            $presentCount[] = $group->where('status', 'present')->count();
+            $absentCount[] = $group->where('status', 'absent')->count();
+        }
+
+          // Debug statements to check data
+          dd([
+            $studentName,
+            $date,
+            $presentCount,
+            $absentCount,
+        ]);
+
+
+        return view('admin.attendence_report', compact('attendence', 'studentName', 'date', 'presentCount', 'absentCount'));
     }
+
 
     public function showAssignment()
     {
