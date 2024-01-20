@@ -15,12 +15,13 @@
              Total Course
           </h5>
           <div class="text-center">
-            <h1 class="display-4"> <i class="bx bx-book-open"></i> {{ $courses }}</h1> <!-- Replace with actual total student count -->
+            <h1 class="display-4"> <i class="bx bx-book-open"></i> {{ $courses }}</h1>
+            <a href="{{ route('course.table') }}" class="btn btn-sm btn-light mt-3">More Info</a>
           </div>
         </div>
       </div>
     </div>
-`
+
     <div class="col-md-4 mb-4">
         <div class="card shadow-lg rounded bg-primary text-white">
           <div class="card-body">

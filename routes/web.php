@@ -61,9 +61,9 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
         Route::get('/admin/courses', 'showCourses')->name('course.table');
         Route::get('/admin/students', 'showStudents')->name('student.table');
         Route::get('/admin/teachers', 'showTeachers')->name('teacher.table');
-        Route::get('/admin/attendence', 'showAttendence')->name('attendence');
+        Route::get('/admin/attendence', 'showAttendence')->name('admin.attendence');
         Route::get('/admin/assignment', 'showAssignment')->name('assignment');
-        Route::get('/edit_admin_profile','editProfile')->name('edit');
+        Route::post('/edit-admin-profile','editProfile')->name('edit');
     });
 
         Route::get('/admin/messages', [MessageController::class, 'showMessages'])->name('chat.show');

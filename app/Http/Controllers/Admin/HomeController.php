@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AssignmentReview;
 use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
@@ -52,28 +53,25 @@ class HomeController extends Controller
 
     public function showAssignment()
     {
-        return view('admin.assignment_report');
+        $assignmentData = AssignmentReview::all();
+        return view('admin.assignment_report', compact('assignmentData'));
     }
 
 
     public function editProfile(Request $request)
     {
-        $name = $request->get('name');
-        $email = $request->get('email');
 
         try {
-            // Update the user information using query builder
-            $affectedRows = DB::table('users')
+            $updateData = DB::table('users')
                 ->where('role','superadmin')
-                ->update(['name' => $name, 'email' => $email]);
+                ->update(['name' =>  $request->get('name'), 'phone' => $request->get('phone')]);
 
-            if ($affectedRows > 0) {
+            if ($updateData > 0) {
                 return redirect()->back()->with('success', 'Profile updated successfully');
             } else {
                 return redirect()->back()->with('error', 'User not found');
             }
         } catch (\Exception $e) {
-            // Handle any exceptions that may occur during the update
             return redirect()->back()->with('error', 'An error occurred while updating the profile');
         }
     }
