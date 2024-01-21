@@ -39,7 +39,6 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/index',[DisplayController::class,'index'])->name('index');
-    Route::get('/single',[DisplayController::class,'single'])->name('single');
     Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
     Route::get('/attendence/{id}',[DisplayController::class,'attendence'])->name('attendenceMark');
     Route::post('/mark',[AttendenceController::class,'mark'])->name('Mark');

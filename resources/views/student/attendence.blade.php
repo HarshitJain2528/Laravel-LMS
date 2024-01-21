@@ -1,4 +1,6 @@
-@include('student.layout.header')
+@extends('student.layout.main')
+
+@section('student-attendence')
 
 <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
     <div class="container">
@@ -45,7 +47,7 @@
 </div>
 
 <hr>
-@include('student.layout.footer')
+@endsection
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <!-- ... your previous HTML code ... -->
