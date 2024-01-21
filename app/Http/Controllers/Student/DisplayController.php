@@ -18,30 +18,6 @@ class DisplayController extends Controller
         $courses = Course::all();
         return view('student.index',compact('courses'));
     }
-    public function batchStudent()
-    {
-        return view('student.batchStudent');
-    }
-    public function single()
-    {
-        return view('student.single');
-    }
-    public function subjectList()
-    {
-        return view('student.subjectList');
-    }
-    public function assign()
-    {
-        return view('student.assign');
-    }
-    public function syllabus()
-    {
-        return view('student.syllabus');
-    }
-    public function reminderStudent()
-    {
-        return view('student.reminders');
-    }
     public function attendence($id)
     {
         $data = User::where('id',$id)->get();

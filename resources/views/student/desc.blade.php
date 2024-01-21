@@ -1,4 +1,6 @@
-@include('student.layout.header')      
+@extends('student.layout.main')
+
+@section('student-description')
 <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
        @foreach($data as $title) 
         <div class="container">
@@ -33,6 +35,6 @@
     @endforeach
       
     <hr>
-    @include('student.layout.footer')
+   @endsection
     
   
