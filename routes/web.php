@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\AddTeacherController;
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\CreateCourseController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\MessageController;
+use App\Http\Controllers\AttendanceController as ControllersAttendanceController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Student\StudentHomeController;
 use App\Http\Controllers\Teacher\TeacherHomeController;
@@ -37,7 +39,6 @@ Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/index',[DisplayController::class,'index'])->name('index');
-    Route::get('/single',[DisplayController::class,'single'])->name('single');
     Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
     Route::get('/attendence/{id}',[DisplayController::class,'attendence'])->name('attendenceMark');
     Route::post('/mark',[AttendenceController::class,'mark'])->name('Mark');
@@ -69,6 +70,9 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
         Route::get('/admin/assignment', 'showAssignment')->name('assignment');
         Route::post('/edit-admin-profile','editProfile')->name('edit');
     });
+
+
+        Route::get('/fetch-updated-data/{duration}', [AttendanceController::class, 'fetchUpdatedData']);
 
         Route::get('/admin/messages', [MessageController::class, 'showMessages'])->name('chat.show');
         Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');

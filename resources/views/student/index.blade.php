@@ -1,4 +1,6 @@
-@include('student.layout.header')
+@extends('student.layout.main')
+
+@section('student-index')
       <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
         <div class="container">
           <div class="row align-items-center justify-content-center">
@@ -87,4 +89,4 @@
         </div>
       </div>
     </div>
-@include('student.layout.footer')
+@endsection

@@ -1,4 +1,6 @@
-@include('student.layout.header')
+@extends('student.layout.main')
+
+@section('student-help')
 <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
 <div class="container">
     <div class="row align-items-center justify-content-center">
@@ -57,7 +59,7 @@
 </div>
 
 <hr>
-@include('student.layout.footer')
+@endsection
 <script>
     document.getElementById('togglePasswordChange').addEventListener('click', function() {
         // Toggle visibility of the password change form
