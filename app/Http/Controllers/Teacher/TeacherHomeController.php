@@ -41,7 +41,14 @@ class TeacherHomeController extends Controller
 
     public function showAttendence()
     {
-        return view('teacher.attendence');
+        $students = User::where('role', 'student')->get();
+        $previousDays = collect();
+
+        // Add the previous 15 days to the $previousDays collection
+        for ($i = 10; $i > 0; $i--) {
+            $previousDays->push(now()->subDays($i));
+        }
+        return view('teacher.attendence', compact('students','previousDays'));
     }
 
     public function showReviews()

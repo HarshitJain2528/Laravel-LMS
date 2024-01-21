@@ -1,6 +1,14 @@
 @extends('teacher.layouts.main')
 
 @section('teacher-attendence-section')
+    <style>
+        /* Add this to your CSS file or within your style tags */
+.current-date-highlight {
+    background-color: #87CEEB !important; /* Set your desired background color */
+    color: #000 !important; /* Set the text color to ensure readability */
+}
+
+    </style>
     @include('teacher.layouts.sidebar')
 
     <!-- Main content area -->
@@ -8,32 +16,62 @@
         <div class="content">
             <!-- Attendance Table for Teacher -->
             <div class="attendance-table p-4 mb-4 border rounded">
-                <h3 class="mb-3">Attendance for 30 Days</h3>
+                <h3 class="mb-3">Attendance for Previous 10 Days and Today</h3>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered table-hover text-center">
                         <thead>
                             <tr>
                                 <th></th> <!-- Empty corner cell -->
-                                @for ($student = 1; $student <= 6; $student++)
-                                    <th class="text-center">Student {{ $student }}</th>
-                                @endfor
-                                <!-- Add more student columns as needed -->
+                                @foreach ($previousDays as $previousDay)
+                                    <th class="{{ $previousDay->isToday() ? 'current-date current-date-highlight' : '' }}">{{ $previousDay->format('Y-m-d') }}</th>
+                                @endforeach
+                                <th class="{{ now()->isToday() ? 'current-date current-date-highlight' : '' }}">{{ now()->format('Y-m-d') }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @for ($day = 1; $day <= 30; $day++)
+                            @foreach ($students as $student)
                                 <tr>
-                                    <td class="text-center">{{ $day }}</td>
-                                    <td class="text-center"><i class='bx bxs-check-circle text-success' style="font-size: 24px;"></i></td>
-                                    <!-- Add more cells for additional students -->
-                                    <td class="text-center"><i class='bx bxs-x-circle text-danger' style="font-size: 24px;"></i></td>
-                                    <td class="text-center"><i class='bx bxs-check-circle text-success' style="font-size: 24px;"></i></td>
-                                    <td class="text-center"><i class='bx bxs-x-circle text-danger' style="font-size: 24px;"></i></td>
-                                    <td class="text-center"><i class='bx bxs-check-circle text-success' style="font-size: 24px;"></i></td>
-                                    <td class="text-center"><i class='bx bxs-x-circle text-danger' style="font-size: 24px;"></i></td>
+                                    <td>{{ $student->name }}</td>
+                                    @foreach ($previousDays as $previousDay)
+                                        @php
+                                            $attendanceDate = $previousDay->toDateString();
+                                            $attendance = $student->attendances->where('created_at', '>=', $previousDay->startOfDay())
+                                                ->where('created_at', '<=', $previousDay->endOfDay())
+                                                ->first();
+                                            $isCurrentDate = $previousDay->isToday();
+                                            $isWeekend = $previousDay->isWeekend();
+                                        @endphp
+                                        <td class="{{ $attendance ? 'present' : 'absent' }}{{ $isCurrentDate ? ' current-date-highlight' : '' }}">
+                                            @if ($isWeekend)
+                                                <button type="button" class="btn btn-secondary btn-sm">
+                                                    Off
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn {{ $attendance ? 'btn-success' : 'btn-danger' }} btn-sm">
+                                                    {{ $attendance ? 'Present' : 'Absent' }}
+                                                </button>
+                                            @endif
+                                        </td>
+                                    @endforeach
+                                    @php
+                                        $currentDateAttendance = $student->attendances->where('created_at', '>=', now()->startOfDay())
+                                            ->where('created_at', '<=', now()->endOfDay())
+                                            ->first();
+                                    @endphp
+                                    <td class="{{ $currentDateAttendance ? 'present current-date-highlight' : 'absent current-date-highlight' }}">
+                                        @if (now()->isWeekend())
+                                            <button type="button" class="btn btn-secondary btn-sm">
+                                                Off
+                                            </button>
+                                        @else
+                                            <button type="button" class="btn {{ $currentDateAttendance ? 'btn-success' : 'btn-danger' }} btn-sm">
+                                                {{ $currentDateAttendance ? 'Present' : 'Absent' }}
+                                            </button>
+                                        @endif
+                                    </td>
                                 </tr>
-                            @endfor
-                            <!-- Add more rows for additional days -->
+                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

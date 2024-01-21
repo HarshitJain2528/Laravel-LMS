@@ -26,6 +26,11 @@ class User extends Authenticatable
         'role',
     ];
 
+    public function attendances()
+    {
+        return $this->hasMany(Attendence::class, 'std_id');
+    }
+
     public function sentMessages()
     {
         return $this->hasMany(Messages::class, 'sender_id');
