@@ -7,9 +7,15 @@
     <div class="container mt-4 ml-4 p-0">
         <h2>Student Attendance</h2>
 
-        <!-- ... Your existing table code ... -->
+        <!-- Time duration selection buttons -->
+        <div class="mt-5 mb-3">
+                <a href="{{ url('fetch-updated-data/1day') }}"><button class="btn btn-sm btn-primary" >1D</button></a>
+                <a href="{{ url('fetch-updated-data/1week') }}"><button class="btn btn-sm btn-primary" >1W</button></a>
+                <a href="{{ url('fetch-updated-data/1month') }}"><button class="btn btn-sm btn-primary" >1M</button></a>
+                <a href="{{ url('fetch-updated-data/6months') }}"><button class="btn btn-sm btn-primary" >6M</button></a>
+        </div>
 
-        <div class="card dashboard-card">
+        <div class="card dashboard-card mt-2">
             <div class="card-body">
                 <h5 class="card-title">Student Attendance Chart</h5>
                 <canvas id="siteStatisticsChart" width="400" height="200"></canvas>
@@ -20,10 +26,15 @@
     <!-- Bar chart script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        var ctx = document.getElementById('siteStatisticsChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
+
+        console.log({!! json_encode($presentCount) !!});
+        console.log({!! json_encode($studentNames) !!});
+        console.log({!! json_encode($date) !!});
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Initial data
+            var initialData = {
                 labels: {!! json_encode($date) !!},
                 datasets: [{
                     label: 'Present',
@@ -31,27 +42,35 @@
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
-                },
-                {
-                    label: 'Absent',
-                    data: {!! json_encode($absentCount) !!},
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
                 }]
-            },
-            options: {
-                scales: {
-                    x: {
-                        type: 'category',
-                        labels: {!! json_encode($studentName) !!}, // Use student names as labels
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
+            };
+
+            var ctx = document.getElementById('siteStatisticsChart');
+            console.log('Canvas Element:', ctx);
+
+            var myChart = new Chart(ctx.getContext('2d'), {
+                type: 'bar',
+                data: initialData,
+                options: {
+                    scales: {
+                        x: {
+                            type: 'category',
+                            labels: {!! json_encode($studentNames) !!},
+                            beginAtZero: true
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1,
+                                precision: 0,
+                                callback: function (value) {
+                                    return Number.isInteger(value) ? value : '';
+                                }
+                            }
+                        }
                     }
                 }
-            }
+            });
         });
     </script>
 

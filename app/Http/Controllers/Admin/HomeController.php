@@ -9,11 +9,10 @@ use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
-        public function showProfile()
+    public function showProfile()
     {
         $data = User::where('role','superadmin')->get();
         return view('admin.profile', compact('data'));
@@ -22,7 +21,6 @@ class HomeController extends Controller
 
     public function showDashboard()
     {
-
         $courses = Course::count();
         $students = User::where('role', 'student')->count();
         return view('admin.dashboard', compact('courses','students'));
@@ -51,43 +49,23 @@ class HomeController extends Controller
     {
         $attendence = Attendence::all();
 
-        $postsPerCategory = Attendence::selectRaw('COUNT(*) as count')
-        ->groupBy('category_id')
-        ->get()
-        ->pluck('count')
+        $studentData = Attendence::select('users.name as student_name', 'status', DB::raw('count(*) as count'))
+        ->join('users', 'attendences.std_id', '=', 'users.id')
+        ->groupBy('users.name', 'status')
+        ->get();
+
+
+        $studentNames = array_values($studentData->pluck('student_name')->unique()->toArray());
+
+        $date = Attendence::select(DB::raw('DATE(created_at) as date'))
+        ->groupBy(DB::raw('DATE(created_at)'))
+        ->pluck('date')
         ->toArray();
 
-        // Group attendances by student name and date
-        $groupedAttendence = $attendence->groupBy(['user.name', 'created_at']);
+        $presentCount = $studentData->where('status', 'present')->pluck('count')->toArray();
+        $absentCount = $studentData->where('status', 'absent')->pluck('count')->toArray();
 
-        $studentName = [];
-        $date = [];
-        $presentCount = [];
-        $absentCount = [];
-
-        // Loop through the grouped data to extract information
-        foreach ($groupedAttendence as $key => $group) {
-            list($student, $attendanceDate) = $key;
-
-            // Collect student names and dates
-            $studentName[] = $student;
-            $date[] = $attendanceDate;
-
-            // Count present and absent occurrences
-            $presentCount[] = $group->where('status', 'present')->count();
-            $absentCount[] = $group->where('status', 'absent')->count();
-        }
-
-          // Debug statements to check data
-          dd([
-            $studentName,
-            $date,
-            $presentCount,
-            $absentCount,
-        ]);
-
-
-        return view('admin.attendence_report', compact('attendence', 'studentName', 'date', 'presentCount', 'absentCount'));
+        return view('admin.attendence_report', compact('attendence', 'studentNames', 'date', 'presentCount', 'absentCount'));
     }
 
 
@@ -116,3 +94,7 @@ class HomeController extends Controller
         }
     }
 }
+
+
+
+
