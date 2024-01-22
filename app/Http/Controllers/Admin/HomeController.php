@@ -71,8 +71,15 @@ class HomeController extends Controller
 
     public function showAssignment()
     {
-        $assignmentData = AssignmentReview::all();
+        $assignmentData = User::where('role', 'student')->get();
         return view('admin.assignment_report', compact('assignmentData'));
+    }
+
+    public function getCourseDetails($id)
+    {
+        $courseDetails = AssignmentReview::where('std_id', $id)->get();
+
+        return response()->json(['courseDetails' => $courseDetails]);
     }
 
 
