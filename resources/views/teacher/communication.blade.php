@@ -1,3 +1,5 @@
+<!-- teacher.communication.blade.php -->
+
 @extends('teacher.layouts.main')
 
 @section('teacher-messages-section')
@@ -31,76 +33,24 @@
                                 {{ $superAdmin->name }}
                             </div>
                             <div class="chat-messages" id="admin{{ $superAdmin->id }}Messages">
-                                <!-- Chat messages for each super admin -->
-                                @foreach($messages[$superAdmin->id] ?? [] as $message)
-                                    <p><strong>{{ $message->sender->name }}:</strong> {{ $message->message_content }}</p>
-                                @endforeach
+                                <!-- Chat messages will be loaded dynamically here -->
                             </div>
                             <!-- Chat input form can be added here if needed -->
-                            <!-- Your Blade file with form and textarea -->
+                            <form method="POST" class="sendMessageForm" action="{{ route('teacher.send.message') }}">
+                                @csrf
+                                <input type="hidden" name="receiver_id" value="{{ $superAdmin->id }}">
+                                <div class="chat-input" id="chatInput">
+                                    <textarea class="form-control messageContent" rows="2" placeholder="Type your message"></textarea>
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </form>
                         </div>
-                        <form method="POST" id="sendMessageForm" action="">
-                            @csrf
-                            <input type="hidden" name="receiver_id" value="{{ $superAdmin->id }}">
-                            <div class="chat-input" id="chatInput">
-                                <textarea id="messageContent" name="message_content" class="form-control" rows="2" placeholder="Type your message"></textarea>
-                                <button type="submit" class="btn btn-primary">Send</button>
-                            </div>
-                        </form>
                     @endforeach
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        window.onload = function() {
-            document.querySelectorAll('.chat').forEach(function(box) {
-                box.style.display = 'none';
-            });
-            document.getElementById('defaultMessage').style.display = 'block';
-        };
-        // JavaScript function to handle chat opening
-        function openChat(adminId) {
-            var chatBoxes = document.querySelectorAll('.chat');
-            chatBoxes.forEach(function(box) {
-                box.style.display = 'none';
-            });
 
-            document.getElementById('defaultMessage').style.display = 'none';
-
-            var chatBox = document.getElementById(adminId + 'Chat');
-            chatBox.style.display = 'block';
-
-            // Show chat input or any additional logic if needed
-            var chatInput = document.getElementById('chatInput');
-            chatInput.style.display = 'flex'; // Show the chat input
-        }
-
-        $('#sendMessageForm').submit(function(e) {
-            e.preventDefault(); // Prevent default form submission
-
-            // Get form data
-            let formData = new FormData(this);
-
-            // Send AJAX request
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('teacher.send.message') }}',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(data) {
-                    // Handle response, if needed
-                    console.log(data);
-                    // Clear textarea after successful message submission
-                    $('#messageContent').val('');
-                },
-                error: function(error) {
-                    // Handle error, if any
-                    console.error('Error:', error);
-                }
-            });
-        });
-    </script>
+    <!-- Include the JavaScript code -->
+    @include('teacher.message_js')
 @endsection

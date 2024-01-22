@@ -88,13 +88,19 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::get('/teacher/create/topic', [TeacherHomeController::class, 'showTopicPage'])->name('topic');
     Route::get('/teacher/student', [TeacherHomeController::class, 'showStudent']);
     Route::get('/teacher/create/assignments', [TeacherHomeController::class, 'showAssignment']);
+    Route::get('/teacher/submit/assignments', [TeacherHomeController::class, 'assignmentSubmit']);
     Route::get('/teacher/attendence', [TeacherHomeController::class, 'showAttendence'])->name('attendance.show');
     Route::get('/teacher/reviews', [TeacherHomeController::class, 'showReviews']);
-    Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.messages');
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name('teacher.send.message');
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
     Route::post('/teacher/create/assignments', [AssignmentController::class, 'createAssignment'])->name('create.assignment');
+    // Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.messages');
+    Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.show.messages');
+    Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name    ('teacher.send.message');
+    Route::get('/teacher/fetch-messages', [TeacherMessageController::class, 'fetchMessages'])->name('teacher.fetch.messages');
+    Route::post('marks/{id}', [AssignmentController::class, 'updateMarks'])->name('teacher.marks');
+
 });
 
 Route::get('/videos', function(){

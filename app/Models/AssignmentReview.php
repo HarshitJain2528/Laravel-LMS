@@ -19,8 +19,9 @@ class AssignmentReview extends Model
 
     protected $table = 'assignment_reviews';
 
-    public function student(){
-            return $this->belongsTo(User::class, 'std_id');
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'std_id');
     }
 
 }
