@@ -17,6 +17,7 @@ use App\Http\Controllers\Student\DisplayController;
 use App\Http\Controllers\Student\ReviewController;
 use App\Http\Controllers\Student\AssignmentSubmitController;
 use App\Http\Controllers\Student\AttendenceController;
+use App\Http\Controllers\Student\StudentMessageController;
 use App\Models\Topic;
 use Illuminate\Support\Facades\Route;
 
@@ -48,7 +49,6 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/reviews/{id}',[DisplayController::class,'reviews'])->name('reviews');
     Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submitReviews');
     Route::get('/profile/{id}',[DisplayController::class,'profile'])->name('profile');
-    Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
     Route::get('/desc/{id}',[DisplayController::class,'desc'])->name('desc');
     Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignmentView');
@@ -56,6 +56,9 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
     Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');
     Route::post('/profile/{id}', [DisplayController::class, 'update'])->name('profile.update');
+    // Route::get('/help',[DisplayController::class,'help'])->name('help');
+    Route::get('/help', [StudentMessageController::class, 'showMessages'])->name('help');
+Route::post('/student/send-message', [StudentMessageController::class, 'sendMessageToTeacher'])->name('student.send.message');
 
 });
 

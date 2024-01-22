@@ -12,6 +12,8 @@ class TeacherMessageController extends Controller
     public function showMessages()
     {
         $superAdmins = User::where('role', 'superadmin')->get(); // Fetch all super admins
+        $students = User::where('role', 'student')->get(); // Fetch all students
+
         $teacherId = auth()->id(); // Get the authenticated teacher's ID
 
         // Fetch messages organized by super admin ID
@@ -26,7 +28,17 @@ class TeacherMessageController extends Controller
             })->orderBy('created_at', 'asc')->get();
         }
 
-        return view('teacher.communication', compact('superAdmins', 'messages'));
+        foreach ($students as $student) {
+            $messages[$student->id] = Messages::where(function ($query) use ($teacherId, $student) {
+                $query->where('sender_id', $teacherId)
+                    ->where('receiver_id', $student->id);
+            })->orWhere(function ($query) use ($teacherId, $student) {
+                $query->where('sender_id', $student->id)
+                    ->where('receiver_id', $teacherId);
+            })->orderBy('created_at', 'asc')->get();
+        }
+
+        return view('teacher.communication', compact('superAdmins', 'messages','students'));
     }
 
     // TeacherMessageController.php
