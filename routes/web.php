@@ -55,6 +55,7 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submitAssignment');
     Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
     Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');
+    Route::post('/profile/{id}', [DisplayController::class, 'update'])->name('profile.update');
 
 });
 

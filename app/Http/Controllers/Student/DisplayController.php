@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Student;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Course;
 use App\Models\Topic;
@@ -67,5 +68,26 @@ class DisplayController extends Controller
     {
         $data = Topic::where('id',$id)->get();
         return view('student.next',compact('data'));
+    }
+    public function update(Request $request, $id)
+    {
+        $data = User::findOrFail($id);
+
+        // Validate the request data
+        $request->validate([
+            'username' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:15',
+            'password' => 'nullable|min:8|confirmed',
+        ]);
+    
+        $data->update([
+            'name' => $request->input('username'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'password' => $request->filled('password') ? Hash::make($request->input('password')) : $data->password,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile updated successfully');
     }
 }
