@@ -10,6 +10,7 @@
                 <a href="{{url('/teacher/create/courses')}}" class="nav_link active"> <i  class='bx bx-plus-circle nav_icon'></i> <span class="nav_name">Create Course</span> </a>
                 <a href="{{url('/teacher/create/topic')}}" class="nav_link active"> <i class='bx bx-book-add nav_icon'></i> <span class="nav_name">Topic Create</span> </a>
                 <a href="{{url('/teacher/create/assignments')}}" class="nav_link"> <i class='bx bx-task nav_icon'></i> <span class="nav_name">Create Assignment </span> </a>
+                <a href="{{url('/teacher/submit/assignments')}}" class="nav_link"> <i class='bx bx-task nav_icon'></i> <span class="nav_name">Assignment Submit</span> </a>
                 <a href="{{url('/teacher/student')}}" class="nav_link"> <i class='bx bx-group nav_icon'></i> <span class="nav_name">Students </span> </a>
                 <a href="{{url('/teacher/attendence')}}" class="nav_link"> <i class='bx bx-check-double nav_icon'></i> <span class="nav_name">Attendence</span> </a>
                 <a href="{{url('teacher/reviews')}}" class="nav_link"> <i class='bx bx-note nav_icon'></i> <span class="nav_name">Reviews</span> </a>

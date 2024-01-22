@@ -8,6 +8,7 @@ use App\Models\Course;
 use App\Models\Review;
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\AssignmentReview;
 
 class TeacherHomeController extends Controller
 {
@@ -63,5 +64,12 @@ class TeacherHomeController extends Controller
     {
         $courses = Course::all();
         return view('teacher.topic_create', compact('courses'));
+    }
+
+    public function assignmentSubmit()
+    {
+        $assignments = AssignmentReview::with('student')->get();
+
+        return view('teacher.assignment_submit', compact('assignments'));
     }
 }

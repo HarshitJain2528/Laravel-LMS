@@ -29,19 +29,43 @@ class TeacherMessageController extends Controller
         return view('teacher.communication', compact('superAdmins', 'messages'));
     }
 
-    public function sendMessageToSuperAdmin(Request $request)
+    // TeacherMessageController.php
+
+// TeacherMessageController.php
+
+public function sendMessageToSuperAdmin(Request $request)
+{
+    $validatedData = $request->validate([
+        'receiver_id' => 'required|exists:users,id',
+        'message_content' => 'required',
+    ]);
+
+    $message = Messages::create([
+        'sender_id' => auth()->id(),
+        'receiver_id' => $validatedData['receiver_id'],
+        'message_content' => $validatedData['message_content'],
+    ]);
+
+    // Return the success response
+    return response()->json([
+        'success' => true,
+    ]);
+}
+
+
+
+    public function fetchMessages(Request $request)
     {
-        $validatedData = $request->validate([
-            'receiver_id' => 'required|exists:users,id',
-            'message_content' => 'required',
-        ]);
+        $receiverId = $request->get('receiver_id');
+        $messages = Messages::where(function ($query) use ($receiverId) {
+            $query->where('sender_id', auth()->id())
+                ->where('receiver_id', $receiverId);
+        })->orWhere(function ($query) use ($receiverId) {
+            $query->where('sender_id', $receiverId)
+                ->where('receiver_id', auth()->id());
+        })->orderBy('created_at', 'asc')->get();
 
-        Messages::create([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $validatedData['receiver_id'],
-            'message_content' => $validatedData['message_content'],
-        ]);
-
-        return redirect()->back();
+        // Return the messages as JSON
+        return response()->json(view('teacher.message_partial', compact('messages'))->render());
     }
 }
