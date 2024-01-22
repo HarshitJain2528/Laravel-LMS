@@ -2,21 +2,19 @@
 @section('student-assignment')
 
     <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
-       @foreach($assignment as $title) 
+        @foreach($assignment as $title) 
         <div class="container">
-          <div class="row align-items-center justify-content-center">
-            <div class="col-lg-10 text-center"> 
-              <h1><strong >{{$title->assignment_title}}</strong></h1>
-           </div>
-          </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-10 text-center"> 
+                    <h1><strong >{{$title->assignment_title}}</strong></h1>
+                </div>
+            </div>
         </div>
-      </div>
- 
+    </div>
     <div class="site-section">
       <div class="container">
         <div class="row">
           <div class="col-12" style="border:1px solid black;padding:40px">
-            
             <h1 class="heading" style="text-align: center;border-bottom:none">Assignment</h1>
                 <p  style="text-align: right;">Total Marks: <span id="totalMarks">{{$title->total_marks}}</span></p>
                 {{-- <p>Created at: <span id="totalMarks">{{$title->created_at}}</span></p> --}}
