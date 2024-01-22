@@ -33,7 +33,7 @@
                     You can Mark Attendance once in a day only.
                     <p>Mark attendance by clicking on the Mark Attendance button given below:</p>
                     <div class="form-group">
-                        <input type="text" id="status" class="form-control" name="status" value="present" readonly>
+                        <input type="hidden" id="status" class="form-control" name="status" value="present" readonly>
                     </div>
 
                     <!-- Check if attendance is already marked for today -->
