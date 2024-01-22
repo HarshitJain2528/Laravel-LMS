@@ -1,6 +1,6 @@
 @extends('student.layout.main')
-
 @section('student-assignment')
+
     <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
        @foreach($assignment as $title) 
         <div class="container">
