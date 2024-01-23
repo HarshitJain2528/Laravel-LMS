@@ -33,24 +33,44 @@ class AssignmentController extends Controller
 
         return redirect('/teacher/create/assignments')->with('success','Assignment created successfully');
     }
-    public function updateMarks(Request $request, $id)
+
+    public function assignmentDetails($id)
     {
-        // Find the specific record for the student
-        $marks = AssignmentReview::where('id', $id)->first();
-    
-        // Check if the record exists
-        if (!$marks) {
-            // If no marks exist for the student, create a new record
-            $marks = new AssignmentReview();
-            $marks->id = $id;
-        }
-    
-        // Update the obtained marks for the specific record
-        $marks->obtained_marks = $request->input('obtained_marks');
-        $marks->save();
-    
-        return redirect()->back()->with('success', 'Marks updated successfully.');
+        $assignmentDetails = AssignmentReview::where('id', $id)->first();
+        return response()->json(['assignmentDetails' => $assignmentDetails]);
     }
     
 
+    public function updateMarks(Request $request)
+{
+    try {
+        $id = $request->id;
+
+        // Fetch assignment details
+        $assignmentDetails = AssignmentReview::find($id);
+
+        // Validate obtained marks against total marks
+        if ($request->input('obtained_marks') > $assignmentDetails->total_marks) {
+            return redirect()->route('submit.assignments')->with('error', 'Obtained marks cannot be greater than total marks.');
+        }
+
+        // Update the AssignmentReview record based on the provided ID
+        AssignmentReview::where('id', $id)
+            ->update([
+                'obtained_marks' => $request->input('obtained_marks'),
+                // Add other fields to update if needed
+            ]);
+
+        return redirect()->route('submit.assignments')->with('success', 'Marks updated successfully.');
+    } catch (\Exception $e) {
+        return redirect()->route('submit.assignments')->with('error', $e->getMessage());
+    }
 }
+
+    
+    
+    
+    
+
+}
+

@@ -30,10 +30,6 @@
                                         </td>
                                     </tr>
                                     @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="3">No assignment details available for any student.</td>
-                                    </tr>
                                 @endif
                             </tbody>
                         </table>
@@ -43,7 +39,7 @@
         </div>
     </div>
 
-    <div id="viewModal" class="modal" style="display: none;" tabindex="-1" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
+    <div id="viewModal" class="modal" style="display: none;" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,7 +55,7 @@
                             </tr>
                         </thead>
                         <tbody id="courseDetailsBody">
-                            <!-- Course details will be dynamically added here -->
+                            <!-- Course details will be dynamically added here through ajax without page refresh -->
                         </tbody>
                     </table>
                 </div>
@@ -76,7 +72,7 @@
         $(document).ready(function () {
             $('.viewButton').on('click', function () {
                 var studentId = $(this).data('student-id');
-                var url = '{{ route("get-student-details", ["id" => "student_id"]) }}';
+                var url = '{{ url("get-assignment-details", ["id" => "student_id"]) }}';//// Construct the URL for the AJAX request using the Laravel route function
 
                 $.ajax({
                     url: url.replace('student_id', studentId),
@@ -84,7 +80,8 @@
                     success: function (data) {
                         // console.log(data);
 
-                        if (data.courseDetails && data.courseDetails.length > 0) {
+                        if (data.courseDetails && data.courseDetails.length > 0)//to check whether the data.courseDetails array exists and has at least one element
+                        {   //.length used with an array, it returns the number of elements in that array.
                             var courseDetailsBody = $('#courseDetailsBody');
                             courseDetailsBody.empty();
 
@@ -104,11 +101,11 @@
                             // Show the modal
                             $('#viewModal').show();
                         } else {
-                            console.error('Data not available.');
+                            alert('Assignment not submitted yet');
                         }
                     },
                     error: function (error) {
-                        console.error('Error fetching data:', error);
+                        alert('Error fetching data:', error);
                     }
                 });
             });

@@ -72,7 +72,7 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
         Route::get('/admin/teachers', 'showTeachers')->name('teacher.table');
         Route::get('/admin/attendence', 'showAttendence')->name('admin.attendence');
         Route::get('/admin/assignment', 'showAssignment')->name('assignment');
-        Route::get('/get-student-details/{id}', 'getCourseDetails')->name('get-student-details');
+        Route::get('/get-assignment-details/{id}', 'getAssignmentDetails');
         Route::post('/edit-admin-profile','editProfile')->name('edit');
     });
 
@@ -92,7 +92,7 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::get('/teacher/create/topic', [TeacherHomeController::class, 'showTopicPage'])->name('topic');
     Route::get('/teacher/student', [TeacherHomeController::class, 'showStudent']);
     Route::get('/teacher/create/assignments', [TeacherHomeController::class, 'showAssignment']);
-    Route::get('/teacher/submit/assignments', [TeacherHomeController::class, 'assignmentSubmit']);
+    Route::get('/teacher/submit/assignments', [TeacherHomeController::class, 'assignmentSubmit'])->name('submit.assignments');
     Route::get('/teacher/attendence', [TeacherHomeController::class, 'showAttendence'])->name('attendance.show');
     Route::get('/teacher/reviews', [TeacherHomeController::class, 'showReviews']);
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name('teacher.send.message');
@@ -103,7 +103,10 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.show.messages');
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name    ('teacher.send.message');
     Route::get('/teacher/fetch-messages', [TeacherMessageController::class, 'fetchMessages'])->name('teacher.fetch.messages');
-    Route::post('marks/{id}', [AssignmentController::class, 'updateMarks'])->name('teacher.marks');
+
+    Route::get('details/{id}', [AssignmentController::class, 'assignmentDetails'])->name('assignment.details');
+
+    Route::post('/marks', [AssignmentController::class, 'updateMarks']);
 
 });
 

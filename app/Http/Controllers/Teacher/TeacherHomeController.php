@@ -69,7 +69,7 @@ class TeacherHomeController extends Controller
     public function assignmentSubmit()
     {
         $assignments = AssignmentReview::with('student')->get();
-
+        // dd($assignments);
         return view('teacher.assignment_submit', compact('assignments'));
     }
 }

@@ -47,7 +47,7 @@
                 Today's Present Students
           </h5>
           <div class="text-center">
-            <h1 class="display-4"> <i class="bx bx-check"></i> 50</h1> <!-- Replace with actual present student count for today -->
+            <h1 class="display-4"> <i class="bx bx-check"></i> {{$presentCount}}</h1> <!-- Replace with actual present student count for today -->
             <a href="{{ Route('admin.attendence') }}" class="btn btn-sm btn-light mt-3">More Info</a> <!-- Replace 'route' with your actual route name -->
           </div>
         </div>

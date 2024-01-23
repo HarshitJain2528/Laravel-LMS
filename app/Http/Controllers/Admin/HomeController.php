@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+
 
 class HomeController extends Controller
 {
@@ -21,9 +23,13 @@ class HomeController extends Controller
 
     public function showDashboard()
     {
+        $today = Carbon::now()->format('Y-m-d');
+        
+        $presentCount = Attendence::whereDate('created_at', $today)->count();
         $courses = Course::count();
         $students = User::where('role', 'student')->count();
-        return view('admin.dashboard', compact('courses','students'));
+    
+        return view('admin.dashboard', compact('courses', 'students', 'presentCount'));
     }
 
     public function showCourses()
@@ -75,7 +81,7 @@ class HomeController extends Controller
         return view('admin.assignment_report', compact('assignmentData'));
     }
 
-    public function getCourseDetails($id)
+    public function getAssignmentDetails($id)
     {
         $courseDetails = AssignmentReview::where('std_id', $id)->get();
 
