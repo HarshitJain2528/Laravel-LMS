@@ -9,7 +9,7 @@
 
         <!-- Time duration selection buttons -->
         <div class="mt-5 mb-3">
-                <a href="{{ url('fetch-updated-data/1day') }}"><button class="btn btn-sm btn-primary" >1D</button></a>
+                <a href="{{ url('fetch-updated-data/1day') }}"><button class="btn btn-sm btn-primary" >T</button></a>
                 <a href="{{ url('fetch-updated-data/1week') }}"><button class="btn btn-sm btn-primary" >1W</button></a>
                 <a href="{{ url('fetch-updated-data/1month') }}"><button class="btn btn-sm btn-primary" >1M</button></a>
                 <a href="{{ url('fetch-updated-data/6months') }}"><button class="btn btn-sm btn-primary" >6M</button></a>
@@ -26,28 +26,27 @@
     <!-- Bar chart script -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-
         console.log({!! json_encode($presentCount) !!});
         console.log({!! json_encode($studentNames) !!});
         console.log({!! json_encode($date) !!});
-
+    
         document.addEventListener('DOMContentLoaded', function () {
-
+    
             // Initial data
             var initialData = {
-                labels: {!! json_encode($date) !!},
+                labels: {!! json_encode($studentNames) !!},
                 datasets: [{
-                    label: 'Present',
+                    label: 'No. of Present Days',
                     data: {!! json_encode($presentCount) !!},
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }]
             };
-
+    
             var ctx = document.getElementById('siteStatisticsChart');
             console.log('Canvas Element:', ctx);
-
+    
             var myChart = new Chart(ctx.getContext('2d'), {
                 type: 'bar',
                 data: initialData,
@@ -55,10 +54,18 @@
                     scales: {
                         x: {
                             type: 'category',
+                            title: {
+                                display: true,
+                                text: 'Student Names'
+                            },
                             labels: {!! json_encode($studentNames) !!},
                             beginAtZero: true
                         },
                         y: {
+                            title: {
+                                display: true,
+                                text: 'No. of Present Days'
+                            },
                             beginAtZero: true,
                             ticks: {
                                 stepSize: 1,
@@ -73,5 +80,6 @@
             });
         });
     </script>
+    
 
 @endsection
