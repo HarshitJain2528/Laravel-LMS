@@ -1,7 +1,6 @@
-{{-- @extends('student.layout.main') --}}
+@extends('student.layout.main')
 
-{{-- @section('student-help') --}}
-@include('student.layout.header')
+@section('student-help')
 
 <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
 <div class="container">
@@ -48,11 +47,11 @@
                     </div>
                     <!-- Chat boxes for teachers -->
                     @foreach($teachers as $teacher)
-                        <div class="chat" id="teacher{{ $teacher->id }}Chat">
+                        <div class="chat" id="{{'teacher' . $teacher->id . 'Chat' }}">
                             <div class="chat-header">
                                 {{ $teacher->name }}
                             </div>
-                            <div class="chat-messages" id="teacher{{ $teacher->id }}Messages">
+                            <div class="chat-messages" id="{{'teacher' . $teacher->id . 'Messages' }}">
                                 <!-- Chat messages will be loaded dynamically here -->
                             </div>
                             <!-- Chat input form -->
@@ -71,6 +70,7 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     window.onload = function() {
@@ -80,7 +80,6 @@
         document.getElementById('defaultMessage').style.display = 'block';
     };
 
-    // JavaScript function to handle chat opening
     function openChat(teacherId) {
         var chatBoxes = document.querySelectorAll('.chat');
         chatBoxes.forEach(function(box) {
@@ -89,21 +88,81 @@
 
         document.getElementById('defaultMessage').style.display = 'none';
 
+        // Remove 'teacher' prefix to get only the numeric part
+        var numericTeacherId = teacherId.replace('teacher', '');
+
         var chatBox = document.getElementById(teacherId + 'Chat');
         chatBox.style.display = 'block';
 
-        // Show chat input or any additional logic if needed
-        var chatInput = document.getElementById('chatInput');
-        chatInput.style.display = 'flex'; // Show the chat input
+        var chatInput = chatBox.querySelector('.chat-input');
+        chatInput.style.display = 'flex';
+
+        $.ajax({
+            type: 'GET',
+            url: '{{ route('student.fetch.messages') }}',
+            data: { receiver_id: numericTeacherId },  // Use only the numeric part
+            success: function(messages) {
+                $('#' + teacherId + 'Messages').html(messages);
+                var chatMessagesContainer = $('#' + teacherId + 'Messages');
+                chatMessagesContainer.scrollTop(chatMessagesContainer.prop('scrollHeight'));
+            },
+            error: function(error) {
+                console.error('Error fetching messages:', error);
+            }
+        });
     }
+
+    $('.sendMessageForm').submit(function(e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        if (!formData.has('message_content')) {
+            formData.set('message_content', $(this).find('.messageContent').val());
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: $(this).attr('action'),
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                console.log('Message sent successfully:', response);
+
+                if (response.success) {
+                    var teacherId = formData.get('receiver_id');
+
+                    $.ajax({
+                        type: 'GET',
+                        url: '{{ route('student.fetch.messages') }}',
+                        data: { receiver_id: teacherId },
+                        success: function(response) {
+                            console.log('Messages fetched successfully:', response);
+
+                            // Update the chat messages with new data
+                            $('#' + teacherId + 'Messages').html(response);
+
+                            // Scroll to the bottom to show the new message
+                            var chatMessagesContainer = $('#' + teacherId + 'Messages');
+                            chatMessagesContainer.scrollTop(chatMessagesContainer.prop('scrollHeight'));
+
+                            // Clear textarea after successful message submission
+                            $('.chat-input textarea').val('');
+                        },
+                        error: function(error) {
+                            console.error('Error fetching messages:', error);
+                        }
+                    });
+                }
+            },
+            error: function(error) {
+                console.error('Error sending message:', error);
+            }
+        });
+    });
 </script>
 
+
 <hr>
-{{-- @endsection --}}
-{{-- <script>
-    document.getElementById('togglePasswordChange').addEventListener('click', function() {
-        // Toggle visibility of the password change form
-        var passwordChangeForm = document.getElementById('passwordChangeForm');
-        passwordChangeForm.style.display = passwordChangeForm.style.display === 'none' ? 'block' : 'none';
-    });
-</script> --}}
+@endsection
