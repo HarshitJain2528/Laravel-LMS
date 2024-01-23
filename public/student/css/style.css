@@ -1253,7 +1253,7 @@ h1, h2, h3, h4, h5,
 
 
 .teacher-list {
-    height: 100vh;
+    height: 70vh;
     overflow-y: auto;
 }
 
@@ -1271,7 +1271,7 @@ h1, h2, h3, h4, h5,
 .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Adjust the height of the chat area */
+    height: 70vh; /* Adjust the height of the chat area */
     position: relative;
 }
 
@@ -1306,9 +1306,9 @@ h1, h2, h3, h4, h5,
 
 /* Chat input form */
 .chat-input {
-    position: fixed;
+    position: absolute;
     bottom: 0px;
-    width: 60%;
+    width: 100%;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
@@ -1320,9 +1320,11 @@ h1, h2, h3, h4, h5,
     align-items: center;
     justify-content: space-between;
 }
+
+
 /* Responsive textarea */
-#messageContent {
-    width: calc(100% - 600px); /* Adjust width based on button and padding */
+.messageContent {
+    width: 100%; /* Adjust width based on button and padding */
     resize: vertical; /* Allow vertical resizing */
     box-sizing: border-box; /* Include padding and border in width */
 }
