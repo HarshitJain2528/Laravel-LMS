@@ -242,16 +242,17 @@ a {
     background-color: rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.5s;
 }
+
 .modal-content {
-    background-color: blueviolet; /* Changed background to white */
+    background-color: #f3f3f3; /* Changed background to white */
     margin: 10% auto;
     padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    color: white;
+    border: 1px solid #e9e5e5;
+    width: 150%;
     border-radius: 5px;
     animation: slideIn 0.5s;
 }
+
 .close {
     color: #aaa;
     float: right;

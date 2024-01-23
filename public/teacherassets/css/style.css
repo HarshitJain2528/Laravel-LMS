@@ -210,13 +210,18 @@ a {
 /* Chat input form */
 .chat-input {
     position: fixed;
-    bottom: 20px; /* Adjust as needed */
-    width: calc(100% - 250px); /* Adjust width and positioning as needed */
+    bottom: 0px;
+    width: 60%;
     padding: 10px;
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: none;
+}
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 /* Responsive textarea */
 #messageContent {

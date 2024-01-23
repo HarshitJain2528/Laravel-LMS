@@ -1,7 +1,9 @@
-@extends('student.layout.main')
+{{-- @extends('student.layout.main') --}}
 
-@section('student-help')
-<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
+{{-- @section('student-help') --}}
+@include('student.layout.header')
+
+<div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
 <div class="container">
     <div class="row align-items-center justify-content-center">
         <div class="col-lg-10 text-center">
@@ -19,51 +21,89 @@
         <div class="row">
             <div class="col-12">
                 <div class="heading mb-4">
-                    <h2>Need Help</h2>
+                    <h2>Messages</h2>
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <form action="#" method="post">
-                @csrf
 
-                <div class="form-group">
-                    <label for="course">Select Course</label>
-                    <select class="form-control" id="course" name="course">
-                        <option value="course1">Course 1</option>
-                        <option value="course2">Course 2</option>
-                        <option value="course3">Course 3</option>
-                        {{-- Add more courses as needed --}}
-                    </select>
+        <div class="row">
+            <!-- Left sidebar with teacher list -->
+            <div class="col-md-3">
+                <div class="teacher-list">
+                    <!-- Loop through teachers -->
+                    @foreach($teachers as $teacher)
+                        <div class="teacher-item" onclick="openChat('teacher{{ $teacher->id }}')">
+                            {{ $teacher->name }}
+                            <span class="arrow">&#10148;</span>
+                        </div>
+                    @endforeach
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="topic">Select Topic</label>
-                    <select class="form-control" id="topic" name="topic">
-                        <option value="topic1">Topic 1</option>
-                        <option value="topic2">Topic 2</option>
-                        <option value="topic3">Topic 3</option>
-                        {{-- Add more topics as needed --}}
-                    </select>
+            <!-- Right section for chat -->
+            <div class="col-md-9 right-section">
+                <div id="chatWindow" class="chat-container">
+                    <div id="defaultMessage" class="chat default-message">
+                        Select a Teacher to start chatting.
+                    </div>
+                    <!-- Chat boxes for teachers -->
+                    @foreach($teachers as $teacher)
+                        <div class="chat" id="teacher{{ $teacher->id }}Chat">
+                            <div class="chat-header">
+                                {{ $teacher->name }}
+                            </div>
+                            <div class="chat-messages" id="teacher{{ $teacher->id }}Messages">
+                                <!-- Chat messages will be loaded dynamically here -->
+                            </div>
+                            <!-- Chat input form -->
+                            <form method="POST" class="sendMessageForm" action="{{ route('student.send.message') }}">
+                                @csrf
+                                <input type="hidden" name="receiver_id" value="{{ $teacher->id }}">
+                                <div class="chat-input" id="chatInput">
+                                    <textarea class="form-control messageContent" rows="2" placeholder="Type your message"></textarea>
+                                    <button type="submit" class="btn btn-primary">Send</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endforeach
                 </div>
-
-                <div class="form-group">
-                    <label for="problem">Describe the Problem</label>
-                    <textarea class="form-control" id="problem" name="problem" rows="4" placeholder="Enter your problem here"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
-<hr>
-@endsection
 <script>
+    window.onload = function() {
+        document.querySelectorAll('.chat').forEach(function(box) {
+            box.style.display = 'none';
+        });
+        document.getElementById('defaultMessage').style.display = 'block';
+    };
+
+    // JavaScript function to handle chat opening
+    function openChat(teacherId) {
+        var chatBoxes = document.querySelectorAll('.chat');
+        chatBoxes.forEach(function(box) {
+            box.style.display = 'none';
+        });
+
+        document.getElementById('defaultMessage').style.display = 'none';
+
+        var chatBox = document.getElementById(teacherId + 'Chat');
+        chatBox.style.display = 'block';
+
+        // Show chat input or any additional logic if needed
+        var chatInput = document.getElementById('chatInput');
+        chatInput.style.display = 'flex'; // Show the chat input
+    }
+</script>
+
+<hr>
+{{-- @endsection --}}
+{{-- <script>
     document.getElementById('togglePasswordChange').addEventListener('click', function() {
         // Toggle visibility of the password change form
         var passwordChangeForm = document.getElementById('passwordChangeForm');
         passwordChangeForm.style.display = passwordChangeForm.style.display === 'none' ? 'block' : 'none';
     });
-</script>
+</script> --}}

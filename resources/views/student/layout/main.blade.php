@@ -8,6 +8,4 @@
     @yield('student-profile')
     @yield('student-reviews')
     @yield('student-topics')
-
- 
 @include('student.layout.footer')

@@ -17,6 +17,7 @@ use App\Http\Controllers\Student\DisplayController;
 use App\Http\Controllers\Student\ReviewController;
 use App\Http\Controllers\Student\AssignmentSubmitController;
 use App\Http\Controllers\Student\AttendenceController;
+use App\Http\Controllers\Student\StudentMessageController;
 use App\Models\Topic;
 use Illuminate\Support\Facades\Route;
 
@@ -48,13 +49,16 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/reviews/{id}',[DisplayController::class,'reviews'])->name('reviews');
     Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submitReviews');
     Route::get('/profile/{id}',[DisplayController::class,'profile'])->name('profile');
-    Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
     Route::get('/desc/{id}',[DisplayController::class,'desc'])->name('desc');
     Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignmentView');
     Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submitAssignment');
     Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
     Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');
+    Route::post('/profile/{id}', [DisplayController::class, 'update'])->name('profile.update');
+    // Route::get('/help',[DisplayController::class,'help'])->name('help');
+    Route::get('/help', [StudentMessageController::class, 'showMessages'])->name('help');
+Route::post('/student/send-message', [StudentMessageController::class, 'sendMessageToTeacher'])->name('student.send.message');
 
 });
 
@@ -68,6 +72,7 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
         Route::get('/admin/teachers', 'showTeachers')->name('teacher.table');
         Route::get('/admin/attendence', 'showAttendence')->name('admin.attendence');
         Route::get('/admin/assignment', 'showAssignment')->name('assignment');
+        Route::get('/get-student-details/{id}', 'getCourseDetails')->name('get-student-details');
         Route::post('/edit-admin-profile','editProfile')->name('edit');
     });
 
@@ -87,13 +92,19 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::get('/teacher/create/topic', [TeacherHomeController::class, 'showTopicPage'])->name('topic');
     Route::get('/teacher/student', [TeacherHomeController::class, 'showStudent']);
     Route::get('/teacher/create/assignments', [TeacherHomeController::class, 'showAssignment']);
+    Route::get('/teacher/submit/assignments', [TeacherHomeController::class, 'assignmentSubmit']);
     Route::get('/teacher/attendence', [TeacherHomeController::class, 'showAttendence'])->name('attendance.show');
     Route::get('/teacher/reviews', [TeacherHomeController::class, 'showReviews']);
-    Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.messages');
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name('teacher.send.message');
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
     Route::post('/teacher/create/assignments', [AssignmentController::class, 'createAssignment'])->name('create.assignment');
+    // Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.messages');
+    Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.show.messages');
+    Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name    ('teacher.send.message');
+    Route::get('/teacher/fetch-messages', [TeacherMessageController::class, 'fetchMessages'])->name('teacher.fetch.messages');
+    Route::post('marks/{id}', [AssignmentController::class, 'updateMarks'])->name('teacher.marks');
+
 });
 
 Route::get('/videos', function(){
