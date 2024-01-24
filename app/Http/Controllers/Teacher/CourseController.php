@@ -8,8 +8,14 @@ use App\Models\Course;
 
 class CourseController extends Controller
 {
-    public function createCourse(Request $request)
-    {
+    /**
+     * Create a new course.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function createCourse(Request $request) {
+        
         $request->validate([
             'courseTitle' => 'required|string|max:255',
             'description' => 'required|string',
@@ -23,14 +29,14 @@ class CourseController extends Controller
             $logoPath = 'teacherassets/img/' . $logo;
         }
 
-        // Create the course
         Course::create([
             'course_title' => $request->input('courseTitle'),
             'course_description' => $request->input('description'),
             'course_duration' => $request->input('courseDuration'),
-            'logo' => $logoPath,
+            'logo' => $logoPath ?? null, 
         ]);
 
         return redirect('/teacher/create/courses')->with('success', 'Course created successfully');
     }
+
 }

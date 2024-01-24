@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/Student/AttendenceController.php
-
 namespace App\Http\Controllers\Student;
 
 use App\Models\Attendence;
@@ -11,13 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class AttendenceController extends Controller
 {
-    public function mark(Request $request)
-    {
+    /**
+     * Mark attendance for the authenticated student.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function mark(Request $request){
+        
         $request->validate([
             'status' => 'required',
         ]);
 
-        // Check if attendance is already marked for today
         $existingAttendance = Attendence::where('std_id', auth()->user()->id)
             ->whereDate('created_at', now()->toDateString())
             ->first();
@@ -32,15 +35,23 @@ class AttendenceController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
+
     }
 
-    public function checkAttendanceStatus()
-    {
+    /**
+     * Check the attendance status for the authenticated student.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function checkAttendanceStatus(){
+
         $user = Auth::user();
+
         $attendance = Attendence::where('std_id', $user->id)
             ->whereDate('created_at', now()->toDateString())
             ->first();
 
         return response()->json(['status' => $attendance ? 'marked' : 'not-marked']);
+
     }
 }

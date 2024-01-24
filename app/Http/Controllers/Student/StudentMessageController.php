@@ -10,16 +10,26 @@ use Illuminate\Support\Facades\View;
 
 class StudentMessageController extends Controller
 {
-    public function showMessages()
-    {
-        $teachers = User::where('role', 'teacher')->get(); // Fetch all teachers
-        $studentId = auth()->id(); // Get the authenticated student's ID
-
+    /**
+     * Show the messages view for student help.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showMessages(){
+        
+        $teachers = User::where('role', 'teacher')->get();
+        $studentId = auth()->id();
         return view('student.help', compact('teachers', 'studentId'));
     }
 
-    public function sendMessageToTeacher(Request $request)
-    {
+    /**
+     * Send a message from student to teacher.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendMessageToTeacher(Request $request){
+
         $validatedData = $request->validate([
             'receiver_id' => 'required|exists:users,id',
             'message_content' => 'required',
@@ -31,7 +41,6 @@ class StudentMessageController extends Controller
             'message_content' => $validatedData['message_content'],
         ]);
 
-        // You can load the user relationship to get the sender's name
         $message->load('sender');
 
         return response()->json([
@@ -40,10 +49,16 @@ class StudentMessageController extends Controller
         ]);
     }
 
+    /**
+     * Fetch messages between student and teacher.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchMessages(Request $request){
 
-    public function fetchMessages(Request $request)
-    {
         $receiverId = $request->get('receiver_id');
+
         $messages = Messages::where(function ($query) use ($receiverId) {
             $query->where('sender_id', auth()->id())
                 ->where('receiver_id', $receiverId);
@@ -52,8 +67,6 @@ class StudentMessageController extends Controller
                 ->where('receiver_id', auth()->id());
         })->orderBy('created_at', 'asc')->get();
 
-        // Return the messages as JSON
         return response()->json(view('student.message_partial', compact('messages'))->render());
     }
-
 }

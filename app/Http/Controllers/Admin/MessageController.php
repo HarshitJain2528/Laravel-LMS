@@ -9,12 +9,18 @@ use App\Models\User;
 
 class MessageController extends Controller
 {
-    public function showMessages()
-    {
-        $users = User::where('role', 'teacher')->where('id', '!=', auth()->id())->get(); // Fetch all users except the authenticated user
-        $receiver = null; // Initialize receiver as null initially
+    /**
+     * Display the chat messages for teachers.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showMessages(){
+        $users = User::where('role', 'teacher')->where('id', '!=', auth()->id())->get();
+
+        $receiver = null;
 
         $messages = [];
+
         foreach ($users as $user) {
             $messages[$user->id] = Messages::where(function ($query) use ($user) {
                 $query->where('sender_id', auth()->id())
@@ -28,9 +34,13 @@ class MessageController extends Controller
         return view('admin.messages', compact('users', 'messages'));
     }
 
-
-    public function sendMessage(Request $request)
-    {
+    /**
+     * Send a message to a specific teacher.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sendMessage(Request $request) {
         $validatedData = $request->validate([
             'receiver_id' => 'required|exists:users,id',
             'message_content' => 'required',
@@ -42,10 +52,9 @@ class MessageController extends Controller
             'message_content' => $validatedData['message_content'],
         ]);
 
-        // Optionally, you might load the receiver here to pass it to the view after sending the message.
         $receiver = User::findOrFail($validatedData['receiver_id']);
 
-        // Assuming you want to redirect back to the chat window after sending the message
         return redirect()->route('chat.show', ['receiverId' => $receiver->id]);
     }
+
 }

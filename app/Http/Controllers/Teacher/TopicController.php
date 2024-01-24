@@ -8,19 +8,22 @@ use Illuminate\Http\Request;
 
 class TopicController extends Controller
 {
-    public function topicCreate(Request $request)
-    {
+    /**
+     * Create a new topic for a course.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function topicCreate(Request $request){
+        
         $request->validate([
-            'course' => 'required|exists:courses,id', // Assuming 'courses' is your courses table
+            'course' => 'required|exists:courses,id', 
             'topic' => 'required|string',
-            'videos' => 'required|array|min:1', // At least one video link is required
-            'videos.*' => 'url', // Each video link should be a valid URL
-            'notes' => 'required|file|mimes:pdf|max:10240', // PDF file, max 10MB
+            'videos' => 'required|array|min:1', 
+            'videos.*' => 'url', 
+            'notes' => 'required|file|mimes:pdf|max:10240', 
         ]);
 
-        // dd($request->all());
-
-        // Save topic information to the database
         $topic = new Topic();
         $topic->course_id = $request->input('course');
         $topic->topic = $request->input('topic');
@@ -36,13 +39,11 @@ class TopicController extends Controller
             $notes = time().'.'.$request->notes->getClientOriginalExtension();
             $request->notes->move(public_path('teacherassets/notes'), $notes);
             $notesPath = 'teacherassets/notes/' . $notes;
+            $topic->notes = $notesPath;
         }
-
-        $topic->notes = $notesPath;
 
         $topic->save();
 
         return redirect()->route('topic')->with('success', 'Topic created successfully');
     }
 }
-

@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Admin Home Controller
- *
- * @category   Controller
- * @package    App\Http\Controllers\Admin
- * @author     Your Name
- */
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -31,12 +23,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showProfile()
-    {
-        // Retrieve superadmin user data
+    public function showProfile(){
+        
         $data = User::where('role', 'superadmin')->get();
         
-        // Return the view with the user data
         return view('admin.profile', compact('data'));
     }
 
@@ -45,22 +35,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showDashboard()
-    {
-        // Get the current date
+    public function showDashboard(){
         $today = Carbon::now()->format('Y-m-d');
         
-        // Count the number of present attendances for today
         $presentCount = Attendence::whereDate('created_at', $today)->count();
-
-        // Count the total number of courses
         $courses = Course::count();
-
-        // Count the total number of students
         $students = User::where('role', 'student')->count();
-    
-        // Return the view with dashboard statistics
         return view('admin.dashboard', compact('courses', 'students', 'presentCount'));
+
     }
 
     /**
@@ -68,12 +50,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showCourses()
-    {
-        // Retrieve all courses
+    public function showCourses(){
         $courses = Course::all();
-
-        // Return the view with the list of courses
         return view('admin.courses', compact('courses'));
     }
 
@@ -82,12 +60,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showStudents()
-    {
-        // Retrieve all students
+    public function showStudents(){
         $students = User::where('role', 'student')->get();
-
-        // Return the view with the list of students
         return view('admin.students', compact('students'));
     }
 
@@ -96,12 +70,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showTeachers()
-    {
-        // Retrieve all teachers
+    public function showTeachers(){
         $teachers = User::where('role', 'teacher')->get();
-
-        // Return the view with the list of teachers
         return view('admin.teachers', compact('teachers'));
     }
 
@@ -110,31 +80,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showAttendence()
-    {
-        // Retrieve all attendance records
+    public function showAttendence(){
         $attendence = Attendence::all();
 
-        // Retrieve student attendance data for display
         $studentData = Attendence::select('users.name as student_name', 'status', DB::raw('count(*) as count'))
             ->join('users', 'attendences.std_id', '=', 'users.id')
             ->groupBy('users.name', 'status')
             ->get();
 
-        // Extract unique student names from the data
         $studentNames = array_values($studentData->pluck('student_name')->unique()->toArray());
 
-        // Extract distinct dates from the attendance records
         $date = Attendence::select(DB::raw('DATE(created_at) as date'))
             ->groupBy(DB::raw('DATE(created_at)'))
             ->pluck('date')
             ->toArray();
 
-        // Extract counts of present and absent students
         $presentCount = $studentData->where('status', 'present')->pluck('count')->toArray();
         $absentCount = $studentData->where('status', 'absent')->pluck('count')->toArray();
 
-        // Return the view with the extracted data
         return view('admin.attendence_report', compact('attendence', 'studentNames', 'date', 'presentCount', 'absentCount'));
     }
 
@@ -143,12 +106,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showAssignment()
-    {
-        // Retrieve all student data for assignments
+    public function showAssignment(){
         $assignmentData = User::where('role', 'student')->get();
-
-        // Return the view with assignment data
         return view('admin.assignment_report', compact('assignmentData'));
     }
 
@@ -158,12 +117,9 @@ class HomeController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getAssignmentDetails($id)
-    {
-        // Retrieve assignment details for the specified user
+    public function getAssignmentDetails($id){
         $courseDetails = AssignmentReview::where('std_id', $id)->get();
-
-         return response()->json(['courseDetails' => $courseDetails]);
+        return response()->json(['courseDetails' => $courseDetails]);
     }
 
     /**
@@ -172,8 +128,7 @@ class HomeController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editProfile(Request $request)
-    {
+    public function editProfile(Request $request){
         try {
             $updateData = DB::table('users')
                 ->where('role', 'superadmin')
@@ -189,4 +144,5 @@ class HomeController extends Controller
             return redirect()->back()->with('error', 'An error occurred while updating the profile');
         }
     }
+    
 }

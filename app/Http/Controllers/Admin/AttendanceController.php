@@ -21,8 +21,7 @@ class AttendanceController extends Controller
      * @param string $duration
      * @return \Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
      */
-    public function fetchUpdatedData($duration)
-    {
+    public function fetchUpdatedData($duration){
         
         $now = now();
 
@@ -65,4 +64,5 @@ class AttendanceController extends Controller
 
         return view('admin.attendence_report', compact('attendance', 'studentNames', 'date', 'presentCount', 'absentCount'));
     }
+    
 }

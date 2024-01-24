@@ -9,14 +9,18 @@ use Illuminate\Http\Request;
 
 class TeacherMessageController extends Controller
 {
-    public function showMessages()
-    {
-        $superAdmins = User::where('role', 'superadmin')->get(); // Fetch all super admins
-        $students = User::where('role', 'student')->get(); // Fetch all students
+    /**
+     * Show the communication/messages page for the teacher.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showMessages(){
+        
+        $superAdmins = User::where('role', 'superadmin')->get();
+        $students = User::where('role', 'student')->get();
 
-        $teacherId = auth()->id(); // Get the authenticated teacher's ID
+        $teacherId = auth()->id();
 
-        // Fetch messages organized by super admin ID
         $messages = [];
         foreach ($superAdmins as $superAdmin) {
             $messages[$superAdmin->id] = Messages::where(function ($query) use ($teacherId, $superAdmin) {
@@ -38,37 +42,43 @@ class TeacherMessageController extends Controller
             })->orderBy('created_at', 'asc')->get();
         }
 
-        return view('teacher.communication', compact('superAdmins', 'messages','students'));
+        return view('teacher.communication', compact('superAdmins', 'messages', 'students'));
     }
 
-    // TeacherMessageController.php
+    /**
+     * Send a message to a super admin.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendMessageToSuperAdmin(Request $request){
 
-// TeacherMessageController.php
+        $validatedData = $request->validate([
+            'receiver_id' => 'required|exists:users,id',
+            'message_content' => 'required',
+        ]);
 
-public function sendMessageToSuperAdmin(Request $request)
-{
-    $validatedData = $request->validate([
-        'receiver_id' => 'required|exists:users,id',
-        'message_content' => 'required',
-    ]);
+        $message = Messages::create([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $validatedData['receiver_id'],
+            'message_content' => $validatedData['message_content'],
+        ]);
 
-    $message = Messages::create([
-        'sender_id' => auth()->id(),
-        'receiver_id' => $validatedData['receiver_id'],
-        'message_content' => $validatedData['message_content'],
-    ]);
+        return response()->json([
+            'success' => true,
+        ]);
+    }
 
-    // Return the success response
-    return response()->json([
-        'success' => true,
-    ]);
-}
+    /**
+     * Fetch messages for a specific receiver.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchMessages(Request $request){
 
-
-
-    public function fetchMessages(Request $request)
-    {
         $receiverId = $request->get('receiver_id');
+
         $messages = Messages::where(function ($query) use ($receiverId) {
             $query->where('sender_id', auth()->id())
                 ->where('receiver_id', $receiverId);
@@ -77,7 +87,6 @@ public function sendMessageToSuperAdmin(Request $request)
                 ->where('receiver_id', auth()->id());
         })->orderBy('created_at', 'asc')->get();
 
-        // Return the messages as JSON
         return response()->json(view('teacher.message_partial', compact('messages'))->render());
     }
 }
