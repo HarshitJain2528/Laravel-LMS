@@ -2,51 +2,42 @@
 
 @section('student-attendence')
 
-<div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
-    <div class="container">
-        <div class="row align-items-center justify-content-center">
-            <div class="col-lg-10 text-center">
-                <h1><strong>Attendance</strong></h1>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="site-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="heading mb-4">
-                    <h2>Attendance</h2>
+    <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-10 text-center">
+                    <h1><strong>Attendance</strong></h1>
                 </div>
-
-                {{-- Display success or error messages --}}
-                {{-- @if(session('message'))
-                    <div class="alert alert-success">
-                        {{ session('message') }}
-                    </div>
-                @endif --}}
-
-                {{-- Display the form to mark attendance --}}
-                <form method="post" action="{{ route('Mark') }}" id="attendanceForm">
-                    @csrf
-                    You can Mark Attendance once in a day only.
-                    <p>Mark attendance by clicking on the Mark Attendance button given below:</p>
-                    <div class="form-group">
-                        <input type="hidden" id="status" class="form-control" name="status" value="present" readonly>
-                    </div>
-
-                    <!-- Check if attendance is already marked for today -->
-                    <p id="markedTodayMessage" class="text-danger"></p>
-
-                    <button type="button" class="btn btn-primary" id="markButton">Mark Attendance</button>
-                </form>
             </div>
         </div>
     </div>
-</div>
 
-<hr>
+    <div class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading mb-4">
+                        <h2>Attendance</h2>
+                    </div>
+                    {{-- Display the form to mark attendance --}}
+                    <form method="post" action="{{ route('Mark') }}" id="attendanceForm">
+                        @csrf
+                        You can Mark Attendance once in a day only.
+                        <p>Mark attendance by clicking on the Mark Attendance button given below:</p>
+                        <div class="form-group">
+                            <input type="hidden" id="status" class="form-control" name="status" value="present" readonly>
+                        </div>
+
+                        <!-- Check if attendance is already marked for today -->
+                        <p id="markedTodayMessage" class="text-danger"></p>
+                        <button type="button" class="btn btn-primary" id="markButton">Mark Attendance</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -117,3 +108,4 @@
         });
     });
 </script>
+

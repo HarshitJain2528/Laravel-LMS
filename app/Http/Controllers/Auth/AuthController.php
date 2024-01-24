@@ -12,15 +12,25 @@ use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    public function showLoginForm()
-    {
+    /**
+     * Display the login form with available courses.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm(){
+
         $courses = Course::all();
         return view('login', compact('courses'));
     }
 
-    public function postRegister(Request $request)
-    {
-        // Validate the request data
+    /**
+     * Process user registration.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function postRegister(Request $request){
+
         $validatedData = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -28,10 +38,8 @@ class AuthController extends Controller
             'phone' => 'required',
         ]);
 
-        // Set the default role to 'student'
         $validatedData['role'] = 'student';
 
-        // Create a new user with the default role
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
@@ -39,38 +47,44 @@ class AuthController extends Controller
             'phone' => $validatedData['phone'],
             'role' => $validatedData['role'],
         ]);
-        return redirect('/')->with('success','Login Now');
+
+        return redirect('/')->with('success', 'Login Now');
     }
 
-    public function login(Request $request)
-    {
-        // Validate the login data
+    /**
+     * Process user login.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function login(Request $request){
+
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            // Authentication passed...
             $user = Auth::user();
 
-            // Check the role of the authenticated user
             if ($user->role === 'teacher') {
                 return redirect('teacher/course');
             } elseif ($user->role === 'superadmin') {
                 return redirect('admin/dashboard');
-            }
-            elseif ($user->role === 'student') {
+            } elseif ($user->role === 'student') {
                 return redirect()->route('index');
             }
         }
 
-        // If authentication fails, redirect back with an error message
         return redirect('/')->with('error', 'Invalid credentials.');
     }
 
-    public function logout()
-    {
+    /**
+     * Logout the authenticated user.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(){
         Session::flush();
         Auth::logout();
 
-        return redirect('/')->with(['success' => 'Logout Successfull']);
+        return redirect('/')->with(['success' => 'Logout Successful']);
     }
 }

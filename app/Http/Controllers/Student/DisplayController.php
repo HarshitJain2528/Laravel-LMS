@@ -11,76 +11,139 @@ use App\Models\Topic;
 use App\Models\Assignment;
 use App\Models\User;
 use App\Models\Review;
+
 class DisplayController extends Controller
 {
-    //student side
-    public function index()
-    {
+    /**
+     * Display the student dashboard with available courses.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(){
         $courses = Course::all();
-        return view('student.index',compact('courses'));
+        return view('student.index', compact('courses'));
     }
-    public function attendence($id)
-    {
-        $data = User::where('id',$id)->get();
-        return view('student.attendence',compact('data'));
+
+    /**
+     * Display attendance for a specific student.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function attendence($id){
+        $data = User::where('id', $id)->get();
+        return view('student.attendence', compact('data'));
     }
-    public function courses()
-    {
+
+    /**
+     * Display all available courses.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function courses(){
         $courses = Course::all();
-        return view('student.courses',compact('courses'));
+        return view('student.courses', compact('courses'));
     }
-    public function reviews($id)
-    {
-        $reviews = Review::where('std_id',$id)->get();
-        return view('student.reviews',compact('reviews'));
+
+    /**
+     * Display reviews for a specific student.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function reviews($id){
+        $reviews = Review::where('std_id', $id)->get();
+        return view('student.reviews', compact('reviews'));
     }
-    public function profile($id)
-    {
-        
-        $profileData = User::where('id',$id)->get();
-        return view('student.profile',compact('profileData'));
+
+    /**
+     * Display the profile of a specific student.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function profile($id){
+        $profileData = User::where('id', $id)->get();
+        return view('student.profile', compact('profileData'));
     }
-    public function help()
-    {
+
+    /**
+     * Display the help page.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function help(){
         return view('student.help');
     }
-    public function topics($id)
-    {
-        $courses = Course::where('id',$id)->get();
-        $topics = Topic::where('course_id',$id)->get();
-        $assignment = Assignment::where('course_id',$id)->get();
-        return view('student.topics',compact('courses','topics','assignment'));
+
+    /**
+     * Display topics and assignments for a specific course.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function topics($id){
+
+        $courses = Course::where('id', $id)->get();
+        $topics = Topic::where('course_id', $id)->get();
+        $assignment = Assignment::where('course_id', $id)->get();
+        return view('student.topics', compact('courses', 'topics', 'assignment'));
     }
-    public function desc($id)
-    {
-        // $courses = Course::where('id',$id)->get();
-        $data = Topic::where('id',$id)->get();
-        return view('student.desc',compact('data'));
+
+    /**
+     * Display the details of a specific topic.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function desc($id){
+
+        $data = Topic::where('id', $id)->get();
+        return view('student.desc', compact('data'));
     }
-    public function assignment($id)
-    {
-        // $courses = Course::where('id',$id)->get();
-    
-        $assignment = Assignment::with('course')->where('id',$id)->get();
-        return view('student.assignment',compact('assignment'));
+
+    /**
+     * Display assignments for a specific course.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function assignment($id){
+
+        $assignment = Assignment::with(['course'])->where('id', $id)->get();
+        return view('student.assignment', compact('assignment'));
     }
-    public function next($id)
-    {
-        $data = Topic::where('id',$id)->get();
-        return view('student.next',compact('data'));
+
+    /**
+     * Display the next page for a specific topic.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function next($id){
+
+        $data = Topic::where('id', $id)->get();
+        return view('student.next', compact('data'));
     }
-    public function update(Request $request, $id)
-    {
+
+    /**
+     * Update the profile information for the authenticated student.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id){
+
         $data = User::findOrFail($id);
 
-        // Validate the request data
         $request->validate([
             'username' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:15',
             'password' => 'nullable|min:8|confirmed',
         ]);
-    
+
         $data->update([
             'name' => $request->input('username'),
             'email' => $request->input('email'),
@@ -89,5 +152,6 @@ class DisplayController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Profile updated successfully');
+
     }
 }

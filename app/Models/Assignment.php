@@ -12,10 +12,15 @@ class Assignment extends Model
         'assignment_title',
         'assignment_question',
         'total_marks',
-        'course_id'
+        'course_id',
+        'assignment_id'
     ];
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');
+    }
+    public function marks()
+    {
+        return $this->hasMany(AssignmentReview::class, 'assignment_id');
     }
 }

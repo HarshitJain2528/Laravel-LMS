@@ -18,8 +18,10 @@ return new class extends Migration
             $table->integer('obtained_marks')->nullable();
             $table->integer('total_marks');
             $table->string('pdf');
+            $table->unsignedBigInteger('assignment_id');
             $table->unsignedBigInteger('std_id');
             $table->foreign('std_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
             $table->timestamps();
         });
     }
