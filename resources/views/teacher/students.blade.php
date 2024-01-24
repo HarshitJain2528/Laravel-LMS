@@ -1,6 +1,20 @@
 @extends('teacher.layouts.main')
 
 @section('teacher-student-section')
+    <style>
+        /* Your main stylesheet */
+
+.current-course {
+    font-weight: bold; /* Example: Make the course name bold */
+    color: #3498db; /* Example: Set the text color for the course name */
+}
+
+.current-topic {
+    font-style: italic; /* Example: Make the topic name italic */
+    color: #27ae60; /* Example: Set the text color for the topic name */
+}
+
+    </style>
     @include('teacher.layouts.sidebar')
 
     <!-- Main content area -->
@@ -15,34 +29,24 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Progress</th> <!-- New column for progress -->
+                                <th>Current Course</th>
+                                <th>Current Topic</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Student A</td>
                                 <td>student_a@example.com</td>
-                                <td>123-456-7890</td>
-                                <td>
-                                    75% <!-- Replace with dynamic data -->
-                                    <div class="progress mt-2">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
+                                <td class="current-course">Mathematics</td>
+                                <td class="current-topic">Algebra</td>
                             </tr>
                             <tr>
                                 <td>Student B</td>
                                 <td>student_b@example.com</td>
-                                <td>987-654-3210</td>
-                                <td>
-                                    90% <!-- Replace with dynamic data -->
-                                    <div class="progress mt-2">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </td>
+                                <td class="current-course">Science</td>
+                                <td class="current-topic">Physics</td>
                             </tr>
-                            <!-- Add more rows for additional students -->
+                            <!-- Add more rows for additional students and their respective courses and topics -->
                         </tbody>
                     </table>
                 </div>
