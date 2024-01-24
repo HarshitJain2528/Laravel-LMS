@@ -15,6 +15,7 @@ class AssignmentReview extends Model
         'course_name',
         'total_marks',
         'pdf',
+        'assignment_id'
     ];
 
     protected $table = 'assignment_reviews';

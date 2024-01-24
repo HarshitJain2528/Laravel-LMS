@@ -60,8 +60,8 @@ class DisplayController extends Controller
     public function assignment($id)
     {
         // $courses = Course::where('id',$id)->get();
-    
-        $assignment = Assignment::with('course')->where('id',$id)->get();
+        
+        $assignment = Assignment::with(['course'])->where('id',$id)->get();
         return view('student.assignment',compact('assignment'));
     }
     public function next($id)

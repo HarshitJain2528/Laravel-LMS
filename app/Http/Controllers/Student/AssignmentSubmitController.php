@@ -27,6 +27,7 @@ class AssignmentSubmitController extends Controller
         AssignmentReview::create([
             'assignment_name' => $request->assignmentName,
             'std_id' => auth()->user()->id,
+            'assignment_id' => $request->assignmentId,
             'course_name' => $request->course,
             'total_marks' => $request->totalmarks,
             'pdf' => $assignmentPath,

@@ -17,6 +17,7 @@
           <div class="col-12" style="border:1px solid black;padding:40px">
             <h1 class="heading" style="text-align: center;border-bottom:none">Assignment</h1>
                 <p  style="text-align: right;">Total Marks: <span id="totalMarks">{{$title->total_marks}}</span></p>
+                <p  style="text-align: right;">Obtained Marks: <span id="totalMarks">{{$title->marks->obtained_marks}}</span></p>
                 {{-- <p>Created at: <span id="totalMarks">{{$title->created_at}}</span></p> --}}
                 <div class="instructions">
                     <h3>Instructions:</h3>
@@ -62,6 +63,10 @@
                     <div class="form-group">
                         <label for="assignmentName">Name : </label>
                         <input type="text" class="form-control" id="assignmentName" name="assignmentName" value="{{$title->assignment_title}}" readonly>
+                    </div>
+                    <div class="form-group">
+                        {{-- <label for="assignmentId">id : </label> --}}
+                        <input type="hidden" class="form-control" id="assignmentId" name="assignmentId" value="{{$title->id}}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="course">Course</label>
