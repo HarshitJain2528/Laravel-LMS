@@ -60,9 +60,6 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/help', [StudentMessageController::class, 'showMessages'])->name('help');
     Route::post('/student/send-message', [StudentMessageController::class, 'sendMessageToTeacher'])->name('student.send.message');
     Route::get('/student/fetch-messages', [StudentMessageController::class, 'fetchMessages'])->name('student.fetch.messages');
-
-
-
 });
 
 //admin routes
@@ -79,12 +76,9 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
         Route::post('/edit-admin-profile','editProfile')->name('edit');
     });
 
-
-        Route::get('/fetch-updated-data/{duration}', [AttendanceController::class, 'fetchUpdatedData']);
-
-        Route::get('/admin/messages', [MessageController::class, 'showMessages'])->name('chat.show');
-        Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
-
+     Route::get('/fetch-updated-data/{duration}', [AttendanceController::class, 'fetchUpdatedData']);
+     Route::get('/admin/messages', [MessageController::class, 'showMessages'])->name('chat.show');
+     Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
 });
 
 //teacher routes
@@ -102,20 +96,15 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
     Route::post('/teacher/create/assignments', [AssignmentController::class, 'createAssignment'])->name('create.assignment');
-    // Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.messages');
     Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.show.messages');
     Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name    ('teacher.send.message');
     Route::get('/teacher/fetch-messages', [TeacherMessageController::class, 'fetchMessages'])->name('teacher.fetch.messages');
-
     Route::get('details/{id}', [AssignmentController::class, 'assignmentDetails'])->name('assignment.details');
-
     Route::post('/marks', [AssignmentController::class, 'updateMarks']);
-
 });
 
 Route::get('/videos', function(){
     $topics = Topic::all(); // Retrieve all topics from the database
-
     return view('teacher.video', compact('topics'));
 });
 

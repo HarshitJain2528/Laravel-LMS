@@ -8,13 +8,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+/**
+ * Class AttendanceController
+ *
+ * @package App\Http\Controllers\Admin
+ */
 class AttendanceController extends Controller
 {
+    /**
+     * Fetch updated attendance data based on the specified duration.
+     *
+     * @param string $duration
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
+     */
     public function fetchUpdatedData($duration)
     {
+        
         $now = now();
-        $attendence = Attendence::all();
 
+        $attendance = Attendence::all();
         switch ($duration) {
             case '1day':
                 $currentDate = $now->toDateString();
@@ -32,7 +44,7 @@ class AttendanceController extends Controller
                 return response()->json(['error' => 'Invalid duration'], 400);
         }
 
-        $attendence = Attendence::where('created_at', '>=', $currentDate)->get();
+        $attendance = Attendence::where('created_at', '>=', $currentDate)->get();
 
         $studentData = Attendence::select('users.name as student_name', 'status', DB::raw('count(*) as count'))
             ->join('users', 'attendences.std_id', '=', 'users.id')
@@ -51,6 +63,6 @@ class AttendanceController extends Controller
         $presentCount = $studentData->where('status', 'present')->pluck('count')->toArray();
         $absentCount = $studentData->where('status', 'absent')->pluck('count')->toArray();
 
-        return view('admin.attendence_report', compact('attendence', 'studentNames', 'date', 'presentCount', 'absentCount'));
+        return view('admin.attendence_report', compact('attendance', 'studentNames', 'date', 'presentCount', 'absentCount'));
     }
 }
