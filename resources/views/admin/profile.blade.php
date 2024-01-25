@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@push('title')
+    Profile
+@endpush
+
 @section('admin-profile-section')
     @include('admin.layouts.sidebar')
 

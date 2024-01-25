@@ -17,7 +17,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function course(){
+    public function course()
+    {
         
         $courses = Course::all();
         return view('teacher.course', compact('courses'));
@@ -29,7 +30,8 @@ class TeacherHomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function topic($id){
+    public function topic($id)
+    {
 
         $topics = Topic::where('course_id', $id)->get();
         return view('teacher.topics', compact('topics'));
@@ -40,8 +42,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showStudent(){
-
+    public function showStudent()
+    {
         return view('teacher.students');
     }
 
@@ -50,8 +52,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showAssignment(){
-
+    public function showAssignment()
+    {
         $courses = Course::all();
         return view('teacher.create_assignement', compact('courses'));
     }
@@ -61,8 +63,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showCreateCourses(){
-
+    public function showCreateCourses()
+    {
         return view('teacher.create_course');
     }
 
@@ -71,7 +73,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showAttendence(){
+    public function showAttendence()
+    {
 
         $students = User::where('role', 'student')->get();
 
@@ -88,8 +91,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showReviews(){
-
+    public function showReviews()
+    {
         $reviews = Review::with('student')->whereHas('student', function ($query) {
             $query->where('role', '=', 'student');
         })->get();
@@ -101,8 +104,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showTopicPage(){
-
+    public function showTopicPage()
+    {
         $courses = Course::all();
         return view('teacher.topic_create', compact('courses'));
     }
@@ -112,8 +115,8 @@ class TeacherHomeController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function assignmentSubmit(){
-
+    public function assignmentSubmit()
+    {
         $assignments = AssignmentReview::with('student')->get();
         return view('teacher.assignment_submit', compact('assignments'));
     }

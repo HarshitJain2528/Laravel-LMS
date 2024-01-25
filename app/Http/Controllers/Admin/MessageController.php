@@ -14,7 +14,8 @@ class MessageController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showMessages(){
+    public function showMessages()
+    {
         $users = User::where('role', 'teacher')->where('id', '!=', auth()->id())->get();
 
         $receiver = null;
@@ -40,7 +41,8 @@ class MessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function sendMessage(Request $request) {
+    public function sendMessage(Request $request)
+    {
         $validatedData = $request->validate([
             'receiver_id' => 'required|exists:users,id',
             'message_content' => 'required',

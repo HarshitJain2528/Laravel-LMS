@@ -14,7 +14,8 @@ class AssignmentSubmitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function submitAssignment(Request $request){
+    public function submitAssignment(Request $request)
+    {
         
         $request->validate([
             'assignmentName' => 'required',

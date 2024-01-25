@@ -21,7 +21,8 @@ class AttendanceController extends Controller
      * @param string $duration
      * @return \Illuminate\Contracts\View\View|\Illuminate\Http\JsonResponse
      */
-    public function fetchUpdatedData($duration){
+    public function fetchUpdatedData($duration)
+    {
         
         $now = now();
 

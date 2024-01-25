@@ -2,6 +2,10 @@
 
 @extends('admin.layouts.main')
 
+@push('title')
+    Assignment Report
+@endpush
+
 @section('admin-assignment-section')
     @include('admin.layouts.sidebar')
 
@@ -41,12 +45,12 @@
 
     <div id="viewModal" class="modal" style="display: none;" role="dialog" aria-labelledby="viewModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style="width:130%">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewModalLabel">Student Assignment Details</h5>
                 </div>
                 <div class="modal-body">
-                    <table class="table" border="2" width="100%">
+                    <table class="table" border="2" >
                         <thead>
                             <tr>
                                 <th>Course Name</th>
@@ -72,7 +76,7 @@
         $(document).ready(function () {
             $('.viewButton').on('click', function () {
                 var studentId = $(this).data('student-id');
-                var url = '{{ url("get-assignment-details", ["id" => "student_id"]) }}';//// Construct the URL for the AJAX request using the Laravel route function
+                var url = '{{ url("get-assignment-details", ["id" => "student_id"]) }}';// Construct the URL for the AJAX request using the Laravel route function
 
                 $.ajax({
                     url: url.replace('student_id', studentId),

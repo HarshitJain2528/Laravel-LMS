@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@push('title')
+    Messages
+@endpush
+
 @section('admin-messages-section')
     @include('admin.layouts.sidebar')
 
@@ -15,7 +19,6 @@
                        <a href="">{{ $user->name }}</a>
                        <span class="arrow">&#10148;</span>
                    </div>
-
                 </div>
             </div>
             <!-- Right section for chat -->
@@ -44,9 +47,7 @@
                     <!-- Your Blade file with form and textarea -->
                     <form method="POST" action="{{ route('send.message') }}">
                         @csrf
-
-                            <input type="hidden" name="receiver_id" value="{{ $user->id }}">
-
+                        <input type="hidden" name="receiver_id" value="{{ $user->id }}">
                         <div class="chat-input" id="chatInput">
                             <textarea id="messageContent" name="message_content" class="form-control" rows="2" placeholder="Type your message"></textarea>
                             <button type="submit" class="btn btn-primary">Send</button>

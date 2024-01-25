@@ -23,7 +23,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showProfile(){
+    public function showProfile()
+    {
         
         $data = User::where('role', 'superadmin')->get();
         
@@ -35,7 +36,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showDashboard(){
+    public function showDashboard()
+    {
         $today = Carbon::now()->format('Y-m-d');
         
         $presentCount = Attendence::whereDate('created_at', $today)->count();
@@ -50,7 +52,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showCourses(){
+    public function showCourses()
+    {
         $courses = Course::all();
         return view('admin.courses', compact('courses'));
     }
@@ -60,7 +63,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showStudents(){
+    public function showStudents()
+    {
         $students = User::where('role', 'student')->get();
         return view('admin.students', compact('students'));
     }
@@ -70,7 +74,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showTeachers(){
+    public function showTeachers()
+    {
         $teachers = User::where('role', 'teacher')->get();
         return view('admin.teachers', compact('teachers'));
     }
@@ -80,7 +85,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showAttendence(){
+    public function showAttendence()
+    {
         $attendence = Attendence::all();
 
         $studentData = Attendence::select('users.name as student_name', 'status', DB::raw('count(*) as count'))
@@ -106,7 +112,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function showAssignment(){
+    public function showAssignment()
+    {
         $assignmentData = User::where('role', 'student')->get();
         return view('admin.assignment_report', compact('assignmentData'));
     }
@@ -117,7 +124,8 @@ class HomeController extends Controller
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getAssignmentDetails($id){
+    public function getAssignmentDetails($id)
+    {
         $courseDetails = AssignmentReview::where('std_id', $id)->get();
         return response()->json(['courseDetails' => $courseDetails]);
     }
@@ -128,7 +136,8 @@ class HomeController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function editProfile(Request $request){
+    public function editProfile(Request $request)
+    {
         try {
             $updateData = DB::table('users')
                 ->where('role', 'superadmin')

@@ -17,7 +17,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showLoginForm(){
+    public function showLoginForm()
+    {
 
         $courses = Course::all();
         return view('login', compact('courses'));
@@ -29,7 +30,8 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postRegister(Request $request){
+    public function postRegister(Request $request)
+    {
 
         $validatedData = $request->validate([
             'name' => 'required',
@@ -57,7 +59,8 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function login(Request $request){
+    public function login(Request $request)
+    {
 
         $credentials = $request->only('email', 'password');
 
@@ -81,7 +84,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function logout(){
+    public function logout()
+    {
         Session::flush();
         Auth::logout();
 

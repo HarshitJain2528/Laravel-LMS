@@ -14,7 +14,8 @@ class TeacherMessageController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showMessages(){
+    public function showMessages()
+    {
         
         $superAdmins = User::where('role', 'superadmin')->get();
         $students = User::where('role', 'student')->get();
@@ -51,7 +52,8 @@ class TeacherMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sendMessageToSuperAdmin(Request $request){
+    public function sendMessageToSuperAdmin(Request $request)
+    {
 
         $validatedData = $request->validate([
             'receiver_id' => 'required|exists:users,id',
@@ -75,7 +77,8 @@ class TeacherMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function fetchMessages(Request $request){
+    public function fetchMessages(Request $request)
+    {
 
         $receiverId = $request->get('receiver_id');
 

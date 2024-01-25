@@ -14,7 +14,8 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createCourse(Request $request) {
+    public function createCourse(Request $request) 
+    {
         
         $request->validate([
             'courseTitle' => 'required|string|max:255',
