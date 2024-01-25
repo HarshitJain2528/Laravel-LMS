@@ -1,5 +1,4 @@
 @extends('student.layout.main')
-
 @section('student-index')
         <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');"> 
             <div class="container">
@@ -10,7 +9,6 @@
                 </div>
             </div>
         </div>
-
         <div class="site-section bg-light pb-0">
             <div class="row align-items-stretch overlap">
                 <div class="col-lg-8 about">
@@ -33,8 +31,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
+        </div>        
         <div class="site-section">
             <div class="container">
                 <div class="row">
@@ -58,7 +55,6 @@
                 </div>
             </div>
         </div>
-
         <div class="site-section bg-light">
             <div class="container">
                 <div class="row  ">
@@ -90,6 +86,5 @@
                 </div>
             </div>
         </div>
-    </div>
-    
+    </div>    
 @endsection

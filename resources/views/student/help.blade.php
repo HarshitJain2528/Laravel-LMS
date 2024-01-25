@@ -1,5 +1,4 @@
 @extends('student.layout.main')
-
 @section('student-help')
     <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
         <div class="container">
@@ -13,7 +12,6 @@
             </div>
         </div>
     </div>
-
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -23,7 +21,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <!-- Left sidebar with teacher list -->
                 <div class="col-md-3">
@@ -161,6 +158,4 @@
             });
         });
     </script>
-
-    <hr>
 @endsection

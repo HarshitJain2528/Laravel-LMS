@@ -1,5 +1,4 @@
 @extends('student.layout.main')
-
 @section('student-assignment')
         @foreach($assignment as $title) 
             <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
@@ -11,15 +10,13 @@
                     </div>
                 </div>
             </div>
-
             <div class="site-section">
                 <div class="container">
                     <div class="row">
                         <div class="col-12" style="border:1px solid black;padding:40px">
                             <h1 class="heading" style="text-align: center;border-bottom:none">Assignment</h1>
                             <p  style="text-align: right;">Total Marks: <span id="totalMarks">{{$title->total_marks}}</span></p>
-                            <p  style="text-align: right;">Obtained Marks: <span id="totalMarks">{{$title->marks->obtained_marks}}</span></p>
-                            {{-- <p>Created at: <span id="totalMarks">{{$title->created_at}}</span></p> --}}
+                            {{-- <p  style="text-align: right;">Obtained Marks: <span id="totalMarks">{{$title->marks->obtained_marks}}</span></p> --}}
                             <div class="instructions">
                                 <h3>Instructions:</h3>
                                 <ul>
@@ -87,8 +84,6 @@
             </div>
         </div>
     </div>
-
-    <hr>
 @endsection
     
   

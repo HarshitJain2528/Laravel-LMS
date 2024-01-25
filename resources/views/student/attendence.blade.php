@@ -1,7 +1,5 @@
 @extends('student.layout.main')
-
 @section('student-attendence')
-
     <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
         <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -11,7 +9,6 @@
             </div>
         </div>
     </div>
-
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -36,8 +33,6 @@
             </div>
         </div>
     </div>
-
-    <hr>
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -73,16 +68,13 @@
                 },
             });
         }
-
         // Check attendance status on page load
         checkAttendanceStatus();
-
         // Attach click event to the Mark Attendance button
         $("#markButton").on("click", function () {
             // Check if the current time is within the allowed time range (10 am to 5 pm)
             var currentTime = new Date();
             var hours = currentTime.getHours();
-
             if (hours >= 10 && hours < 17) {
                 $.ajax({
                     type: 'POST',

@@ -20,7 +20,7 @@
         <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     </head>
     <body>
-        <div class="site-wrap" id="home-section">
+        <div class="site-wrap" id="home-section"  style="border-bottom:1px solid lightgrey">
             <div class="site-mobile-menu site-navbar-target">
                 <div class="site-mobile-menu-header">
                     <div class="site-mobile-menu-close mt-3">

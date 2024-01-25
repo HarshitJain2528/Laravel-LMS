@@ -1,5 +1,4 @@
 @extends('student.layout.main')
-
 @section('student-description')
     @foreach($data as $title) 
         <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
@@ -12,7 +11,6 @@
                 </div>
             </div>        
         </div>
-
         <div class="site-section">
             <div class="container">
                 <div class="row">
@@ -31,8 +29,6 @@
             <a href="{{url('next/'.$title->id)}}" class="btn btn-primary next">View Notes</a>            
         </div>
     @endforeach
-    
-    <hr>
 @endsection
     
   
