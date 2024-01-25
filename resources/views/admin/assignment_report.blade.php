@@ -2,6 +2,10 @@
 
 @extends('admin.layouts.main')
 
+@push('title')
+    Assignment Report
+@endpush
+
 @section('admin-assignment-section')
     @include('admin.layouts.sidebar')
 
@@ -72,7 +76,7 @@
         $(document).ready(function () {
             $('.viewButton').on('click', function () {
                 var studentId = $(this).data('student-id');
-                var url = '{{ url("get-assignment-details", ["id" => "student_id"]) }}';//// Construct the URL for the AJAX request using the Laravel route function
+                var url = '{{ url("get-assignment-details", ["id" => "student_id"]) }}';// Construct the URL for the AJAX request using the Laravel route function
 
                 $.ajax({
                     url: url.replace('student_id', studentId),

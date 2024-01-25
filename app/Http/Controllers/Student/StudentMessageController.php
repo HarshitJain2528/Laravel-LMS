@@ -15,10 +15,12 @@ class StudentMessageController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showMessages(){
+    public function showMessages()
+    {
         
         $teachers = User::where('role', 'teacher')->get();
         $studentId = auth()->id();
+
         return view('student.help', compact('teachers', 'studentId'));
     }
 
@@ -28,7 +30,8 @@ class StudentMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sendMessageToTeacher(Request $request){
+    public function sendMessageToTeacher(Request $request)
+    {
 
         $validatedData = $request->validate([
             'receiver_id' => 'required|exists:users,id',
@@ -55,7 +58,8 @@ class StudentMessageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function fetchMessages(Request $request){
+    public function fetchMessages(Request $request)
+    {
 
         $receiverId = $request->get('receiver_id');
 

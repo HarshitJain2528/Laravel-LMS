@@ -15,7 +15,8 @@ class AssignmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function createAssignment(Request $request){
+    public function createAssignment(Request $request)
+    {
         
         $request->validate([
             'assignment_title' => 'required|string',
@@ -46,7 +47,8 @@ class AssignmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function assignmentDetails($id){
+    public function assignmentDetails($id)
+    {
 
         $assignmentDetails = AssignmentReview::where('id', $id)->first();
         return response()->json(['assignmentDetails' => $assignmentDetails]);
@@ -58,7 +60,8 @@ class AssignmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function updateMarks(Request $request){
+    public function updateMarks(Request $request)
+    {
 
         try {
             $id = $request->id;

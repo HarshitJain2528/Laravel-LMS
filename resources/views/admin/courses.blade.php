@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@push('title')
+    Courses
+@endpush
+
 @section('admin-courses-section')
     @include('admin.layouts.sidebar')
 
@@ -35,6 +39,5 @@
             </div>
         </div>
     </div>
-
 
 @endsection

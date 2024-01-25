@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@push('title')
+    Dashboard
+@endpush
+
 @section('admin-dashboard-section')
   @include('admin.layouts.sidebar')
 

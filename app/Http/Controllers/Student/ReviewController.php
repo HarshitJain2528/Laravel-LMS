@@ -14,7 +14,8 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function submitReviews(Request $request){
+    public function submitReviews(Request $request)
+    {
         
         $request->validate([
             'review' => 'required',

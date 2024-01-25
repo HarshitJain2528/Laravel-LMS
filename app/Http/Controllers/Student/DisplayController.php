@@ -19,8 +19,10 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index(){
+    public function index()
+    {
         $courses = Course::all();
+
         return view('student.index', compact('courses'));
     }
 
@@ -30,8 +32,10 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function attendence($id){
+    public function attendence($id)
+    {
         $data = User::where('id', $id)->get();
+
         return view('student.attendence', compact('data'));
     }
 
@@ -40,8 +44,10 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function courses(){
+    public function courses()
+    {
         $courses = Course::all();
+
         return view('student.courses', compact('courses'));
     }
 
@@ -51,8 +57,10 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function reviews($id){
+    public function reviews($id)
+    {
         $reviews = Review::where('std_id', $id)->get();
+
         return view('student.reviews', compact('reviews'));
     }
 
@@ -62,8 +70,10 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function profile($id){
+    public function profile($id)
+    {
         $profileData = User::where('id', $id)->get();
+
         return view('student.profile', compact('profileData'));
     }
 
@@ -72,7 +82,8 @@ class DisplayController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function help(){
+    public function help()
+    {
         return view('student.help');
     }
 
@@ -82,11 +93,13 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function topics($id){
+    public function topics($id)
+    {
 
         $courses = Course::where('id', $id)->get();
         $topics = Topic::where('course_id', $id)->get();
         $assignment = Assignment::where('course_id', $id)->get();
+
         return view('student.topics', compact('courses', 'topics', 'assignment'));
     }
 
@@ -96,9 +109,11 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function desc($id){
+    public function desc($id)
+    {
 
         $data = Topic::where('id', $id)->get();
+
         return view('student.desc', compact('data'));
     }
 
@@ -108,9 +123,11 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function assignment($id){
+    public function assignment($id)
+    {
 
         $assignment = Assignment::with(['course'])->where('id', $id)->get();
+
         return view('student.assignment', compact('assignment'));
     }
 
@@ -120,9 +137,11 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function next($id){
+    public function next($id)
+    {
 
         $data = Topic::where('id', $id)->get();
+
         return view('student.next', compact('data'));
     }
 
@@ -133,7 +152,8 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
 
         $data = User::findOrFail($id);
 

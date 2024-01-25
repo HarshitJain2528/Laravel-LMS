@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@push('title')
+    Students
+@endpush
+
 @section('admin-students-section')
     @include('admin.layouts.sidebar')
 

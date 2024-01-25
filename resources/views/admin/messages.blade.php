@@ -1,5 +1,9 @@
 @extends('admin.layouts.main')
 
+@push('title')
+    Messages
+@endpush
+
 @section('admin-messages-section')
     @include('admin.layouts.sidebar')
 

@@ -15,7 +15,8 @@ class AttendenceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function mark(Request $request){
+    public function mark(Request $request)
+    {
         
         $request->validate([
             'status' => 'required',
@@ -43,7 +44,8 @@ class AttendenceController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function checkAttendanceStatus(){
+    public function checkAttendanceStatus()
+    {
 
         $user = Auth::user();
 
