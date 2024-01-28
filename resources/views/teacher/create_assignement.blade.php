@@ -41,27 +41,13 @@
                         <label for="marks" class="form-label">Marks</label>
                         <input type="number" class="form-control" id="marks" name="assignment_marks" placeholder="Enter marks">
                     </div>
-                   
+
                     <!-- Additional fields or options can be added as needed -->
 
                     <button type="submit" class="btn btn-primary">Create Assignment</button>
                 </form>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h3 class="card-title"><strong>Assignment: Math Homework</strong></h3>
-                    <p class="card-text"><strong>Description:</strong> Solve the problems from chapter 5 and submit your solutions before the due date.</p>
-                    <p class="card-text"><strong>Due Date:</strong> January 15, 2024</p>
-                    <p class="card-text"><strong>Marks:</strong> 50</p>
-                    <!-- Additional information about the assignment can be included here -->
-
-                    <!-- Download Assignment Button -->
-                    <div class="text-center mt-3">
-                        <a href="{{ asset('storage/assignments/math_homework.pdf') }}" class="btn btn-primary" download>Download Assignment</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     <script>

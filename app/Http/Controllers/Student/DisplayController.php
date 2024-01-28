@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Course;
 use App\Models\Topic;
 use App\Models\Assignment;
+use App\Models\RecentActivity;
 use App\Models\User;
 use App\Models\Review;
 
@@ -99,7 +100,6 @@ class DisplayController extends Controller
         $courses = Course::where('id', $id)->get();
         $topics = Topic::where('course_id', $id)->get();
         $assignment = Assignment::where('course_id', $id)->get();
-
         return view('student.topics', compact('courses', 'topics', 'assignment'));
     }
 
@@ -111,9 +111,15 @@ class DisplayController extends Controller
      */
     public function desc($id)
     {
-
         $data = Topic::where('id', $id)->get();
+        $topic = Topic::find($id); // Fetch the topic
+        $courseId = $topic->course_id; // Get the course ID associated with the topic
 
+    RecentActivity::create([
+        'user_id' => auth()->user()->id,
+        'course_id' => $courseId, // Store the course ID associated with the topic
+        'topic_id' => $topic->id,
+    ]);
         return view('student.desc', compact('data'));
     }
 
