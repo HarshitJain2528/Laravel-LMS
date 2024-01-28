@@ -26,6 +26,6 @@ class ReviewController extends Controller
             'std_id' => auth()->user()->id,
         ]);
 
-        return redirect()->back()->with('success', 'Review sent');
+        return redirect()->back()->with(['success' => 'Review sent']);
     }
 }

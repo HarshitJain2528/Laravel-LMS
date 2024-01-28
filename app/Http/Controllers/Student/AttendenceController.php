@@ -36,7 +36,6 @@ class AttendenceController extends Controller
         ]);
 
         return response()->json(['status' => 'success']);
-
     }
 
     /**
@@ -54,6 +53,5 @@ class AttendenceController extends Controller
             ->first();
 
         return response()->json(['status' => $attendance ? 'marked' : 'not-marked']);
-
     }
 }

@@ -29,7 +29,7 @@
                 </div>
                 <div class="site-mobile-menu-body"></div>
             </div>
-            <!-- Your header with Settings dropdown -->
+
             <header class="site-navbar light site-navbar-target" role="banner">
                 <div class="container">
                     <div class="row align-items-center position-relative">
@@ -50,7 +50,6 @@
                                     <li><a href="{{route('courses')}}" class="nav-link">Courses</a></li>
                                     <li><a href="{{url('attendence/'.auth()->user()->id)}}" class="nav-link">Attendence</a></li>
                                     <li><a href="{{url('reviews/'.auth()->user()->id)}}" class="nav-link">Reviews</a></li>
-                                    <!-- Add the Settings dropdown -->
                                     <li class="nav-item dropdown">
                                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-cogs"></i> Settings
@@ -65,6 +64,21 @@
                                 </ul>
                             </nav>
                         </div>
+                            @if (session('success'))
+                                <div class="message" id="messageContainer">
+                                    {{ session('success') }}
+                                </div>
+                            @elseif (session('error'))
+                                <div class="message" id="messageContainer">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+                            <script>
+                                // Set a timeout to hide the success message after 5 seconds (5000 milliseconds)
+                                setTimeout(function() {
+                                    document.getElementById('messageContainer').style.display = 'none';
+                                }, 2000);
+                            </script>
                     </div>
-                </div>
+                </div>  
             </header>

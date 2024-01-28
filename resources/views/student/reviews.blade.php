@@ -1,5 +1,7 @@
 @extends('student.layout.main')
+
 @section('student-reviews')
+
     <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');"> 
         <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -9,6 +11,7 @@
             </div>
         </div>
     </div>
+
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -16,7 +19,6 @@
                     <div class="heading mb-4">
                         <h2>My Reviews</h2>
                     </div>
-                    <!-- Review Form -->
                     <div class="card-body" style="width:100%" >
                         <div class="list-group">
                             @foreach($reviews as $review)
@@ -41,4 +43,5 @@
             </div>
         </div>
     </div>
+
 @endsection

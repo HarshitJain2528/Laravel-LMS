@@ -1,5 +1,7 @@
 @extends('student.layout.main')
+
 @section('student-courses')
+
     <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
         <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -9,6 +11,7 @@
             </div>
         </div>
     </div>
+    
     <div class="site-section">
         <div class="container">
             <div class="row  ">
@@ -40,5 +43,5 @@
             </div>
         </div>
     </div>
-    {{-- </div> --}}
+    
 @endsection

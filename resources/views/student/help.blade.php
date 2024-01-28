@@ -1,17 +1,17 @@
 @extends('student.layout.main')
+
 @section('student-help')
+
     <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
         <div class="container">
             <div class="row align-items-center justify-content-center">
                 <div class="col-lg-10 text-center">
                     <h1><strong>Help </strong></h1>
-                    {{-- <div class="text-center">
-                        <img src="{{asset('student/images/profile.jpg')}}" alt="Logo" class="img-fluid rounded-circle" style="width: 150; height: 150;">
-                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
+
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -22,10 +22,8 @@
                 </div>
             </div>
             <div class="row">
-                <!-- Left sidebar with teacher list -->
                 <div class="col-md-3">
                     <div class="teacher-list">
-                        <!-- Loop through teachers -->
                         @foreach($teachers as $teacher)
                             <div class="teacher-item" onclick="openChat('teacher{{ $teacher->id }}')">
                                 {{ $teacher->name }}
@@ -34,22 +32,18 @@
                         @endforeach
                     </div>
                 </div>
-                <!-- Right section for chat -->
                 <div class="col-md-9 right-section">
                     <div id="chatWindow" class="chat-container">
                         <div id="defaultMessage" class="chat default-message">
                             Select a Teacher to start chatting.
                         </div>
-                        <!-- Chat boxes for teachers -->
                         @foreach($teachers as $teacher)
                             <div class="chat" id="{{'teacher' . $teacher->id . 'Chat' }}">
                                 <div class="chat-header">
                                     {{ $teacher->name }}
                                 </div>
                                 <div class="chat-messages" id="{{'teacher' . $teacher->id . 'Messages' }}">
-                                    <!-- Chat messages will be loaded dynamically here -->
                                 </div>
-                                <!-- Chat input form -->
                                 <form method="POST" class="sendMessageForm" action="{{ route('student.send.message') }}">
                                     @csrf
                                     <input type="hidden" name="receiver_id" value="{{ $teacher->id }}">
@@ -65,8 +59,10 @@
             </div>
         </div>
     </div>
+    
+@endsection
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         window.onload = function() {
@@ -158,4 +154,3 @@
             });
         });
     </script>
-@endsection

@@ -1,4 +1,13 @@
 /* tables courses */
+.message{
+  height:50px;
+  background-color: white;
+  color:black;
+  width:100%;
+  text-align: center;
+  font-size: 25px;
+  padding: 4px;
+}
 .lists{
   font-size:20px;
 }

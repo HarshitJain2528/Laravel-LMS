@@ -72,7 +72,7 @@ class AuthController extends Controller
             } elseif ($user->role === 'superadmin') {
                 return redirect('admin/dashboard');
             } elseif ($user->role === 'student') {
-                return redirect()->route('index');
+                return redirect()->route('index')->with(['success' => 'Logged-In Successfully']);
             }
         }
 
