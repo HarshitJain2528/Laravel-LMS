@@ -23,7 +23,7 @@ class AttendanceController extends Controller
      */
     public function fetchUpdatedData($duration)
     {
-        
+
         $now = now();
 
         $attendance = Attendence::all();
@@ -63,7 +63,7 @@ class AttendanceController extends Controller
         $presentCount = $studentData->where('status', 'present')->pluck('count')->toArray();
         $absentCount = $studentData->where('status', 'absent')->pluck('count')->toArray();
 
-        return view('admin.attendence_report', compact('attendance', 'studentNames', 'date', 'presentCount', 'absentCount'));
+        return view('admin.attendence-report', compact('attendance', 'studentNames', 'date', 'presentCount', 'absentCount'));
     }
-    
+
 }
