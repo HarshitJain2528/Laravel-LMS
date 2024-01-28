@@ -45,10 +45,6 @@
         </div>
     </div>
 
-    <!-- Include the JavaScript code -->
-    {{-- @include('teacher.message_js') --}}
-    <!-- teacher.message_js.blade.php -->
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     window.onload = function() {

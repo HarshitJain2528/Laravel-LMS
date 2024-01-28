@@ -26,11 +26,6 @@ class User extends Authenticatable
         'role',
     ];
 
-    public function recentActivity()
-    {
-        return $this->hasOne(RecentActivity::class, 'user_id')->latest();
-    }
-
     public function attendances()
     {
         return $this->hasMany(Attendence::class, 'std_id');

@@ -44,20 +44,19 @@ class TeacherHomeController extends Controller
      * @return \Illuminate\View\View
      */
     public function showStudent()
-{
-    // Fetch students with the role 'student'
-    $students = User::where('role', 'student')->get();
+    {
 
-    // Fetch recent activities for each student
-    $studentActivities = [];
-    foreach ($students as $student) {
-        $studentActivities[$student->id] = RecentActivity::where('user_id', $student->id)
-            ->orderBy('created_at', 'desc')
-            ->first();
+        $students = User::where('role', 'student')->get();
+
+        $studentActivities = [];
+        foreach ($students as $student) {
+            $studentActivities[$student->id] = RecentActivity::where('user_id', $student->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
+
+        return view('teacher.students', compact('students', 'studentActivities'));
     }
-
-    return view('teacher.students', compact('students', 'studentActivities'));
-}
 
     /**
      * Show the assignment creation page for the teacher.
