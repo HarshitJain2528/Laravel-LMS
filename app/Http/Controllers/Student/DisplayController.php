@@ -109,18 +109,22 @@ class DisplayController extends Controller
      * @param  int  $id
      * @return \Illuminate\View\View
      */
-    public function desc($id)
+    public function description($id)
     {
         $data = Topic::where('id', $id)->get();
         $topic = Topic::find($id); // Fetch the topic
         $courseId = $topic->course_id; // Get the course ID associated with the topic
 
+<<<<<<< HEAD
+        return view('student.description', compact('data'));
+=======
     RecentActivity::create([
         'user_id' => auth()->user()->id,
         'course_id' => $courseId, // Store the course ID associated with the topic
         'topic_id' => $topic->id,
     ]);
         return view('student.desc', compact('data'));
+>>>>>>> b93eb93c603ab44395f3be70a490d5c7982a5d21
     }
 
     /**
@@ -149,35 +153,6 @@ class DisplayController extends Controller
         $data = Topic::where('id', $id)->get();
 
         return view('student.next', compact('data'));
-    }
-
-    /**
-     * Update the profile information for the authenticated student.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(Request $request, $id)
-    {
-
-        $data = User::findOrFail($id);
-
-        $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'required|string|max:15',
-            'password' => 'nullable|min:8|confirmed',
-        ]);
-
-        $data->update([
-            'name' => $request->input('username'),
-            'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
-            'password' => $request->filled('password') ? Hash::make($request->input('password')) : $data->password,
-        ]);
-
-        return redirect()->back()->with('success', 'Profile updated successfully');
-
-    }
+    } 
+      
 }

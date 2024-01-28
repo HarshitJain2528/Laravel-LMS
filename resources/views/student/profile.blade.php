@@ -1,5 +1,7 @@
 @extends('student.layout.main')
+
 @section('student-profile')
+
     <div class="site-section-cover overlay" style="background-image: url('../student/images/hero_bg.jpg');">
         <div class="container">
             <div class="row align-items-center justify-content-center">
@@ -9,6 +11,7 @@
             </div>
         </div>
     </div>
+
     <div class="site-section">
         <div class="container">
             <div class="row">
@@ -39,7 +42,6 @@
                                     <tr>
                                         <th>Password Change</th>
                                         <td>
-                                            <!-- edit button is here -->
                                             <a href="#" class="float-right" id="editDataButton" data-toggle="modal" data-target="#passwordChangeForm">EDIT DATA</a>
                                         </td>
                                     </tr>
@@ -89,13 +91,5 @@
             </div>
         </div>
     </div>
+
 @endsection
-@push('scripts')
-    <script>
-        document.getElementById('editDataButton').addEventListener('click', function() {
-            // Toggle visibility of the password change form
-            var passwordChangeForm = document.getElementById('passwordChangeForm');
-            $(passwordChangeForm).modal('show');
-        });
-    </script>
-@endpush
