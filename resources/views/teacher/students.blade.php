@@ -1,19 +1,7 @@
 @extends('teacher.layouts.main')
 
 @section('teacher-student-section')
-    <style>
-        /* Your main stylesheet */
 
-        .current-course {
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .current-topic {
-            font-style: italic;
-            color: #27ae60;
-        }
-    </style>
     @include('teacher.layouts.sidebar')
 
     <!-- Main content area -->
