@@ -7,6 +7,8 @@ use App\Models\AssignmentReview;
 use App\Models\Attendence;
 use App\Models\User;
 use App\Models\Course;
+use App\Models\RecentActivity;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -25,9 +27,9 @@ class HomeController extends Controller
      */
     public function showProfile()
     {
-        
+
         $data = User::where('role', 'superadmin')->get();
-        
+
         return view('admin.profile', compact('data'));
     }
 
@@ -39,13 +41,27 @@ class HomeController extends Controller
     public function showDashboard()
     {
         $today = Carbon::now()->format('Y-m-d');
-        
+
         $presentCount = Attendence::whereDate('created_at', $today)->count();
         $courses = Course::count();
         $students = User::where('role', 'student')->count();
-        return view('admin.dashboard', compact('courses', 'students', 'presentCount'));
+        $totalStudents = User::where('role', 'student')->get();
+
+        $studentActivities = [];
+        foreach ($totalStudents as $student) {
+            $studentActivities[$student->id] = RecentActivity::where('user_id', $student->id)
+                ->orderBy('created_at', 'desc')
+                ->first();
+        }
+
+        $reviews = Review::with('student')->whereHas('student', function ($query) {
+            $query->where('role', '=', 'student');
+        })->get();
+
+        return view('admin.dashboard', compact('courses', 'students', 'presentCount', 'reviews', 'totalStudents', 'studentActivities'));
 
     }
+
 
     /**
      * Show the list of courses.
@@ -153,5 +169,5 @@ class HomeController extends Controller
             return redirect()->back()->with('error', 'An error occurred while updating the profile');
         }
     }
-    
+
 }

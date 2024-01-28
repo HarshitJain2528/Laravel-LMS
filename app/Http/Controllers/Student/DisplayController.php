@@ -115,16 +115,12 @@ class DisplayController extends Controller
         $topic = Topic::find($id); // Fetch the topic
         $courseId = $topic->course_id; // Get the course ID associated with the topic
 
-<<<<<<< HEAD
+        RecentActivity::create([
+            'user_id' => auth()->user()->id,
+            'course_id' => $courseId, // Store the course ID associated with the topic
+            'topic_id' => $topic->id,
+        ]);
         return view('student.description', compact('data'));
-=======
-    RecentActivity::create([
-        'user_id' => auth()->user()->id,
-        'course_id' => $courseId, // Store the course ID associated with the topic
-        'topic_id' => $topic->id,
-    ]);
-        return view('student.desc', compact('data'));
->>>>>>> b93eb93c603ab44395f3be70a490d5c7982a5d21
     }
 
     /**
@@ -153,6 +149,6 @@ class DisplayController extends Controller
         $data = Topic::where('id', $id)->get();
 
         return view('student.next', compact('data'));
-    } 
-      
+    }
+
 }
