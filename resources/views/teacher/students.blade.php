@@ -4,16 +4,15 @@
     <style>
         /* Your main stylesheet */
 
-.current-course {
-    font-weight: bold; /* Example: Make the course name bold */
-    color: #3498db; /* Example: Set the text color for the course name */
-}
+        .current-course {
+            font-weight: bold;
+            color: #3498db;
+        }
 
-.current-topic {
-    font-style: italic; /* Example: Make the topic name italic */
-    color: #27ae60; /* Example: Set the text color for the topic name */
-}
-
+        .current-topic {
+            font-style: italic;
+            color: #27ae60;
+        }
     </style>
     @include('teacher.layouts.sidebar')
 
@@ -34,19 +33,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Student A</td>
-                                <td>student_a@example.com</td>
-                                <td class="current-course">Mathematics</td>
-                                <td class="current-topic">Algebra</td>
-                            </tr>
-                            <tr>
-                                <td>Student B</td>
-                                <td>student_b@example.com</td>
-                                <td class="current-course">Science</td>
-                                <td class="current-topic">Physics</td>
-                            </tr>
-                            <!-- Add more rows for additional students and their respective courses and topics -->
+                            @foreach($students as $student)
+                                <tr>
+                                    <td>{{ $student->name }}</td>
+                                    <td>{{ $student->email }}</td>
+                                    <td class="current-course">
+                                        @if(isset($studentActivities[$student->id]))
+                                            {{ $studentActivities[$student->id]->course->course_title ?? 'N/A' }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                    <td class="current-topic">
+                                        @if(isset($studentActivities[$student->id]))
+                                            {{ $studentActivities[$student->id]->topic->topic ?? 'N/A' }}
+                                        @else
+                                            N/A
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

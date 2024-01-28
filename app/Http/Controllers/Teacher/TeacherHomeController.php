@@ -9,6 +9,7 @@ use App\Models\Review;
 use App\Models\Topic;
 use App\Models\User;
 use App\Models\AssignmentReview;
+use App\Models\RecentActivity;
 
 class TeacherHomeController extends Controller
 {
@@ -19,7 +20,7 @@ class TeacherHomeController extends Controller
      */
     public function course()
     {
-        
+
         $courses = Course::all();
         return view('teacher.course', compact('courses'));
     }
@@ -43,9 +44,20 @@ class TeacherHomeController extends Controller
      * @return \Illuminate\View\View
      */
     public function showStudent()
-    {
-        return view('teacher.students');
+{
+    // Fetch students with the role 'student'
+    $students = User::where('role', 'student')->get();
+
+    // Fetch recent activities for each student
+    $studentActivities = [];
+    foreach ($students as $student) {
+        $studentActivities[$student->id] = RecentActivity::where('user_id', $student->id)
+            ->orderBy('created_at', 'desc')
+            ->first();
     }
+
+    return view('teacher.students', compact('students', 'studentActivities'));
+}
 
     /**
      * Show the assignment creation page for the teacher.
