@@ -10,7 +10,7 @@
             <div class="alert alert-success">
                 {{session('success')}}
             </div>
-        @endif
+            @endif
             <!-- Create Assignment Form -->
             <div class="create-assignment-form p-4 mb-4 border rounded">
                 <h3 class="mb-3">Create Assignment</h3>

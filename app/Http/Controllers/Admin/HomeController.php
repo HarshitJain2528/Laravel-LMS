@@ -104,7 +104,7 @@ class HomeController extends Controller
         $presentCount = $studentData->where('status', 'present')->pluck('count')->toArray();
         $absentCount = $studentData->where('status', 'absent')->pluck('count')->toArray();
 
-        return view('admin.attendence_report', compact('attendence', 'studentNames', 'date', 'presentCount', 'absentCount'));
+        return view('admin.attendence-report', compact('attendence', 'studentNames', 'date', 'presentCount', 'absentCount'));
     }
 
     /**
@@ -115,7 +115,7 @@ class HomeController extends Controller
     public function showAssignment()
     {
         $assignmentData = User::where('role', 'student')->get();
-        return view('admin.assignment_report', compact('assignmentData'));
+        return view('admin.assignment-report', compact('assignmentData'));
     }
 
     /**

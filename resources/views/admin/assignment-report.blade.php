@@ -90,14 +90,17 @@
                             courseDetailsBody.empty();
 
                             $.each(data.courseDetails, function (index, assignment) {
-                                courseDetailsBody.append(
-                                    '<tr>' +
-                                    '<td>' + assignment.course_name + '</td>' +
-                                    '<td>' + assignment.created_at + '</td>' +
-                                    '<td>' + assignment.obtained_marks + '</td>' +
-                                    '</tr>'
-                                );
-                            });
+                            const submitDate = new Date(assignment.created_at);
+                            const formattedDate = submitDate.toLocaleDateString();
+
+                            courseDetailsBody.append(
+                                '<tr>' +
+                                '<td>' + assignment.course_name + '</td>' +
+                                '<td>' + formattedDate + '</td>' + // Display only the date portion
+                                '<td>' + assignment.obtained_marks + '</td>' +
+                                '</tr>'
+                            );
+                        });
 
                             // Set the student name in the modal title
                             $('#viewModalLabel').text('Student Assignment Details ');
