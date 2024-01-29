@@ -66,9 +66,10 @@
                             <div class="modal-body">
                                 <form id="marksForm" method="post" action="{{url('/marks')}}">
                                     @csrf
-                                    <label for="marks">Total Marks:</label>
                                     <input type="hidden" name="id" value="" readonly>
+                                    <label for="marks">Total Marks:</label>
                                     <input type="text" id="marks" name="marks" value="" readonly>
+                                    <label for="obtained_marks">Obtained Marks:</label>
                                     <input type="text" id="marks" name="obtained_marks" value="">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>

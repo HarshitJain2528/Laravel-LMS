@@ -43,9 +43,8 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::get('/index',[DisplayController::class,'index'])->name('index');
     Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
     Route::get('/attendence/{id}',[DisplayController::class,'attendence'])->name('attendenceMark');
-    Route::post('/mark',[AttendenceController::class,'mark'])->name('Mark');
-    Route::get('/check-attendance-status', [AttendenceController::class, 'checkAttendanceStatus'])
-    ->name('CheckAttendanceStatus');
+    Route::post('/mark',[AttendenceController::class,'mark'])->name('Marks');
+    Route::get('/check-attendance-status', [AttendenceController::class, 'checkAttendanceStatus'])->name('checkAttendanceStatus');
     Route::get('/courses',[DisplayController::class,'courses'])->name('courses');
     Route::get('/reviews/{id}',[DisplayController::class,'reviews'])->name('reviews');
     Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submitReviews');

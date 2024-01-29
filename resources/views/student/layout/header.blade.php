@@ -16,6 +16,8 @@
         <link rel="stylesheet" href="{{asset('student/css/aos.css')}}">
         <!-- MAIN CSS -->
         <link rel="stylesheet" href="{{asset('student/css/style.css')}}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <!-- PDF.js library -->
         <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
     </head>
@@ -65,11 +67,11 @@
                             </nav>
                         </div>
                             @if (session('success'))
-                                <div class="message" id="messageContainer">
+                                <div class="message2" id="messageContainer">
                                     {{ session('success') }}
                                 </div>
                             @elseif (session('error'))
-                                <div class="message" id="messageContainer">
+                                <div class="message2" id="messageContainer">
                                     {{ session('error') }}
                                 </div>
                             @endif

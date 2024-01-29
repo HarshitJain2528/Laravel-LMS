@@ -32,7 +32,7 @@ class StudentMessageController extends Controller
      */
     public function sendMessageToTeacher(Request $request)
     {
-
+        dd($request->all());
         $validatedData = $request->validate([
             'receiver_id' => 'required|exists:users,id',
             'message_content' => 'required',

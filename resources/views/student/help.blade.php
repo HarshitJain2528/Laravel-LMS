@@ -48,7 +48,7 @@
                                     @csrf
                                     <input type="hidden" name="receiver_id" value="{{ $teacher->id }}">
                                     <div class="chat-input" id="chatInput">
-                                        <textarea class="form-control messageContent" rows="2" placeholder="Type your message"></textarea>
+                                        <textarea class="form-control messageContent"  rows="2" placeholder="Type your message"></textarea>
                                         <button type="submit" class="btn btn-primary">Send</button>
                                     </div>
                                 </form>
