@@ -1,9 +1,4 @@
-<<<<<<< HEAD:resources/views/teacher/assignment_submit.blade.php
 @extends('teacher.layouts.main')
-
-=======
-~@extends('teacher.layouts.main')
->>>>>>> b988eeace2e4441ec23de54b58aadded7f738383:resources/views/teacher/assignment-submit.blade.php
 @section('teacher-assignment-submit-section')
 
     @include('teacher.layouts.sidebar')
@@ -70,9 +65,10 @@
                             <div class="modal-body">
                                 <form id="marksForm" method="post" action="{{url('/marks')}}">
                                     @csrf
-                                    <label for="marks">Total Marks:</label>
                                     <input type="hidden" name="id" value="" readonly>
+                                    <label for="marks">Total Marks:</label>
                                     <input type="text" id="marks" name="marks" value="" readonly>
+                                    <label for="obtained_marks">Obtained Marks:</label>
                                     <input type="text" id="marks" name="obtained_marks" value="">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>

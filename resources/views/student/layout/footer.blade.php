@@ -74,6 +74,7 @@
             </footer>
         </div>
 
+        <script src="{{ asset('student/js/attendence.js')}}"></scri/pt>
         <script src="{{ asset('student/js/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('student/js/popper.min.js') }}"></script>
         <script src="{{ asset('student/js/bootstrap.min.js') }}"></script>
