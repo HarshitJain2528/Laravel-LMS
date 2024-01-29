@@ -1,7 +1,9 @@
 @extends('teacher.layouts.main')
 
 @section('teacher-course-section')
+
     @include('teacher.layouts.sidebar')
+
     <div class="container mt-4">
         <div class="row">
             @foreach ($courses as $course)
@@ -26,7 +28,5 @@
             @endforeach
         </div>
     </div>
-
-
 
 @endsection
