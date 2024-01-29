@@ -1,18 +1,24 @@
+<<<<<<< HEAD:resources/views/teacher/assignment_submit.blade.php
 @extends('teacher.layouts.main')
+
+=======
+~@extends('teacher.layouts.main')
+>>>>>>> b988eeace2e4441ec23de54b58aadded7f738383:resources/views/teacher/assignment-submit.blade.php
 @section('teacher-assignment-submit-section')
+
     @include('teacher.layouts.sidebar')
 
     @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-@if(session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="container mt-4 ml-4 p-0">
         <div class="content">
             <!-- Student Assignments Table -->
@@ -32,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($assignments as $assignment)   
+                            @foreach ($assignments as $assignment)
                             <tr>
                                 <td>{{ $assignment->student->name }}</td>
                                 <td>{{ $assignment->assignment_name }}</td>
@@ -62,8 +68,6 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <!-- Your custom form content goes here -->
-                                <!-- Example form -->
                                 <form id="marksForm" method="post" action="{{url('/marks')}}">
                                     @csrf
                                     <label for="marks">Total Marks:</label>
@@ -71,7 +75,7 @@
                                     <input type="text" id="marks" name="marks" value="" readonly>
                                     <input type="text" id="marks" name="obtained_marks" value="">
                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>                                
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -117,92 +121,4 @@
             }
         });
     </script>
-
-
-<style>
-    .custom-modal {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    .modal-content {
-        background-color: #fff;
-        border-radius: 5px;
-        max-width: 400px;
-        margin:auto;
-        position: relative;
-        top:20%;
-        width: 100%;
-        padding: 20px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-        animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .modal-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .modal-header h5 {
-        margin: 0;
-    }
-
-    .closeCustomModal {
-        cursor: pointer;
-        background: none;
-        border: none;
-        font-size: 20px;
-        color: #333;
-    }
-
-    .modal-body {
-    padding: 20px;
-}
-
-.modal-body label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.modal-body input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 20px;
-    box-sizing: border-box;
-}
-
-.modal-body button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.modal-body button:hover {
-    background-color: #45a049;
-}
-
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-</style>
 @endsection

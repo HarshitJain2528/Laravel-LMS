@@ -66,7 +66,7 @@ class TeacherHomeController extends Controller
     public function showAssignment()
     {
         $courses = Course::all();
-        return view('teacher.create_assignement', compact('courses'));
+        return view('teacher.create-assignement', compact('courses'));
     }
 
     /**
@@ -76,7 +76,7 @@ class TeacherHomeController extends Controller
      */
     public function showCreateCourses()
     {
-        return view('teacher.create_course');
+        return view('teacher.create-course');
     }
 
     /**
@@ -118,7 +118,7 @@ class TeacherHomeController extends Controller
     public function showTopicPage()
     {
         $courses = Course::all();
-        return view('teacher.topic_create', compact('courses'));
+        return view('teacher.topic-create', compact('courses'));
     }
 
     /**
@@ -129,6 +129,6 @@ class TeacherHomeController extends Controller
     public function assignmentSubmit()
     {
         $assignments = AssignmentReview::with('student')->get();
-        return view('teacher.assignment_submit', compact('assignments'));
+        return view('teacher.assignment-submit', compact('assignments'));
     }
 }
