@@ -6,30 +6,25 @@
 
 @section('admin-profile-section')
     @include('admin.layouts.sidebar')
-
-    <!-- User Details -->
-   <!-- Your main view file -->
-<div class="container-fluid mt-8 text-left">
-  <div class="row">
-      <div class="col-md-8 mt-5 mx-auto">
-          <div class="card shadow-lg rounded">
-              <div class="card-body">
-                  <div class="row justify-content-center align-items-center">
-                      <div class="col-md-6">
-                          @foreach($data as $items)
-                          <h2 class="mb-4 mt-4">{{$items->name}}</h2>
-                          <p class="mb-3"><strong>Position:</strong>{{$items->role}}</p>
-                          <p class="mb-3"><strong>Email:</strong> {{$items->email}}</p>
-                          <p class="mb-3"><strong>Phone:</strong> {{$items->phone}}</p>
-
-                          <!-- Edit Profile Button -->
-                          <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
-                      </div>
-
-                      <div class="col-md-4 d-flex justify-content-end align-items-start">
-                          <div class="position-relative">
-                              <div class="circular-container">
-                                  <img src="{{ asset('adminassets/images/m1.jpg') }}" alt="User Image" class="img-fluid" style="border-radius: 50%; width: 200px;">
+    <div class="container-fluid mt-8 text-left">
+      <div class="row">
+          <div class="col-md-8 mt-5 mx-auto">
+              <div class="card shadow-lg rounded">
+                  <div class="card-body">
+                      <div class="row justify-content-center align-items-center">
+                          <div class="col-md-6">
+                              @foreach($data as $items)
+                              <h2 class="mb-4 mt-4">{{$items->name}}</h2>
+                              <p class="mb-3"><strong>Position:</strong>{{$items->role}}</p>
+                              <p class="mb-3"><strong>Email:</strong> {{$items->email}}</p>
+                              <p class="mb-3"><strong>Phone:</strong> {{$items->phone}}</p>
+                              <button class="btn btn-primary" id="editProfileBtn">Edit Profile</button>
+                          </div>
+                          <div class="col-md-4 d-flex justify-content-end align-items-start">
+                              <div class="position-relative">
+                                  <div class="circular-container">
+                                      <img src="{{ asset('adminassets/images/m1.jpg') }}" alt="User Image" class="img-fluid" style="border-radius: 50%; width: 200px;">
+                                  </div>
                               </div>
                           </div>
                       </div>
@@ -37,11 +32,8 @@
               </div>
           </div>
       </div>
-  </div>
-</div>
+    </div>
 
-
-    <!-- Edit Profile Modal -->
     <div class="custom-modal" id="editProfileModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -51,7 +43,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Edit Profile Form (Add form elements as needed) -->
                 <form method="post" action="{{ route('edit') }}">
                   @csrf
                   <div class="mb-3">
@@ -71,6 +62,7 @@
         </div>
     </div>
 
+@endsection
     <script>
         // Custom JavaScript and jQuery for modal
         document.addEventListener('DOMContentLoaded', function () {
@@ -88,4 +80,3 @@
         });
 
     </script>
-@endsection
