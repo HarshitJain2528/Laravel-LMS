@@ -85,24 +85,34 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
 
 //teacher routes
 Route::group(['middleware' => ['check.role:teacher']], function () {
-    Route::get('/teacher/course', [TeacherHomeController::class, 'course']);
-    Route::get('/teacher/course/topics/{id}', [TeacherHomeController::class, 'topic']);
-    Route::get('/teacher/create/courses', [TeacherHomeController::class, 'showCreateCourses']);
-    Route::get('/teacher/create/topic', [TeacherHomeController::class, 'showTopicPage'])->name('topic');
-    Route::get('/teacher/student', [TeacherHomeController::class, 'showStudent']);
-    Route::get('/teacher/create/assignments', [TeacherHomeController::class, 'showAssignment']);
-    Route::get('/teacher/submit/assignments', [TeacherHomeController::class, 'assignmentSubmit'])->name('submit.assignments');
-    Route::get('/teacher/attendence', [TeacherHomeController::class, 'showAttendence'])->name('attendance.show');
-    Route::get('/teacher/reviews', [TeacherHomeController::class, 'showReviews']);
-    Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name('teacher.send.message');
+    Route::controller(TeacherHomeController::class)->group(function(){
+        Route::get('/teacher/course',  'course');
+        Route::get('/teacher/course/topics/{id}',  'topic');
+        Route::get('/teacher/create/courses',  'showCreateCourses');
+        Route::get('/teacher/create/topic',  'showTopicPage')->name('topic');
+        Route::get('/teacher/student',  'showStudent');
+        Route::get('/teacher/create/assignments',  'showAssignment');
+        Route::get('/teacher/submit/assignments',  'assignmentSubmit')->name('submit.assignments');
+        Route::get('/teacher/attendence',  'showAttendence')->name('attendance.show');
+        Route::get('/teacher/reviews',  'showReviews');
+
+    });
+
+    Route::controller(TeacherMessageController::class)->group(function(){
+        Route::post('/teacher/send-message',  'sendMessageToSuperAdmin')->name('teacher.send.message');
+        Route::get('/teacher/messages',  'showMessages')->name('teacher.show.messages');
+        Route::post('/teacher/send-message',  'sendMessageToSuperAdmin')->name    ('teacher.send.message');
+        Route::get('/teacher/fetch-messages',  'fetchMessages')->name('teacher.fetch.messages');
+    });
+
+    Route::controller(AssignmentController::class)->group(function(){
+        Route::post('/teacher/create/assignments', 'createAssignment')->name('create.assignment');
+        Route::get('details/{id}', 'assignmentDetails')->name('assignment.details');
+        Route::post('/marks', 'updateMarks');
+    });
+
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
-    Route::post('/teacher/create/assignments', [AssignmentController::class, 'createAssignment'])->name('create.assignment');
-    Route::get('/teacher/messages', [TeacherMessageController::class, 'showMessages'])->name('teacher.show.messages');
-    Route::post('/teacher/send-message', [TeacherMessageController::class, 'sendMessageToSuperAdmin'])->name    ('teacher.send.message');
-    Route::get('/teacher/fetch-messages', [TeacherMessageController::class, 'fetchMessages'])->name('teacher.fetch.messages');
-    Route::get('details/{id}', [AssignmentController::class, 'assignmentDetails'])->name('assignment.details');
-    Route::post('/marks', [AssignmentController::class, 'updateMarks']);
 });
 
 Route::get('/videos', function(){

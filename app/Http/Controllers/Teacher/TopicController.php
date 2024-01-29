@@ -16,13 +16,13 @@ class TopicController extends Controller
      */
     public function topicCreate(Request $request)
     {
-        
+
         $request->validate([
-            'course' => 'required|exists:courses,id', 
+            'course' => 'required|exists:courses,id',
             'topic' => 'required|string',
-            'videos' => 'required|array|min:1', 
-            'videos.*' => 'url', 
-            'notes' => 'required|file|mimes:pdf|max:10240', 
+            'videos' => 'required|array|min:1',
+            'videos.*' => 'url',
+            'notes' => 'required|file|mimes:pdf|max:10240',
         ]);
 
         $topic = new Topic();

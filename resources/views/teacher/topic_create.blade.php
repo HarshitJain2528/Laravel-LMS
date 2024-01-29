@@ -13,6 +13,11 @@
                         {{session('success')}}
                     </div>
                 @endif
+                @if (session('error'))
+                    <div class="alert alert-success">
+                        {{session('error')}}
+                    </div>
+                @endif
                 <h3 class="mb-3">Create Topic</h3>
                 <form action="{{route('create.topic')}}" method="POST" enctype="multipart/form-data">
                     @csrf

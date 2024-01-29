@@ -17,28 +17,31 @@ class AssignmentController extends Controller
      */
     public function createAssignment(Request $request)
     {
-        
-        $request->validate([
-            'assignment_title' => 'required|string',
-            'assignment_question' => 'required|array',
-            'assignment_marks' => 'required',
-            'course' => 'required|exists:courses,id',
-        ]);
+        try {
+            $request->validate([
+                'assignment_title' => 'required|string',
+                'assignment_question' => 'required|array',
+                'assignment_marks' => 'required',
+                'course' => 'required|exists:courses,id',
+            ]);
 
-        $questions = $request->input('assignment_question');
-        $formattedQuestions = [];
-        foreach ($questions as $key => $question) {
-            $formattedQuestions["question_$key"] = $question;
+            $questions = $request->input('assignment_question');
+            $formattedQuestions = [];
+            foreach ($questions as $key => $question) {
+                $formattedQuestions["question_$key"] = $question;
+            }
+
+            Assignment::create([
+                'assignment_title' => $request->assignment_title,
+                'assignment_question' => json_encode($formattedQuestions),
+                'total_marks' => $request->assignment_marks,
+                'course_id' => $request->course,
+            ]);
+
+            return redirect('/teacher/create/assignments')->with('success', 'Assignment created successfully');
+        } catch (\Exception $e) {
+            return redirect('/teacher/create/assignments')->with('error', $e->getMessage());
         }
-
-        Assignment::create([
-            'assignment_title' => $request->assignment_title,
-            'assignment_question' => json_encode($formattedQuestions),
-            'total_marks' => $request->assignment_marks,
-            'course_id' => $request->course,
-        ]);
-
-        return redirect('/teacher/create/assignments')->with('success', 'Assignment created successfully');
     }
 
     /**
@@ -49,9 +52,12 @@ class AssignmentController extends Controller
      */
     public function assignmentDetails($id)
     {
-
-        $assignmentDetails = AssignmentReview::where('id', $id)->first();
-        return response()->json(['assignmentDetails' => $assignmentDetails]);
+        try {
+            $assignmentDetails = AssignmentReview::where('id', $id)->first();
+            return response()->json(['assignmentDetails' => $assignmentDetails]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -62,7 +68,6 @@ class AssignmentController extends Controller
      */
     public function updateMarks(Request $request)
     {
-
         try {
             $id = $request->id;
 
