@@ -1,4 +1,4 @@
-@extends('teacher.layouts.main')
+~@extends('teacher.layouts.main')
 @section('teacher-assignment-submit-section')
     @include('teacher.layouts.sidebar')
 
