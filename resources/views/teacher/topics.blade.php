@@ -15,10 +15,9 @@
                             <tr>
                                 <th>Topics</th>
                                 <th>Notes</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
-                        @foreach ($topics as $topic)   
+                        @foreach ($topics as $topic)
                         <tbody>
                             <tr>
                                 <td>{{$topic->topic}}</td>
@@ -28,9 +27,6 @@
                                     @else
                                         No PDF available
                                     @endif
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
                             <!-- Add more rows for additional students -->

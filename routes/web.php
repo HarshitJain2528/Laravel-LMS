@@ -58,8 +58,11 @@ Route::group(['middleware' => ['check.role:student']], function () {
     Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
     // Route::get('/help',[DisplayController::class,'help'])->name('help');
     Route::get('/help', [StudentMessageController::class, 'showMessages'])->name('help');
-    Route::post('/student/send-message', [StudentMessageController::class, 'sendMessageToTeacher'])->name('student.send.message');
-    Route::get('/student/fetch-messages', [StudentMessageController::class, 'fetchMessages'])->name('student.fetch.messages');
+    // Route::post('/student/send-message', [StudentMessageController::class, 'sendMessageToTeacher'])->name('student.send.message');
+    // Route::get('/student/fetch-messages', [StudentMessageController::class, 'fetchMessages'])->name('student.fetch.messages');
+    Route::post('/student/send-message', [StudentMessageController::class, 'sendMessage'])->name('student.send.message');
+Route::get('/get-messages/{teacherId}', [StudentMessageController::class, 'getMessages'])->name('student.get.messages');
+
 });
 
 //admin routes

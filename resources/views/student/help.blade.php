@@ -1,156 +1,122 @@
 @extends('student.layout.main')
-
-@section('student-help')
-
-    <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
-        <div class="container">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-lg-10 text-center">
-                    <h1><strong>Help </strong></h1>
+    @section('student-help')
+        <div class="site-section-cover overlay" style="background-image: url('student/images/hero_bg.jpg');">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-10 text-center">
+                        <h1><strong>Help</strong></h1>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="site-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="heading mb-4">
-                        <h2>Messages</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="teacher-list">
-                        @foreach($teachers as $teacher)
-                            <div class="teacher-item" onclick="openChat('teacher{{ $teacher->id }}')">
-                                {{ $teacher->name }}
-                                <span class="arrow">&#10148;</span>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="col-md-9 right-section">
-                    <div id="chatWindow" class="chat-container">
-                        <div id="defaultMessage" class="chat default-message">
-                            Select a Teacher to start chatting.
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="heading mb-4">
+                            <h2>Messages</h2>
                         </div>
-                        @foreach($teachers as $teacher)
-                            <div class="chat" id="{{'teacher' . $teacher->id . 'Chat' }}">
-                                <div class="chat-header">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="teacher-list">
+                            @foreach($teachers as $teacher)
+                                <div class="teacher-item" data-teacher-id="{{ $teacher->id }}">
                                     {{ $teacher->name }}
+                                    <span class="arrow">&#10148;</span>
                                 </div>
-                                <div class="chat-messages" id="{{'teacher' . $teacher->id . 'Messages' }}">
-                                </div>
-                                <form method="POST" class="sendMessageForm" action="{{ route('student.send.message') }}">
-                                    @csrf
-                                    <input type="hidden" name="receiver_id" value="{{ $teacher->id }}">
-                                    <div class="chat-input" id="chatInput">
-                                        <textarea class="form-control messageContent"  rows="2" placeholder="Type your message"></textarea>
-                                        <button type="submit" class="btn btn-primary">Send</button>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="col-md-9 right-section">
+                        <div id="chatWindow" class="chat-container">
+                            @foreach($teachers as $teacher)
+                                <div class="chat" id="{{ 'teacher' . $teacher->id . 'Chat' }}">
+                                    <div class="chat-header">
+                                        {{ $teacher->name }}
                                     </div>
-                                </form>
-                            </div>
-                        @endforeach
+                                    <div class="chat-messages" id="{{ 'teacher' . $teacher->id . 'Messages' }}">
+                                        <!-- Previous messages will be appended here via jQuery -->
+                                    </div>
+                                    <form method="POST" class="sendMessageForm" action="{{ route('student.send.message') }}">
+                                        @csrf
+                                        <input type="hidden" name="receiver_id" value="{{ $teacher->id }}">
+                                        <div class="chat-input" id="chatInput">
+                                            <textarea class="form-control messageContent" rows="2" name="messageContent" placeholder="Type your message"></textarea>
+                                            <button type="submit" class="btn btn-primary">Send</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
-@endsection
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        window.onload = function() {
-            document.querySelectorAll('.chat').forEach(function(box) {
-                box.style.display = 'none';
+        $(document).ready(function () {
+            $('.teacher-item').click(function () {
+                var teacherId = $(this).data('teacher-id');
+
+                // AJAX request to get previous messages
+                $.ajax({
+                    url: '{{ route("student.get.messages", ":teacherId") }}'.replace(':teacherId', teacherId),
+                    type: 'GET',
+                    success: function (response) {
+                        if (response.messages.length > 0) {
+                            $('#teacher' + teacherId + 'Messages').empty();
+                            response.messages.forEach(function (message) {
+                                displayMessage(message);
+                            });
+                        } else {
+                            $('#teacher' + teacherId + 'Messages').html('No messages yet.');
+                        }
+                    }
+                });
+
+                // Open chat window
+                $('.chat').hide();
+                $('#teacher' + teacherId + 'Chat').show();
+                $('#teacher' + teacherId + 'Chat').find('.chat-input').show();
             });
-            document.getElementById('defaultMessage').style.display = 'block';
-        };
 
-        function openChat(teacherId) {
-            var chatBoxes = document.querySelectorAll('.chat');
-            chatBoxes.forEach(function(box) {
-                box.style.display = 'none';
-            });
-
-            document.getElementById('defaultMessage').style.display = 'none';
-
-            // Remove 'teacher' prefix to get only the numeric part
-            var numericTeacherId = teacherId.replace('teacher', '');
-
-            var chatBox = document.getElementById(teacherId + 'Chat');
-            chatBox.style.display = 'block';
-
-            var chatInput = chatBox.querySelector('.chat-input');
-            chatInput.style.display = 'flex';
-
-            $.ajax({
-                type: 'GET',
-                url: '{{ route('student.fetch.messages') }}',
-                data: { receiver_id: numericTeacherId },  // Use only the numeric part
-                success: function(messages) {
-                    $('#' + teacherId + 'Messages').html(messages);
-                    var chatMessagesContainer = $('#' + teacherId + 'Messages');
-                    chatMessagesContainer.scrollTop(chatMessagesContainer.prop('scrollHeight'));
-                },
-                error: function(error) {
-                    console.error('Error fetching messages:', error);
-                }
-            });
-        }
-
-        $('.sendMessageForm').submit(function(e) {
-            e.preventDefault();
-
-            var formData = new FormData(this);
-
-            if (!formData.has('message_content')) {
-                formData.set('message_content', $(this).find('.messageContent').val());
+            // Function to display a message with sender and receiver names
+            function displayMessage(message) {
+                var senderName = message.sender_name;
+                var receiverName = message.receiver_name;
+                var messageContent = message.message_content;
+                var messageHtml = '<div><strong>' + senderName + ':</strong> ' + messageContent + '</div>';
+                $('#teacher' + message.receiver_id + 'Messages').append(messageHtml);
             }
 
-            $.ajax({
-                type: 'POST',
-                url: $(this).attr('action'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(response) {
-                    console.log('Message sent successfully:', response);
+            // Submit message form
+            $('.sendMessageForm').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var formData = form.serialize();
 
-                    if (response.success) {
-                        var teacherId = formData.get('receiver_id');
-
-                        $.ajax({
-                            type: 'GET',
-                            url: '{{ route('student.fetch.messages') }}',
-                            data: { receiver_id: teacherId },
-                            success: function(response) {
-                                console.log('Messages fetched successfully:', response);
-
-                                // Update the chat messages with new data
-                                $('#' + teacherId + 'Messages').html(response);
-
-                                // Scroll to the bottom to show the new message
-                                var chatMessagesContainer = $('#' + teacherId + 'Messages');
-                                chatMessagesContainer.scrollTop(chatMessagesContainer.prop('scrollHeight'));
-
-                                // Clear textarea after successful message submission
-                                $('.chat-input textarea').val('');
-                            },
-                            error: function(error) {
-                                console.error('Error fetching messages:', error);
-                            }
-                        });
+                $.ajax({
+                    url: form.attr('action'),
+                    type: 'POST',
+                    data: formData,
+                    success: function (response) {
+                        if (response.success) {
+                            var senderName = form.data('sender-name');
+                            var receiverName = form.data('receiver-name');
+                            var messageContent = form.find('.messageContent').val();
+                            var teacherId = form.find('[name="receiver_id"]').val();
+                            var messageHtml = '<div><strong>' + senderName + ':</strong> ' + messageContent + '</div>';
+                            $('#teacher' + teacherId + 'Messages').append(messageHtml);
+                            form.find('.messageContent').val('');
+                        }
                     }
-                },
-                error: function(error) {
-                    console.error('Error sending message:', error);
-                }
+                });
             });
         });
+
     </script>
+@endsection
