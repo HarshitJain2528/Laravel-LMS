@@ -1,9 +1,5 @@
-<<<<<<< HEAD:resources/views/teacher/assignment_submit.blade.php
 @extends('teacher.layouts.main')
 
-=======
-~@extends('teacher.layouts.main')
->>>>>>> b988eeace2e4441ec23de54b58aadded7f738383:resources/views/teacher/assignment-submit.blade.php
 @section('teacher-assignment-submit-section')
 
     @include('teacher.layouts.sidebar')

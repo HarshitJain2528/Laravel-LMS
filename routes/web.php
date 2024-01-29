@@ -20,7 +20,6 @@ use App\Http\Controllers\Student\AttendenceController;
 use App\Http\Controllers\Student\StudentMessageController;
 use App\Http\Controllers\Student\ProfileController;
 
-use App\Models\Topic;
 use Illuminate\Support\Facades\Route;
 
 
@@ -104,7 +103,7 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::controller(TeacherMessageController::class)->group(function(){
         Route::post('/teacher/send-message',  'sendMessageToSuperAdmin')->name('teacher.send.message');
         Route::get('/teacher/messages',  'showMessages')->name('teacher.show.messages');
-        Route::post('/teacher/send-message',  'sendMessageToSuperAdmin')->name    ('teacher.send.message');
+        Route::post('/teacher/send-message',  'sendMessageToSuperAdmin')->name('teacher.send.message');
         Route::get('/teacher/fetch-messages',  'fetchMessages')->name('teacher.fetch.messages');
     });
 
@@ -117,9 +116,3 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
 });
-
-Route::get('/videos', function(){
-    $topics = Topic::all(); // Retrieve all topics from the database
-    return view('teacher.video', compact('topics'));
-});
-

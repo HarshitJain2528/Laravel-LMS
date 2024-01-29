@@ -5,15 +5,18 @@
             const links = document.querySelectorAll('.nav_link');
 
             links.forEach(link => {
-                link.classList.remove('active'); // Remove 'active' class from all links
+                link.classList.remove('active');
                 if (link.href === currentLocation) {
-                    link.classList.add('active'); // Add 'active' class to the current link
+                    link.classList.add('active');
                 }
             });
         });
     </script>
     <!-- Bootstrap Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{asset('teacherassets/js/video-link.js')}}"></script>
+    <script src="{{asset('teacherassets/js/question.js')}}"></script>
+    <script src="{{asset('teacherassets/js/chat.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery -->
 
 </body>
