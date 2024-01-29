@@ -74,6 +74,9 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
         Route::get('/admin/teachers', 'showTeachers')->name('teacher.table');
         Route::get('/admin/attendence', 'showAttendence')->name('admin.attendence');
         Route::get('/admin/assignment', 'showAssignment')->name('assignment');
+        Route::get('/admin/delete-course/{id}', 'deleteCourse');
+        Route::get('/admin/delete-student/{id}', 'deleteStudent');
+        Route::get('/admin/delete-teacher/{id}', 'deleteTeacher');
         Route::get('/get-assignment-details/{id}', 'getAssignmentDetails');
         Route::post('/edit-admin-profile','editProfile')->name('edit');
     });

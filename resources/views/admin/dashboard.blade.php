@@ -6,12 +6,9 @@
 
 @section('admin-dashboard-section')
     @include('admin.layouts.sidebar')
-
     <div class="container mt-4 ml-4 p-0">
         <h2>Dashboard</h2>
         <div class="row">
-
-            <!-- Total Students Section -->
             <div class="col-md-4 mb-4">
                 <div class="card shadow-lg rounded bg-warning text-white">
                     <div class="card-body pb-10">
@@ -23,7 +20,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-md-4 mb-4">
                 <div class="card shadow-lg rounded bg-primary text-white">
                     <div class="card-body">
@@ -37,8 +33,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Today's Present Students Section -->
             <div class="col-md-4 mb-4">
                 <div class="card shadow-lg rounded bg-success text-white">
                     <div class="card-body">
@@ -50,7 +44,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="student-information p-4 mb-4 border rounded">
                 <h3 class="mb-3">Student Recent Actitvities</h3>
                 <div class="table-responsive">
@@ -88,7 +81,7 @@
                     </table>
                 </div>
             </div>
-
         </div>
     </div>
+    
 @endsection

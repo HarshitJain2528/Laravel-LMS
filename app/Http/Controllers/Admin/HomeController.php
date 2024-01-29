@@ -170,4 +170,46 @@ class HomeController extends Controller
         }
     }
 
+    /**
+     * Edit the profile of the superadmin user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteCourse($id)
+    {
+        $course = Course::find($id);
+        $course->delete();
+
+        return redirect()->back()->with('success', 'Course successfully deleted.');
+    }
+
+      /**
+     * Edit the profile of the superadmin user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteStudent($id)
+    {
+        $student = User::find($id);
+        $student->delete();
+
+        return redirect()->back()->with('success', 'Student successfully deleted.');
+    }
+
+      /**
+     * Edit the profile of the superadmin user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function deleteTeacher($id)
+    {
+        $student = User::find($id);
+        $student->delete();
+
+        return redirect()->back()->with('success', 'Student successfully deleted.');
+    }
+
 }

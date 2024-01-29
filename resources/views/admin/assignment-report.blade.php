@@ -1,5 +1,3 @@
-<!-- resources/views/admin/assignment_report.blade.php -->
-
 @extends('admin.layouts.main')
 
 @push('title')
@@ -8,7 +6,6 @@
 
 @section('admin-assignment-section')
     @include('admin.layouts.sidebar')
-
     <div class="container mt-4 ml-4 p-0">
         <h2>Assignment Report</h2>
         <div class="col-md-8">
@@ -70,6 +67,7 @@
         </div>
     </div>
 
+@endsection
     <!-- jQuery script for updating modal content -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
@@ -123,4 +121,3 @@
             });
         });
     </script>
-@endsection
