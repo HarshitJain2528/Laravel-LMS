@@ -58,7 +58,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('submitAssignment') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('submit.assignment') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="assignmentName">Name : </label>

@@ -16,8 +16,6 @@ class AssignmentSubmitController extends Controller
      */
     public function submitAssignment(Request $request)
     {
-        
-        // Validate the request
         $request->validate([
             'assignmentName' => 'required',
             'course' => 'required',
@@ -41,12 +39,10 @@ class AssignmentSubmitController extends Controller
                 'pdf' => $assignmentPath,
             ]);
 
-            // Redirect with a success message
             return redirect()->back()->with(['success' => 'Assignment Uploaded Successfully']);
         } 
             catch (\Exception $e) {
-            // Handle the exception (e.g., log the error)
-            // Redirect with an error message
+
             return redirect()->back()->with(['error' => 'Error uploading assignment. Please try again.']);
         }
 
