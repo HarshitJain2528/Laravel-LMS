@@ -23,6 +23,12 @@ class StudentMessageController extends Controller
         return view('student.help', compact('teachers', 'studentId'));
     }
 
+    /**
+     * Send a message from the authenticated user to another user.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function sendMessage(Request $request)
     {
         $message = new Messages();
@@ -33,7 +39,13 @@ class StudentMessageController extends Controller
 
         return response()->json(['success' => true]);
     }
-
+    
+    /**
+     * Get messages between the authenticated user and a specified teacher.
+     *
+     * @param int $teacherId
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function getMessages($teacherId)
     {
         $messages = Messages::where(function ($query) use ($teacherId) {

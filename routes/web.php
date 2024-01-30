@@ -39,30 +39,37 @@ Route::post('/register', [AuthController::class, 'postRegister'])->name('registe
 Route::post('/signin', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
+//student routes
 Route::group(['middleware' => ['check.role:student']], function () {
-    Route::get('/index',[DisplayController::class,'index'])->name('index');
-    Route::get('/assign',[DisplayController::class,'assign'])->name('assign');
-    Route::get('/attendence/{id}',[DisplayController::class,'attendence'])->name('attendenceMark');
-    Route::post('/mark',[AttendenceController::class,'mark'])->name('Marks');
-    Route::get('/check-attendance-status', [AttendenceController::class, 'checkAttendanceStatus'])->name('checkAttendanceStatus');
-    Route::get('/courses',[DisplayController::class,'courses'])->name('courses');
-    Route::get('/reviews/{id}',[DisplayController::class,'reviews'])->name('reviews');
-    Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submitReviews');
-    Route::get('/profile/{id}',[DisplayController::class,'profile'])->name('profile');
-    Route::get('/topics/{id}',[DisplayController::class,'topics'])->name('topics');
-    Route::get('/description/{id}',[DisplayController::class,'description'])->name('description');
-    Route::get('/assignment/{id}',[DisplayController::class,'assignment'])->name('assignmentView');
-    Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submitAssignment');
-    Route::get('/next/{id}',[DisplayController::class,'next'])->name('next');
-    Route::post('/change-password',[DisplayController::class,'change'])->name('change.password');
-    Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::get('/help',[DisplayController::class,'help'])->name('help');
-    Route::get('/help', [StudentMessageController::class, 'showMessages'])->name('help');
-    // Route::post('/student/send-message', [StudentMessageController::class, 'sendMessageToTeacher'])->name('student.send.message');
-    // Route::get('/student/fetch-messages', [StudentMessageController::class, 'fetchMessages'])->name('student.fetch.messages');
-    Route::post('/student/send-message', [StudentMessageController::class, 'sendMessage'])->name('student.send.message');
-Route::get('/get-messages/{teacherId}', [StudentMessageController::class, 'getMessages'])->name('student.get.messages');
+    Route::controller(DisplayController::class)->group(function(){
+        Route::get('/index','index')->name('index');
+        Route::get('/assign','assign')->name('assign');
+        Route::get('/attendence/{id}','attendence')->name('attendence.mark');
+        Route::get('/courses','courses')->name('courses');
+        Route::get('/reviews/{id}','reviews')->name('reviews');
+        Route::get('/profile/{id}','profile')->name('profile');
+        Route::get('/topics/{id}','topics')->name('topics');
+        Route::get('/description/{id}','description')->name('description');
+        Route::get('/assignment/{id}','assignment')->name('assignment.view');
+        Route::get('/next/{id}','next')->name('next');
+        Route::post('/change-password','change')->name('change.password');
+    });
 
+    Route::controller(AttendenceController::class)->group(function(){
+        Route::post('/mark','mark')->name('Marks');
+        Route::get('/check-attendance-status','checkAttendanceStatus')->name('attendence.status');
+    });
+
+    Route::controller(StudentMessageController::class)->group(function(){
+        Route::get('/help','showMessages')->name('help');
+        Route::post('/student/send-message','sendMessage')->name('student.send.message');
+        Route::get('/get-messages/{teacherId}','getMessages')->name('student.get.messages');
+    });
+   
+    Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submit.reviews');
+    Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submit.assignment');
+    Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    
 });
 
 //admin routes
