@@ -8,6 +8,7 @@
     @yield('teacher-reviews-section')
     @yield('teacher-attendence-section')
     @yield('teacher-messages-section')
+    @yield('teacher-profile-section')
     @yield('teacher-assignment-submit-section')
     @yield('video')
 @include('teacher.layouts.footer')

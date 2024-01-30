@@ -13,17 +13,6 @@
     <link rel="stylesheet" href="{{asset('teacherassets/css/style.css')}}">
     <script src="{{asset('teacherassets/js/main.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <style>
-        .accordion-button {
-            width: 100%; /* Ensure the button spans the full width */
-            text-align: left; /* Align text to the left */
-        }
-
-        .accordion-collapse {
-            width: 100%; /* Set the width of the collapsible content */
-        }
-
-    </style>
+ 
 </head>
 <body id="body-pd">
