@@ -24,15 +24,24 @@
                                 <option value="{{$course->id}}">{{$course->course_title}}</option>
                             @endforeach
                         </select>
+                        @error('course')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="assignmentTitle" class="form-label">Assignment Title</label>
                         <input type="text" class="form-control" id="assignmentTitle" name="assignment_title" placeholder="Enter assignment title">
+                        @error('assignment_title')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3" id="questionContainer">
                         <label for="assignment_questions" class="form-label">Assignment Questions</label>
                         <div class="question-inputs">
                             <input type="text" class="form-control" id="description" name="assignment_question[]" rows="4" placeholder="Enter question 1">
+                            @error('assignment_question')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="button" class="btn btn-secondary" onclick="addQuestions()">Add Another Question</button>
 
@@ -40,6 +49,9 @@
                     <div class="mb-3">
                         <label for="marks" class="form-label">Marks</label>
                         <input type="number" class="form-control" id="marks" name="assignment_marks" placeholder="Enter marks">
+                        @error('assignment_marks')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
                     <!-- Additional fields or options can be added as needed -->

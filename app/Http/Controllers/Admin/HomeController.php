@@ -154,19 +154,16 @@ class HomeController extends Controller
      */
     public function editProfile(Request $request)
     {
-        try {
-            $updateData = DB::table('users')
-                ->where('role', 'superadmin')
-                ->update(['name' =>  $request->get('name'), 'phone' => $request->get('phone')]);
+        $updateData = DB::table('users')
+            ->where('role', 'superadmin')
+            ->update(['name' =>  $request->get('name'), 'phone' => $request->get('phone')]);
 
-            if ($updateData > 0) {
-                return redirect()->back()->with('success', 'Profile updated successfully');
-            } else {
-                return redirect()->back()->with('error', 'User not found');
-            }
-        } catch (\Exception $e) {
+        if ($updateData > 0) {
 
-            return redirect()->back()->with('error', 'An error occurred while updating the profile');
+            return redirect()->back()->with('success', 'Profile updated successfully');
+        } else {
+
+            return redirect()->back()->with('error', 'User not found');
         }
     }
 

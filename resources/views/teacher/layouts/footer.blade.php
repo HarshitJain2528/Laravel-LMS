@@ -21,7 +21,7 @@
     <!-- Bootstrap Bundle with Popper -->
     <script src="{{asset('teacherassets/js/video-link.js')}}"></script>
     <script src="{{asset('teacherassets/js/question.js')}}"></script>
-    <script src="{{asset('teacherassets/js/chat.js')}}"></script>
+    <script src="{{asset('teacherassets/js/teacher-profile.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery -->
 

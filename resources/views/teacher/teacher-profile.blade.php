@@ -38,7 +38,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Edit Profile</h5>
-                <button type="submit" class="btn-sm btn-danger" id="close" aria-label="Close">
+                <button type="submit" class="btn-sm btn-danger" id="cross" aria-label="Close">
                     <span aria-hidden="true"> <i class='bx bx-x'></i> </span>
                 </button>
             </div>
@@ -63,25 +63,3 @@
     </div>
 
 @endsection
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var editProfileBtn = document.getElementById('editProfileBtn');
-        var editProfileModal = document.getElementById('editProfileModal');
-        var closeModalBtn = editProfileModal.querySelector('#close');
-
-        function openEditProfileModal() {
-            editProfileModal.style.display = 'block';
-            document.body.classList.add('modal-open'); 
-        }
-
-        function closeEditProfileModal() {
-            editProfileModal.style.display = 'none';
-            document.body.classList.remove('modal-open'); 
-        }
-
-        closeEditProfileModal();
-        editProfileBtn.addEventListener('click', openEditProfileModal);
-        closeModalBtn.addEventListener('click', closeEditProfileModal);
-    });
-</script>

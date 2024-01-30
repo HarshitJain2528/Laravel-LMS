@@ -25,9 +25,9 @@
 @endsection
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        console.log({!! json_encode($presentCount) !!});
-        console.log({!! json_encode($studentNames) !!});
-        console.log({!! json_encode($date) !!});
+        // console.log({!! json_encode($presentCount) !!});
+        // console.log({!! json_encode($studentNames) !!});
+        // console.log({!! json_encode($date) !!});
     
         document.addEventListener('DOMContentLoaded', function () {
     

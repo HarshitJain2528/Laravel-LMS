@@ -17,31 +17,29 @@ class AssignmentController extends Controller
      */
     public function createAssignment(Request $request)
     {
-        try {
-            $request->validate([
-                'assignment_title' => 'required|string',
-                'assignment_question' => 'required|array',
-                'assignment_marks' => 'required',
-                'course' => 'required|exists:courses,id',
-            ]);
 
-            $questions = $request->input('assignment_question');
-            $formattedQuestions = [];
-            foreach ($questions as $key => $question) {
-                $formattedQuestions["question_$key"] = $question;
-            }
+        $request->validate([
+            'assignment_title' => 'required|string',
+            'assignment_question' => 'required|array',
+            'assignment_marks' => 'required',
+            'course' => 'required|exists:courses,id',
+        ]);
 
-            Assignment::create([
-                'assignment_title' => $request->assignment_title,
-                'assignment_question' => json_encode($formattedQuestions),
-                'total_marks' => $request->assignment_marks,
-                'course_id' => $request->course,
-            ]);
-
-            return redirect('/teacher/create/assignments')->with('success', 'Assignment created successfully');
-        } catch (\Exception $e) {
-            return redirect('/teacher/create/assignments')->with('error', $e->getMessage());
+        $questions = $request->input('assignment_question');
+        $formattedQuestions = [];
+        foreach ($questions as $key => $question) {
+            $formattedQuestions["question_$key"] = $question;
         }
+
+        Assignment::create([
+            'assignment_title' => $request->assignment_title,
+            'assignment_question' => json_encode($formattedQuestions),
+            'total_marks' => $request->assignment_marks,
+            'course_id' => $request->course,
+        ]);
+
+        return redirect('/teacher/create/assignments')->with('success', 'Assignment created successfully');
+
     }
 
     /**
@@ -52,12 +50,9 @@ class AssignmentController extends Controller
      */
     public function assignmentDetails($id)
     {
-        try {
-            $assignmentDetails = AssignmentReview::where('id', $id)->first();
-            return response()->json(['assignmentDetails' => $assignmentDetails]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()]);
-        }
+        $assignmentDetails = AssignmentReview::where('id', $id)->first();
+
+        return response()->json(['assignmentDetails' => $assignmentDetails]);
     }
 
     /**
@@ -68,23 +63,21 @@ class AssignmentController extends Controller
      */
     public function updateMarks(Request $request)
     {
-        try {
-            $id = $request->id;
 
-            $assignmentDetails = AssignmentReview::find($id);
+        $id = $request->id;
 
-            if ($request->input('obtained_marks') > $assignmentDetails->total_marks) {
-                return redirect()->route('submit.assignments')->with('error', 'Obtained marks cannot be greater than total marks.');
-            }
+        $assignmentDetails = AssignmentReview::find($id);
 
-            AssignmentReview::where('id', $id)
-                ->update([
-                    'obtained_marks' => $request->input('obtained_marks'),
-                ]);
-
-            return redirect()->route('submit.assignments')->with('success', 'Marks updated successfully.');
-        } catch (\Exception $e) {
-            return redirect()->route('submit.assignments')->with('error', $e->getMessage());
+        if ($request->input('obtained_marks') > $assignmentDetails->total_marks) {
+            return redirect()->route('submit.assignments')->with('error', 'Obtained marks cannot be greater than total marks.');
         }
+
+        AssignmentReview::where('id', $id)
+            ->update([
+                'obtained_marks' => $request->input('obtained_marks'),
+            ]);
+
+        return redirect()->route('submit.assignments')->with('success', 'Marks updated successfully.');
+        
     }
 }

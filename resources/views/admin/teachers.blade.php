@@ -8,18 +8,12 @@
     @include('admin.layouts.sidebar')
     <div class="container mt-4 ml-4 p-0">
         @if(session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success" id="popup">
                 {{ session('success') }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
          @elseif(session('error'))
-             <div class="alert alert-danger">
+             <div class="alert alert-danger" id="popup">
                  {{ session('error') }}
-                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                 </button>
              </div>
          @endif
         <h2>Teachers Details</h2>
@@ -54,18 +48,4 @@
     </div>
 
 @endsection
-  <script src="{{asset('login/js/main.js')}}"></script>
-  <script>
-      // Function to close the alert
-      function closeAlert(element) {
-          element.style.display = 'none';
-      }
-
-      // Add event listeners to close the alert on click
-      document.addEventListener('click', function (event) {
-          if (event.target.closest('.close')) {
-              const alert = event.target.closest('.alert');
-              closeAlert(alert);
-          }
-      });
-  </script>
+ 

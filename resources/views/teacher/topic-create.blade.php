@@ -29,23 +29,34 @@
                                 <option value="{{$course->id}}">{{$course->course_title}}</option>
                             @endforeach
                         </select>
+                        @error('course')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="topic" class="form-label">Topic Name</label>
                         <input type="text" class="form-control" id="topic" name="topic" placeholder="Enter topic Name">
+                        @error('topic')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3" id="videoLinksContainer">
                         <label for="videos" class="form-label">Videos</label>
                         <div class="video-link-inputs">
                             <input type="text" class="form-control" name="videos[]" placeholder="Enter video link 1">
-                            {{-- <input type="text" class="form-control" name="videos[]" placeholder="Enter video link 2"> --}}
+                            @error('videos')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="button" class="btn btn-secondary" onclick="addVideoLink()">Add Another Video</button>
                         <small class="text-muted">You can add multiple video links.</small>
                     </div>
                     <div class="mb-3">
                         <label for="notes" class="form-label">Notes</label>
-                        <input type="file" class="form-control" id="notes" name="notes" placeholder="">
+                        <input type="file" class="form-control" id="notes" name="notes">
+                        @error('notes')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
                     </div>
 
 
