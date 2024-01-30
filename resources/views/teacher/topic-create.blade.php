@@ -9,12 +9,12 @@
             <!-- Create Lesson Topic Form -->
             <div class="create-lesson-topic-form p-4 mb-4 border rounded">
                 @if (session('success'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" id="close">
                         {{session('success')}}
                     </div>
                 @endif
                 @if (session('error'))
-                    <div class="alert alert-success">
+                    <div class="alert alert-success" id="close">
                         {{session('error')}}
                     </div>
                 @endif

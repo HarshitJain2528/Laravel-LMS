@@ -17,6 +17,13 @@
             }
         });
     });
+
+    // 
+    let popup = document.getElementById('popup');
+    setTimeout(function() {
+        popup.style.display = 'none';
+    }, 2000);
+
 </script>
 </body>
 </html>

@@ -5,13 +5,13 @@
     @include('teacher.layouts.sidebar')
 
     @if(session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success" id="close">
             {{ session('success') }}
         </div>
     @endif
 
     @if(session('error'))
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" id="close">
             {{ session('error') }}
         </div>
     @endif
@@ -111,9 +111,6 @@
                         $('#marksForm input[name="obtained_marks"]').val(data.assignmentDetails.obtained_marks);
                         $('#marksForm input[name="marks"]').val(data.assignmentDetails.total_marks);
                     },
-                    error: function (xhr, status, error) {
-                        console.error('Error fetching assignment data:', error);
-                    }
                 });
             }
         });

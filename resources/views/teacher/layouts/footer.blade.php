@@ -12,6 +12,12 @@
             });
         });
     </script>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('close').style.display = 'none';
+        }, 2000);
+    </script>
     <!-- Bootstrap Bundle with Popper -->
     <script src="{{asset('teacherassets/js/video-link.js')}}"></script>
     <script src="{{asset('teacherassets/js/question.js')}}"></script>

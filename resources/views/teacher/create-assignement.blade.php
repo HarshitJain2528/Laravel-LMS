@@ -7,7 +7,7 @@
     <div class="container mt-4 ml-4 p-0">
         <div class="content">
             @if (session('success'))
-            <div class="alert alert-success">
+            <div class="alert alert-success" id="close">
                 {{session('success')}}
             </div>
             @endif

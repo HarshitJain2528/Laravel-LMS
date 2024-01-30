@@ -61,6 +61,10 @@
         $(document).ready(function () {
             $('.teacher-item').click(function () {
                 var teacherId = $(this).data('teacher-id');
+                var senderName = '{{ auth()->user()->name }}'; // Get the sender name from the backend
+
+                // Set sender name in the form's data attribute
+                $('.sendMessageForm').data('sender-name', senderName);
 
                 // AJAX request to get previous messages
                 $.ajax({
@@ -97,6 +101,7 @@
             $('.sendMessageForm').submit(function (e) {
                 e.preventDefault();
                 var form = $(this);
+                var senderName = form.data('sender-name'); // Retrieve sender name from form data
                 var formData = form.serialize();
 
                 $.ajax({
@@ -105,7 +110,6 @@
                     data: formData,
                     success: function (response) {
                         if (response.success) {
-                            var senderName = form.data('sender-name');
                             var receiverName = form.data('receiver-name');
                             var messageContent = form.find('.messageContent').val();
                             var teacherId = form.find('[name="receiver_id"]').val();
@@ -117,6 +121,7 @@
                 });
             });
         });
+
 
     </script>
 @endsection
