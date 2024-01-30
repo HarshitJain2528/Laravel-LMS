@@ -1,14 +1,6 @@
 @extends('teacher.layouts.main')
 
 @section('teacher-attendence-section')
-    <style>
-        /* Add this to your CSS file or within your style tags */
-.current-date-highlight {
-    background-color: #87CEEB !important; /* Set your desired background color */
-    color: #000 !important; /* Set the text color to ensure readability */
-}
-
-    </style>
     @include('teacher.layouts.sidebar')
 
     <!-- Main content area -->
