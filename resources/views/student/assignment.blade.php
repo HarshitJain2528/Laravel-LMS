@@ -66,10 +66,6 @@
                                 value="{{ $title->assignment_title }}" readonly>
                         </div>
                         <div class="form-group">
-                            <input type="hidden" class="form-control" id="assignmentId" name="assignmentId"
-                                value="{{ $title->id }}" readonly>
-                        </div>
-                        <div class="form-group">
                             <label for="course">Course</label>
                             <input type="text" class="form-control" id="course" name="course"
                                 value="{{ $title->course->course_title }}" readonly>
