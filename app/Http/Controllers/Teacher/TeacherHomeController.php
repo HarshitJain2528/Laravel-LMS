@@ -10,6 +10,7 @@ use App\Models\Topic;
 use App\Models\User;
 use App\Models\AssignmentReview;
 use App\Models\RecentActivity;
+use Illuminate\Support\Facades\DB;
 
 class TeacherHomeController extends Controller
 {
@@ -130,5 +131,31 @@ class TeacherHomeController extends Controller
     {
         $assignments = AssignmentReview::with('student')->get();
         return view('teacher.assignment-submit', compact('assignments'));
+    }
+
+    public function showTeacherProfile()
+    {
+
+        $data = User::where('role', 'teacher')->get();
+
+        return view('teacher.teacher-profile', compact('data'));
+    }
+
+    public function editTeacherProfile(Request $request)
+    {
+        try {
+            $updateData = DB::table('users')
+                ->where('role', 'teacher')
+                ->update(['name' =>  $request->get('name'), 'phone' => $request->get('phone')]);
+
+            if ($updateData > 0) {
+                return redirect()->back()->with('success', 'Profile updated successfully');
+            } else {
+                return redirect()->back()->with('error', 'User not found');
+            }
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'An error occurred while updating the profile');
+        }
     }
 }

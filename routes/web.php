@@ -99,6 +99,8 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
         Route::get('/teacher/submit/assignments',  'assignmentSubmit')->name('submit.assignments');
         Route::get('/teacher/attendence',  'showAttendence')->name('attendance.show');
         Route::get('/teacher/reviews',  'showReviews');
+        Route::get('/teacher/profile', 'showTeacherProfile')->name('teacher.profile');
+        Route::get('/edit-teacher-profile','editTeacherProfile')->name('edit.teacher.profile');
 
     });
 
