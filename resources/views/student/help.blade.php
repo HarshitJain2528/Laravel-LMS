@@ -76,8 +76,6 @@
                             response.messages.forEach(function (message) {
                                 displayMessage(message);
                             });
-                        } else {
-                            $('#teacher' + teacherId + 'Messages').html('No messages yet.');
                         }
                     }
                 });

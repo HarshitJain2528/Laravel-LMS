@@ -39,7 +39,7 @@
     function checkAttendanceStatus() {
         $.ajax({
             type: 'GET',
-            url: '{{route('checkAttendanceStatus')}}',
+            url: '{{route('attendence.status')}}',
             success: function (response) {
                 if (response.status === 'marked') {
                     // Update button text and color

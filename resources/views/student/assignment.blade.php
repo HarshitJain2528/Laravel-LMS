@@ -58,16 +58,12 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('submitAssignment') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('submit.assignment') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="assignmentName">Name : </label>
                             <input type="text" class="form-control" id="assignmentName" name="assignmentName"
                                 value="{{ $title->assignment_title }}" readonly>
-                        </div>
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" id="assignmentId" name="assignmentId"
-                                value="{{ $title->id }}" readonly>
                         </div>
                         <div class="form-group">
                             <label for="course">Course</label>

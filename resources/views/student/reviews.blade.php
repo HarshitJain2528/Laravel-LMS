@@ -31,7 +31,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <form method="post" action="{{route('submitReviews')}}">
+                    <form method="post" action="{{route('submit.reviews')}}">
                         @csrf
                         <div class="form-group">
                             <label for="review">Write Your Review:</label>
