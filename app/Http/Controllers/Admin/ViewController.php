@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -13,12 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-/**
- * Class HomeController
- *
- * @package App\Http\Controllers\Admin
- */
-class HomeController extends Controller
+class ViewController extends Controller
 {
     /**
      * Show the profile of the superadmin user.
@@ -208,5 +204,4 @@ class HomeController extends Controller
 
         return redirect()->back()->with('success', 'Student successfully deleted.');
     }
-
 }

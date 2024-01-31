@@ -17,9 +17,9 @@
         <!-- MAIN CSS -->
         <link rel="stylesheet" href="{{asset('student/css/style.css')}}">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
         <!-- PDF.js library -->
         <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+        
     </head>
     <body>
         <div class="site-wrap" id="home-section"  style="border-bottom:1px solid lightgrey">

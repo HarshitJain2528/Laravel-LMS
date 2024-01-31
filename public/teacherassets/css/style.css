@@ -46,12 +46,12 @@ a {
 }
 
 .accordion-button {
-    width: 100%; 
-    text-align: left; 
+    width: 100%;
+    text-align: left;
 }
 
 .accordion-collapse {
-    width: 100%; 
+    width: 100%;
 }
 
 .header_toggle {
@@ -355,6 +355,10 @@ cursor: pointer;
 
 .modal-body button:hover {
 background-color: #45a049;
+}
+.current-date-highlight {
+    background-color: #87CEEB !important;
+    color: #000 !important;
 }
 
 
