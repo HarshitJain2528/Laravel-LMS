@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\AddTeacherController;
 use App\Http\Controllers\Admin\AttendanceController;
-use App\Http\Controllers\Admin\CreateCourseController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\AttendanceController as ControllersAttendanceController;
+use App\Http\Controllers\Admin\ViewController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Student\StudentHomeController;
 use App\Http\Controllers\Teacher\TeacherHomeController;
 use App\Http\Controllers\Teacher\TeacherMessageController;
 use App\Http\Controllers\Teacher\AssignmentController;
@@ -33,11 +30,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 // login routes
-Route::get('/', [AuthController::class, 'showLoginForm']);
-Route::post('/register', [AuthController::class, 'postRegister'])->name('register');
-Route::post('/signin', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
+Route::controller(AuthController::class)->group(function(){
+    Route::get('/', 'showLoginForm');
+    Route::post('/register', 'postRegister')->name('register');
+    Route::post('/signin', 'login');
+    Route::get('/logout', 'logout');
+});
 
 //student routes
 Route::group(['middleware' => ['check.role:student']], function () {
@@ -65,16 +65,16 @@ Route::group(['middleware' => ['check.role:student']], function () {
         Route::post('/student/send-message','sendMessage')->name('student.send.message');
         Route::get('/get-messages/{teacherId}','getMessages')->name('student.get.messages');
     });
-   
+
     Route::post('/submit-reviews',[ReviewController::class,'submitReviews'])->name('submit.reviews');
     Route::post('/submit-assignment',[AssignmentSubmitController::class,'submitAssignment'])->name('submit.assignment');
     Route::post('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    
+
 });
 
 //admin routes
 Route::group(['middleware' => ['check.role:superadmin']], function () {
-    Route::controller(HomeController::class)->group(function(){
+    Route::controller(ViewController::class)->group(function(){
         Route::get('/admin/dashboard', 'showDashboard')->name('dashboard');
         Route::get('/admin/profile', 'showProfile')->name('admin.profile');
         Route::get('/admin/courses', 'showCourses')->name('course.table');
@@ -126,4 +126,5 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
 
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
+    
 });

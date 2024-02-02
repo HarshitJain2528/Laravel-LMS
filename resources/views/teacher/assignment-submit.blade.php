@@ -49,7 +49,7 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary openModalButton" data-assignment-id="{{ $assignment->id }}">Give Marks</button>
+                                    <button class="btn btn-primary openModalButton" data-assignment-id="{{ $assignment->id }}" data-assignment-details-route="{{ route('assignment.details', ['id' => ':aid']) }}">Give Marks</button>
                                 </td>
                             </tr>
                             @endforeach
@@ -80,39 +80,4 @@
             </div>
         </div>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.openModalButton').click(function () {
-                var assignmentId = $(this).data('assignment-id');
-                loadAssignmentData(assignmentId);
-                $('#giveMarksCustomModal').fadeIn();
-            });
-
-            $('.closeCustomModal').click(function () {
-                $('#giveMarksCustomModal').fadeOut();
-            });
-
-            $(window).click(function (e) {
-                if ($(e.target).is('#giveMarksCustomModal')) {
-                    $('#giveMarksCustomModal').fadeOut();
-                }
-            });
-
-            function loadAssignmentData(assignmentId) {
-                var url = '{{ route("assignment.details", ["id" => "aid"]) }}';
-                $.ajax({
-                    url:  url.replace('aid', assignmentId),
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
-                        $('#marksForm input[name="id"]').val(data.assignmentDetails.id);
-                        $('#marksForm input[name="obtained_marks"]').val(data.assignmentDetails.obtained_marks);
-                        $('#marksForm input[name="marks"]').val(data.assignmentDetails.total_marks);
-                    },
-                });
-            }
-        });
-    </script>
 @endsection

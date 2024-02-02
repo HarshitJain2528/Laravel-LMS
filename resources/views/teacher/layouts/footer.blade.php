@@ -22,8 +22,11 @@
     <script src="{{asset('teacherassets/js/video-link.js')}}"></script>
     <script src="{{asset('teacherassets/js/question.js')}}"></script>
     <script src="{{asset('teacherassets/js/teacher-profile.js')}}"></script>
+    <script src="{{asset('teacherassets/js/assignment-submit.js')}}"></script>
+    <script src="{{asset('teacherassets/js/communication.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 </body>
 </html>
