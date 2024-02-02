@@ -7,7 +7,6 @@
     <!-- Main content area -->
     <div class="container mt-4 ml-4 p-0">
         <div class="content">
-            <!-- Student Information Table -->
             <div class="student-information p-4 mb-4 border rounded">
                 <h3 class="mb-3">Student Information</h3>
                 <div class="table-responsive">
