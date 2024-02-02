@@ -12,9 +12,8 @@
                     <div class="alert alert-success" id="close">
                         {{session('success')}}
                     </div>
-                @endif
-                @if (session('error'))
-                    <div class="alert alert-success" id="close">
+                @elseif (session('error'))
+                    <div class="alert alert-danger" id="close">
                         {{session('error')}}
                     </div>
                 @endif

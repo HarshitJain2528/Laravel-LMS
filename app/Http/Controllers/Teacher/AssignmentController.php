@@ -55,9 +55,12 @@ class AssignmentController extends Controller
      */
     public function assignmentDetails($id)
     {
-        $assignmentDetails = AssignmentReview::where('id', $id)->first();
-
-        return response()->json(['assignmentDetails' => $assignmentDetails]);
+        try {
+            $assignmentDetails = AssignmentReview::findOrFail($id);
+            return response()->json(['assignmentDetails' => $assignmentDetails]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Assignment not found.'], 404);
+        }
     }
 
     /**

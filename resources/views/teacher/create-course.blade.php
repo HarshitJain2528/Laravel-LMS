@@ -12,6 +12,10 @@
                     <div class="alert alert-success" id="close">
                         {{session('success')}}
                     </div>
+                @elseif (session('error'))
+                    <div class="alert alert-danger" id="close">
+                        {{session('error')}}
+                    </div>
                 @endif
                 <h3 class="mb-3">Create Course</h3>
                 
