@@ -6,15 +6,6 @@
 
     <div class="container mt-4">
         <div class="row">
-            @if (session('success'))
-            <div class="alert alert-success" id="close">
-                {{session('success')}}
-            </div>
-            @elseif (session('error'))
-            <div class="alert alert-danger" id="close">
-                {{session('error')}}
-            </div>
-            @endif
             @foreach ($courses as $course)
 
             <div class="col-md-12">
