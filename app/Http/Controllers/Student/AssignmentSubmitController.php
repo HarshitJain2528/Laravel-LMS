@@ -16,20 +16,18 @@ class AssignmentSubmitController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function submitAssignment(Request $request)
-    {
+    {  
         $request->validate([
             'assignmentName' => 'required',
             'course' => 'required',
             'totalmarks' => 'required',
             'fileUpload' => 'required|file|mimes:pdf',
         ]);
-
         if ($request->hasFile('fileUpload')) {
             $fileUpload = time().'.'.$request->fileUpload->getClientOriginalExtension();
             $request->fileUpload->move(public_path('student/assignment'), $fileUpload);
             $assignmentPath = 'student/assignment/' . $fileUpload;
         }
-
         AssignmentReview::create([
             'assignment_name' => $request->assignmentName,
             'std_id' => auth()->user()->id,
@@ -37,7 +35,6 @@ class AssignmentSubmitController extends Controller
             'total_marks' => $request->totalmarks,
             'pdf' => $assignmentPath,
         ]);
-
         return redirect()->back()->with(['success' => 'Assignment Uploaded Successfully']);
     }
 }

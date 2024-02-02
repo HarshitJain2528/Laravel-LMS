@@ -16,16 +16,20 @@ class ReviewController extends Controller
      */
     public function submitReviews(Request $request)
     {
-        
-        $request->validate([
-            'review' => 'required',
-        ]);
-
-        Review::create([
-            'review' => $request->review,
-            'std_id' => auth()->user()->id,
-        ]);
-
-        return redirect()->back()->with(['success' => 'Review sent']);
+        try {
+            $request->validate([
+                'review' => 'required',
+            ]);
+    
+            Review::create([
+                'review' => $request->review,
+                'std_id' => auth()->user()->id,
+            ]);
+    
+            return redirect()->back()->with(['success' => 'Review sent']);
+        } catch (\Exception $e) {
+          
+            return redirect()->back()->with(['error' => 'Error submitting review. Please try again.']);
+        }
     }
 }

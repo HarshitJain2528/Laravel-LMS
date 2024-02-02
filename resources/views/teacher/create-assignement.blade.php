@@ -10,6 +10,10 @@
             <div class="alert alert-success" id="close">
                 {{session('success')}}
             </div>
+            @elseif (session('error'))
+            <div class="alert alert-danger" id="close">
+                {{session('error')}}
+            </div>
             @endif
             <!-- Create Assignment Form -->
             <div class="create-assignment-form p-4 mb-4 border rounded">

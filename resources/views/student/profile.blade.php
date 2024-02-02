@@ -40,7 +40,7 @@
                                         <td>{{$data->phone}}</td>
                                     </tr>
                                     <tr>
-                                        <th>Password Change</th>
+                                        <th></th>
                                         <td>
                                             <a href="#" class="float-right" id="editDataButton" data-toggle="modal" data-target="#passwordChangeForm">EDIT DATA</a>
                                         </td>
