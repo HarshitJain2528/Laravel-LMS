@@ -13,7 +13,7 @@
                 <div class="teacher-list">
                    @foreach($users as $user)
                    <div class="teacher-item" onclick="openChat('{{ $user->id }}')">
-                       <a href="">{{ $user->name }}</a>
+                       <span>{{ $user->name }}</span>
                        <span class="arrow">&#10148;</span>
                    </div>
                 </div>
@@ -50,28 +50,3 @@
     </div>
 
 @endsection
-
-    <script>
-        window.onload = function() {
-            document.querySelectorAll('.chat').forEach(function(box) {
-                box.style.display = 'none';
-            });
-            document.getElementById('defaultMessage').style.display = 'block';
-        };
-
-        function openChat(teacherId) {
-            var chatBoxes = document.querySelectorAll('.chat');
-            chatBoxes.forEach(function(box) {
-                box.style.display = 'none';
-            });
-
-            document.getElementById('defaultMessage').style.display = 'none';
-
-            var chatBox = document.getElementById('teacher' + teacherId + 'Chat');
-            chatBox.style.display = 'block';
-
-            var chatInput = document.getElementById('chatInput');
-            chatInput.style.display = 'flex'; 
-        }
-
-    </script>

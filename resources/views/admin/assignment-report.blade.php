@@ -28,7 +28,7 @@
                                             <td>{{ $item->name }}</td>
                                             <td>
                                                 <button type="submit" class="btn btn-warning viewButton"
-                                                    data-student-id="{{ $item->id }}">View</button>
+                                                    data-student-id="{{ $item->id }}"  data-ajax-url="{{ url('get-assignment-details', ['id' => 'student_id']) }}">View</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -69,50 +69,5 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.viewButton').on('click', function() {
-                var studentId = $(this).data('student-id');
-                var url = '{{ url('get-assignment-details', ['id' => 'student_id']) }}';
 
-                $.ajax({
-                    url: url.replace('student_id', studentId),
-                    method: 'GET',
-                    success: function(data) {
-
-                        if (data.courseDetails && data.courseDetails.length > 0) {
-                            var courseDetailsBody = $('#courseDetailsBody');
-                            courseDetailsBody.empty();
-
-                            $.each(data.courseDetails, function(index, assignment) {
-                                const submitDate = new Date(assignment.created_at);
-                                const formattedDate = submitDate.toLocaleDateString();
-
-                                courseDetailsBody.append(
-                                    '<tr>' +
-                                    '<td>' + assignment.course_name + '</td>' +
-                                    '<td>' + formattedDate + '</td>' +
-                                    '<td>' + assignment.obtained_marks + '</td>' +
-                                    '</tr>'
-                                );
-                            });
-
-                            $('#viewModalLabel').text('Student Assignment Details ');
-                            $('#viewModal').show();
-                        } else {
-                            alert('Assignment not submitted yet');
-                        }
-                    },
-                    error: function(error) {
-                        alert('Error fetching data:', error);
-                    }
-                });
-            });
-
-            $('.closeBtn').on('click', function() {
-                $('#viewModal').hide();
-            });
-        });
-    </script>
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Messages;
 use App\Models\User;
 
+
 class MessageController extends Controller
 {
     /**
@@ -43,20 +44,25 @@ class MessageController extends Controller
      */
     public function sendMessage(Request $request)
     {
-        $validatedData = $request->validate([
-            'receiver_id' => 'required|exists:users,id',
-            'message_content' => 'required',
-        ]);
+        try {
+            $validatedData = $request->validate([
+                'receiver_id' => 'required|exists:users,id',
+                'message_content' => 'required',
+            ]);
 
-        Messages::create([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $validatedData['receiver_id'],
-            'message_content' => $validatedData['message_content'],
-        ]);
+            Messages::create([
+                'sender_id' => auth()->id(),
+                'receiver_id' => $validatedData['receiver_id'],
+                'message_content' => $validatedData['message_content'],
+            ]);
 
-        $receiver = User::findOrFail($validatedData['receiver_id']);
+            $receiver = User::findOrFail($validatedData['receiver_id']);
 
-        return redirect()->route('chat.show', ['receiverId' => $receiver->id]);
+            return redirect()->route('chat.show', ['receiverId' => $receiver->id]);
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'User not found: ' . $e->getMessage());
+        }
     }
 
 }

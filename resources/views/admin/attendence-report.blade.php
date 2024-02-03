@@ -17,20 +17,16 @@
         <div class="card dashboard-card mt-2">
             <div class="card-body">
                 <h5 class="card-title">Student Attendance Chart</h5>
-                <canvas id="siteStatisticsChart" width="400" height="200"></canvas>
+                <canvas id="siteStatisticsChart" width="400" height="200" data-student-names="{{ json_encode($studentNames) }}"
+                data-present-count="{{ json_encode($presentCount) }}"></canvas>
             </div>
         </div>
     </div>
-    
-@endsection
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // console.log({!! json_encode($presentCount) !!});
-        // console.log({!! json_encode($studentNames) !!});
-        // console.log({!! json_encode($date) !!});
-    
         document.addEventListener('DOMContentLoaded', function () {
-    
+
             // Initial data
             var initialData = {
                 labels: {!! json_encode($studentNames) !!},
@@ -42,10 +38,10 @@
                     borderWidth: 1
                 }]
             };
-    
+
             var ctx = document.getElementById('siteStatisticsChart');
             console.log('Canvas Element:', ctx);
-    
+
             var myChart = new Chart(ctx.getContext('2d'), {
                 type: 'bar',
                 data: initialData,
@@ -78,4 +74,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
+@endsection

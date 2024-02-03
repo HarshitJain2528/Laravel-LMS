@@ -67,6 +67,7 @@ class ViewController extends Controller
     public function showCourses()
     {
         $courses = Course::all();
+
         return view('admin.courses', compact('courses'));
     }
 
@@ -78,6 +79,7 @@ class ViewController extends Controller
     public function showStudents()
     {
         $students = User::where('role', 'student')->get();
+
         return view('admin.students', compact('students'));
     }
 
@@ -89,6 +91,7 @@ class ViewController extends Controller
     public function showTeachers()
     {
         $teachers = User::where('role', 'teacher')->get();
+
         return view('admin.teachers', compact('teachers'));
     }
 
@@ -139,6 +142,7 @@ class ViewController extends Controller
     public function getAssignmentDetails($id)
     {
         $courseDetails = AssignmentReview::where('std_id', $id)->get();
+
         return response()->json(['courseDetails' => $courseDetails]);
     }
 
@@ -150,58 +154,79 @@ class ViewController extends Controller
      */
     public function editProfile(Request $request)
     {
-        $updateData = DB::table('users')
-            ->where('role', 'superadmin')
-            ->update(['name' =>  $request->get('name'), 'phone' => $request->get('phone')]);
+        try {
+            $updateData = DB::table('users')
+                ->where('role', 'superadmin')
+                ->update(['name' =>  $request->get('name'), 'phone' => $request->get('phone')]);
 
-        if ($updateData > 0) {
+            if ($updateData > 0) {
 
-            return redirect()->back()->with('success', 'Profile updated successfully');
-        } else {
+                return redirect()->back()->with('success', 'Profile updated successfully');
+            } else {
 
-            return redirect()->back()->with('error', 'User not found');
+                return redirect()->back()->with('error', 'User not found');
+            }
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Error updating profile: ' . $e->getMessage());
         }
     }
 
     /**
-     * Edit the profile of the superadmin user.
+     * Delete a course.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteCourse($id)
     {
-        $course = Course::find($id);
-        $course->delete();
+        try {
+            $course = Course::find($id);
+            $course->delete();
 
-        return redirect()->back()->with('success', 'Course successfully deleted.');
+            return redirect()->back()->with('success', 'Course successfully deleted.');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Error deleting course: ' . $e->getMessage());
+        }
     }
 
-      /**
-     * Edit the profile of the superadmin user.
+    /**
+     * Delete a student.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteStudent($id)
     {
-        $student = User::find($id);
-        $student->delete();
+        try {
+            $student = User::find($id);
+            $student->delete();
 
-        return redirect()->back()->with('success', 'Student successfully deleted.');
+            return redirect()->back()->with('success', 'Student successfully deleted.');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Error deleting student: ' . $e->getMessage());
+        }
     }
 
-      /**
-     * Edit the profile of the superadmin user.
+    /**
+     * Delete a teacher.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteTeacher($id)
     {
-        $student = User::find($id);
-        $student->delete();
+        try {
+            $teacher = User::find($id);
+            $teacher->delete();
 
-        return redirect()->back()->with('success', 'Student successfully deleted.');
+            return redirect()->back()->with('success', 'Teacher successfully deleted.');
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', 'Error deleting teacher: ' . $e->getMessage());
+        }
     }
+
 }
