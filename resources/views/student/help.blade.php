@@ -33,14 +33,14 @@
                     <div class="col-md-9 right-section">
                         <div id="chatWindow" class="chat-container">
                             @foreach($teachers as $teacher)
-                                <div class="chat" id="{{ 'teacher' . $teacher->id . 'Chat' }}">
+                                <div class="chat" id="{{ 'teacher' . $teacher->id . 'Chat' }}" data-sender-name="{{ auth()->user()->name }}">
                                     <div class="chat-header">
                                         {{ $teacher->name }}
                                     </div>
                                     <div class="chat-messages" id="{{ 'teacher' . $teacher->id . 'Messages' }}">
                                         <!-- Previous messages will be appended here via jQuery -->
                                     </div>
-                                    <form method="POST" class="sendMessageForm" action="{{ route('student.send.message') }}">
+                                    <form method="POST" class="sendMessageForm" action="{{ route('student.send.message') }}" data-get-messages-route="{{ route('student.get.messages', ['teacherId' => $teacher->id]) }}">
                                         @csrf
                                         <input type="hidden" name="receiver_id" value="{{ $teacher->id }}">
                                         <div class="chat-input" id="chatInput">
@@ -55,71 +55,4 @@
                 </div>
             </div>
         </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.teacher-item').click(function () {
-                var teacherId = $(this).data('teacher-id');
-                var senderName = '{{ auth()->user()->name }}'; // Get the sender name from the backend
-                // Set sender name in the form's data attribute
-                $('.sendMessageForm').data('sender-name', senderName);
-
-                // AJAX request to get previous messages
-                $.ajax({
-                    url: '{{ route("student.get.messages", ":teacherId") }}'.replace(':teacherId', teacherId),
-                    type: 'GET',
-                    success: function (response) {
-                        if (response.messages.length > 0) {
-                            $('#teacher' + teacherId + 'Messages').empty();
-                            response.messages.forEach(function (message) {
-                                displayMessage(message);
-                            });
-                        }
-                    }
-                });
-
-                // Open chat window
-                $('.chat').hide();
-                $('#teacher' + teacherId + 'Chat').show();
-                $('#teacher' + teacherId + 'Chat').find('.chat-input').show();
-            });
-
-            // Function to display a message with sender and receiver names
-            function displayMessage(message) {
-                var senderName = message.sender_name;
-                var receiverName = message.receiver_name;
-                var receiverId = message.receiver_id;
-                var senderId = message.sender_id;
-                var messageContent = message.message_content;
-                var messageHtml = '<div><strong>' + senderName + ':</strong> ' + messageContent + '</div>';
-                $('#teacher' + senderId + 'Messages').append(messageHtml);
-                $('#teacher' + receiverId + 'Messages').append(messageHtml);
-            }
-
-            // Submit message form
-            $('.sendMessageForm').submit(function (e) {
-                e.preventDefault();
-                var form = $(this);
-                var senderName = form.data('sender-name'); // Retrieve sender name from form data
-                var formData = form.serialize();
-
-                $.ajax({
-                    url: form.attr('action'),
-                    type: 'POST',
-                    data: formData,
-                    success: function (response) {
-                        if (response.success) {
-                            var receiverName = form.data('receiver-name');
-                            var messageContent = form.find('.messageContent').val();
-                            var teacherId = form.find('[name="receiver_id"]').val();
-                            var messageHtml = '<div><strong>' + senderName + ':</strong> ' + messageContent + '</div>';
-                            $('#teacher' + teacherId + 'Messages').append(messageHtml);
-                            form.find('.messageContent').val('');
-                        }
-                    }
-                });
-            });
-        });
-    </script>
 @endsection
