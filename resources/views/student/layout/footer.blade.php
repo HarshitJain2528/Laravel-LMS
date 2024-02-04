@@ -59,3 +59,4 @@
   <script src="{{ asset('student/js/aos.js') }}"></script>
   <script src="{{ asset('student/js/main.js') }}"></script>
   <script src="{{ asset('student/js/attendence.js') }}"></script>
+  <script src="{{ asset('student/js/setTimeout.js') }}"></script>

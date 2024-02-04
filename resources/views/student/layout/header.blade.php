@@ -19,7 +19,7 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- PDF.js library -->
         <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-        
+
     </head>
     <body>
         <div class="site-wrap" id="home-section"  style="border-bottom:1px solid lightgrey">
@@ -75,12 +75,6 @@
                                     {{ session('error') }}
                                 </div>
                             @endif
-                            <script>
-                                // Set a timeout to hide the success message after 5 seconds (5000 milliseconds)
-                                setTimeout(function() {
-                                    document.getElementById('messageContainer').style.display = 'none';
-                                }, 2000);
-                            </script>
                     </div>
-                </div>  
+                </div>
             </header>
