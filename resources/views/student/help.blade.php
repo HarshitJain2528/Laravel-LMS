@@ -62,7 +62,6 @@
             $('.teacher-item').click(function () {
                 var teacherId = $(this).data('teacher-id');
                 var senderName = '{{ auth()->user()->name }}'; // Get the sender name from the backend
-
                 // Set sender name in the form's data attribute
                 $('.sendMessageForm').data('sender-name', senderName);
 
@@ -90,9 +89,12 @@
             function displayMessage(message) {
                 var senderName = message.sender_name;
                 var receiverName = message.receiver_name;
+                var receiverId = message.receiver_id;
+                var senderId = message.sender_id;
                 var messageContent = message.message_content;
                 var messageHtml = '<div><strong>' + senderName + ':</strong> ' + messageContent + '</div>';
-                $('#teacher' + message.receiver_id + 'Messages').append(messageHtml);
+                $('#teacher' + senderId + 'Messages').append(messageHtml);
+                $('#teacher' + receiverId + 'Messages').append(messageHtml);
             }
 
             // Submit message form
@@ -119,7 +121,5 @@
                 });
             });
         });
-
-
     </script>
 @endsection
