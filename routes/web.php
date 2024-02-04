@@ -126,5 +126,5 @@ Route::group(['middleware' => ['check.role:teacher']], function () {
 
     Route::post('/teacher/create/courses', [CourseController::class, 'createCourse'])->name('create.course');
     Route::post('/teacher/create/topic', [TopicController::class,'topicCreate'])->name('create.topic');
-    
+
 });

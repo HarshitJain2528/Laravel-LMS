@@ -19,7 +19,7 @@
                     <div class="heading mb-4">
                         <h2>Attendance</h2>
                     </div>
-                    <form method="post" action="{{url('mark')}}" id="attendanceForm">
+                    <form method="post" action="{{route('Marks')}}" id="attendanceForm">
                         @csrf
                         You can Mark Attendance once in a day only.
                         <p>Mark attendance by clicking on the Mark Attendance button given below:</p>
@@ -27,13 +27,13 @@
                             <input type="hidden" id="status" class="form-control" name="status" value="present" readonly>
                         </div>
                         <p id="markedTodayMessage" class="text-danger"></p>
-                        <button type="button" class="btn btn-primary" id="markButton">Mark Attendance</button>
+                        <button type="button" class="btn btn-primary" id="markButton" data-check-url="{{ route('attendence.status') }}">Mark Attendance</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         $(document).ready(function () {
     // Function to check attendance status on page load
     function checkAttendanceStatus() {
@@ -94,7 +94,7 @@
         }
     });
 });
-    </script>
+    </script> --}}
 
 @endsection
 

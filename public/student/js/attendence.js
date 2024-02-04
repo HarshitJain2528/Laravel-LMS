@@ -1,52 +1,45 @@
 $(document).ready(function () {
-    // Function to check attendance status on page load
     function checkAttendanceStatus() {
-        var url = '{{ url("check-attendance-status"}}';
+        var checkUrl = $('#markButton').data('check-url');
+
         $.ajax({
             type: 'GET',
-            url: url,
+            url: checkUrl,
             success: function (response) {
                 if (response.status === 'marked') {
-                    // Update button text and color
                     $('#markButton').text('Marked').removeClass('btn-primary').addClass('btn-success').prop('disabled', true);
 
-                    // Display success message
                     $('#markedTodayMessage').text('Attendance marked successfully.');
                 } else {
-                    // Check if the current time is within the allowed time range (10 am to 5 pm)
                     var currentTime = new Date();
                     var hours = currentTime.getHours();
+                    var dayOfWeek = currentTime.getDay();
 
-                    if (hours >= 10 && hours < 17) {
-                        // Enable the button if the current time is within the allowed range
+                    if (hours >= 10 && hours < 17 && dayOfWeek !== 0 && dayOfWeek !== 6) {
                         $('#markButton').prop('disabled', false);
                     } else {
-                        // Disable the button if the current time is outside the allowed range
                         $('#markButton').prop('disabled', true);
                     }
                 }
             },
         });
     }
-    // Check attendance status on page load
     checkAttendanceStatus();
-    // Attach click event to the Mark Attendance button
+
     $("#markButton").on("click", function () {
-        var url = '{{ url("mark"}}';
-        // Check if the current time is within the allowed time range (10 am to 5 pm)
         var currentTime = new Date();
         var hours = currentTime.getHours();
-        if (hours >= 10 && hours < 17) {
+        var dayOfWeek = currentTime.getDay();
+
+        if (hours >= 10 && hours < 17 && dayOfWeek !== 0 && dayOfWeek !== 6) {
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: $('#attendanceForm').attr('action'),
                 data: $('#attendanceForm').serialize(),
                 success: function (response) {
                     if (response.status === 'success') {
-                        // Check attendance status after marking attendance
                         checkAttendanceStatus();
                     } else {
-                        // Display error message
                         $('#markedTodayMessage').text(response.message);
                     }
                 },
@@ -55,8 +48,7 @@ $(document).ready(function () {
                 }
             });
         } else {
-            // Display a message if the user tries to mark attendance outside the allowed time range
-            $('#markedTodayMessage').text('You can only mark attendance between 10 am and 5 pm.');
+            $('#markedTodayMessage').text('You can only mark attendance between 10 am and 5 pm on weekdays.');
         }
     });
 });
