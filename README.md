@@ -97,12 +97,12 @@ Here is the login page where username password needs to be entered:
 ### MySQL Database
 
 - **Database Name:** `laravel_lms`
+  
+![image](https://github.com/HarshitJain2528/Laravel-LMS/blob/main/public/screens/database.png)
 
 ### Vendor File
  
 - Add vendor folder to run the project.
-  
-![image](https://github.com/HarshitJain2528/Laravel-LMS/blob/main/public/screens/database.png)
 
 ## License
 
