@@ -29,7 +29,6 @@
                                     @endif
                                 </td>
                             </tr>
-                            <!-- Add more rows for additional students -->
                         </tbody>
                         @endforeach
                     </table>

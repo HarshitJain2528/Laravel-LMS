@@ -49,7 +49,6 @@
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <!-- Additional fields or options can be added as needed -->
 
                     <button type="submit" class="btn btn-primary">Create Course</button>
                 </form>

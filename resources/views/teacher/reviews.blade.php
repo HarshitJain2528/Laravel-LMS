@@ -23,16 +23,13 @@
                                 </thead>
                                 @foreach ($reviews as $review)
                                 <tbody>
-                                    <!-- Sample Review Item -->
                                     <tr>
                                         <td>{{$review->student->id}}</td>
                                         <td>{{$review->student->name}}</td>
                                         <td>
-                                            <!-- Display review text or rating given by the student -->
                                             <p>{{$review->review}}</p>
                                         </td>
                                     </tr>
-                                    <!-- More review rows can be added -->
                                 </tbody>
                                 @endforeach
                             </table>
