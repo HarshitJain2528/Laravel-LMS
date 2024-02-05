@@ -12,7 +12,7 @@ use App\Models\AssignmentReview;
 use App\Models\RecentActivity;
 use Illuminate\Support\Facades\DB;
 
-class TeacherHomeController extends Controller
+class TeacherController extends Controller
 {
     /**
      * Show the courses for the teacher.
@@ -133,6 +133,11 @@ class TeacherHomeController extends Controller
         return view('teacher.assignment-submit', compact('assignments'));
     }
 
+    /**
+     * Show the submitted assignments for the teacher.
+     *
+     * @return \Illuminate\View\View
+     */
     public function showTeacherProfile()
     {
 
@@ -141,6 +146,12 @@ class TeacherHomeController extends Controller
         return view('teacher.teacher-profile', compact('data'));
     }
 
+     /**
+     * Edit the profile of the teacher.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function editTeacherProfile(Request $request)
     {
         try {

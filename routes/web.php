@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AttendanceController;
-use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Admin\ViewController;
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Teacher\TeacherHomeController;
+use App\Http\Controllers\Teacher\TeacherController;
 use App\Http\Controllers\Teacher\TeacherMessageController;
 use App\Http\Controllers\Teacher\AssignmentController;
 use App\Http\Controllers\Teacher\CourseController;
@@ -74,7 +73,7 @@ Route::group(['middleware' => ['check.role:student']], function () {
 
 //admin routes
 Route::group(['middleware' => ['check.role:superadmin']], function () {
-    Route::controller(ViewController::class)->group(function(){
+    Route::controller(AdminController::class)->group(function(){
         Route::get('/admin/dashboard', 'showDashboard')->name('dashboard');
         Route::get('/admin/profile', 'showProfile')->name('admin.profile');
         Route::get('/admin/courses', 'showCourses')->name('course.table');
@@ -96,7 +95,7 @@ Route::group(['middleware' => ['check.role:superadmin']], function () {
 
 //teacher routes
 Route::group(['middleware' => ['check.role:teacher']], function () {
-    Route::controller(TeacherHomeController::class)->group(function(){
+    Route::controller(TeacherController::class)->group(function(){
         Route::get('/teacher/course',  'course');
         Route::get('/teacher/course/topics/{id}',  'topic');
         Route::get('/teacher/create/courses',  'showCreateCourses');

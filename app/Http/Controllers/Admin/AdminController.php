@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
-class ViewController extends Controller
+class AdminController extends Controller
 {
     /**
      * Show the profile of the superadmin user.
